@@ -1,0 +1,237 @@
+:root {
+    --dark-color: #111111;
+    --theme-color: #14AB95;
+    --small-box-shadow: 0px 0px 7px -1px rgba(0, 0, 0, .63);
+    --large-box-shadow: 0px 0px 21px -3px rgba(0, 0, 0, .63);
+}
+
+* {
+    box-sizing: border-box;
+    position: relative;
+}
+
+body {
+    background: var(--dark-color);
+    color: rgba(255, 255, 255, .5);
+    font: 400 16px/20px "Hylery", system-ui, sans-serif;
+    margin: 0px;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+#header, #nav {
+    align-items: center;
+    background: var(--dark-color);
+    display: flex;
+    color: rgba(255, 255, 255, .5);
+    padding: 12px;
+}
+
+#header {
+    justify-content: space-between;
+    z-index: 2;
+}
+
+#nav {
+    bottom: 0px;
+    box-shadow: var(--small-box-shadow);
+    justify-content: center;
+    left: 0px;
+    position: fixed;
+    right: 0px;
+    width: 100%;
+    z-index: 2;
+}
+
+.logo, .nav-link, .button {
+    display: block;
+    font-weight: 700;
+    z-index: 3;
+}
+
+.logo {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    line-height: 24px;
+    margin: 4px;
+    padding: 4px;
+}
+
+.nav-link {
+    margin: 6px 4px;
+    padding: 4px;
+}
+
+.nav-link.active {
+    color: rgb(255, 255, 255);
+}
+
+.button {
+    background: var(--theme-color);
+    border: 2px solid var(--theme-color);
+    border-radius: 8px;
+    color: var(--dark-color);
+    margin: 4px 8px;
+    padding: 4px 8px;
+}
+
+.button:hover {
+    background: none;
+    color: var(--theme-color);
+}
+
+.section {
+    margin: 72px auto;
+    max-width: 1600px;
+    padding: 12px;
+}
+
+.section-name {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 4px;
+    padding: 4px;
+}
+
+.section-content {
+    margin: 4px;
+    padding: 4px;
+}
+
+.link, .link.important {
+    color: var(--theme-color);
+    font-weight: 700;
+    margin: 8px 0px;
+}
+
+.link.important {
+    display: block;
+}
+
+.movies-list, .series-list {
+    display: flex;
+}
+
+.movie-container, .series-container {
+    margin-right: 20px;
+}
+
+.movie, .series {
+    border-radius: 8px;
+    box-shadow: var(--small-box-shadow);
+    display: block;
+    width: 120px;
+    overflow: hidden;
+}
+
+#title-page .section {
+    max-width: 1200px;
+}
+
+#title-page .intro {
+    margin: 0px auto;
+}
+
+#title-page .title {
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 4px;
+    padding: 4px;
+}
+
+#title-page .poster-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#title-page .poster {
+    border-radius: 8px;
+    box-shadow: var(--small-box-shadow);
+    margin: 8px;
+    overflow: hidden;
+    width: 215px;
+}
+
+#title-page .grade {
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: 50px 80px;
+    height: 58px;
+}
+
+#title-page .grade-design, .grade-help {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#title-page .grade-design {
+    border-radius: 50%;
+    border: 3px solid var(--theme-color);
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+}
+
+@media all and (min-width: 600px) {
+    #nav {
+        background: none;
+        box-shadow: none;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        z-index: initial;
+    }
+
+    .section-name {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .movie, .series {
+        width: 158px;
+    }
+
+    #title-page .title {
+        font-size: 28px;
+        line-height: 32px;
+    }
+
+    #title-page .presentation-container .section-name {
+        display: none;
+    }
+}
+
+@media all and (min-width: 900px) {
+    .movie, .series {
+        width: 196px;
+    }
+
+    #title-page .intro {
+        display: grid;
+        grid-template-columns: 235px 100fr;
+    }
+
+    #title-page .title {
+        font-size: 36px;
+        line-height: 40px;
+    }
+
+    #title-page .poster {
+        margin-right: 12px;
+        width: 100%;
+    }
+}
