@@ -1,7 +1,7 @@
 <?php
 require_once("../tools/database.php");
 $stmt = $db->prepare("SELECT MovieID,Title,ReleaseDate,PosterPath FROM Movies WHERE MovieID = ?");
-$stmt->execute(array($_GET["id"]));
+$stmt->execute(array(htmlspecialchars($_GET["id"])));
 $m = $stmt->fetch(PDO::FETCH_ASSOC);
 $stmt = null;
 if (!$m) exit("Unknown");

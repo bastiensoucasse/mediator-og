@@ -52,7 +52,7 @@ img {
     z-index: 2;
 }
 
-.logo, .nav-link, .button {
+.logo, .nav-link, .nav-button {
     display: block;
     font-weight: 700;
     z-index: 3;
@@ -64,27 +64,31 @@ img {
     line-height: 24px;
     margin: 4px;
     padding: 4px;
+    user-select: none;
 }
 
 .nav-link {
     margin: 6px 4px;
     padding: 4px;
+    user-select: none;
 }
 
 .nav-link.active {
     color: rgb(255, 255, 255);
 }
 
-.button {
+.nav-button {
     background: var(--theme-color);
     border: 2px solid var(--theme-color);
     border-radius: 8px;
     color: var(--dark-color);
+    cursor: pointer;
     margin: 4px 8px;
     padding: 4px 8px;
+    user-select: none;
 }
 
-.button:hover {
+.nav-button:hover {
     background: none;
     color: var(--theme-color);
 }
@@ -113,10 +117,31 @@ img {
     color: var(--theme-color);
     font-weight: 700;
     margin: 8px 0px;
+    user-select: none;
 }
 
 .link.important {
     display: block;
+}
+
+.button {
+    background: var(--theme-color);
+    border: 2px solid var(--theme-color);
+    border-radius: 8px;
+    color: var(--dark-color);
+    cursor: pointer;
+    display: block;
+    font: inherit;
+    font-weight: 700;
+    margin: 8px 0px;
+    padding: 4px 8px;
+    user-select: none;
+    width: fit-content;
+}
+
+.button:hover {
+    background: none;
+    color: var(--theme-color);
 }
 
 .movies-list, .series-list {
@@ -133,6 +158,75 @@ img {
     display: block;
     width: 120px;
     overflow: hidden;
+}
+
+.request-form
+{
+    max-width: 490px;
+}
+
+.form-fieldset {
+    border: none;
+    margin: 14px 0px;
+    padding: 0px;
+}
+
+.form-fieldset-input {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 8px;
+    color: var(--dark-color);
+    cursor: text;
+    display: block;
+    height: 56px;
+    padding: 20px 14px 8px;
+    width: 100%;
+}
+
+.form-fieldset-legend {
+    color: rgb(119, 119, 119);
+    font-size: 12px;
+    left: 0px;
+    padding: 3px 14px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    user-select: none;
+    width: fit-content;
+}
+
+.request-switcher {
+    display: grid;
+    grid-column-gap: 14px;
+    grid-template-columns: 100fr 100fr;
+}
+
+.switch-el {
+    background-color: rgb(255, 255, 255);
+    border-radius: 9px;
+    box-shadow: rgba(154, 160, 185, 0.05) 0px 5px 5px 0px, rgba(166, 173, 201, 0.22) 0px 5px 30px;
+    display: block;
+    margin: 14px 0px;
+    overflow: hidden;
+}
+
+.switch-el input {
+    position: absolute;
+    visibility: hidden;
+}
+
+.switch-el label {
+    color: var(--dark-color);
+    cursor: pointer;
+    display: block;
+    font-weight: 700;
+    padding: 10px 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.switch-el input:checked ~ label {
+    background-color: var(--theme-color);
 }
 
 #title-page .section {

@@ -1,3 +1,8 @@
+<?php
+require_once("tools/init.php");
+require_once("tools/utilities.php");
+?>
+
 <!DOCTYPE html>
 <html lang="fr-fr">
 
@@ -13,7 +18,13 @@
     <header>
         <div id="header">
             <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-            <a class="button" href="/auth" aria-label="Se connecter">Se connecter</a>
+            <?php
+            if (!is_connected()) {
+            ?>
+                <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
+            <?php
+            }
+            ?>
         </div>
         <div id="nav">
             <a class="nav-link active" href="/home" aria-label="Accueil">Accueil</a>
@@ -31,25 +42,25 @@
         </div>
         <div id="movies" class="section">
             <div class="section-name">Nouveaux films</div>
-            <div id="new-movies-list" class="section-content movies-list">
+            <div class="section-content movies-list">
                 <?php
                 require_once("tools/database.php");
-                $stmt = $db->prepare("SELECT MovieID FROM Movies ORDER BY MovieID DESC LIMIT 8");
+                $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
                 $stmt->execute();
                 $movies = $stmt->fetchAll();
                 if (!$movies)
                     echo ("Il n'y a aucun film à afficher.");
                 else {
-                    foreach ($movies as $movie) {
+                    foreach ($movies as $m) {
                 ?>
-                        <div id="movie-<?= $movie["MovieID"] ?>" class="movie-container">
+                        <div id="movie-<?= $m["MovieID"] ?>" class="movie-container">
                             <script>
                                 xhttp = new XMLHttpRequest();
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200)
-                                        document.querySelector("#movie-<?= $movie["MovieID"] ?>").innerHTML = this.responseText;
+                                        document.querySelector("#movie-<?= $m["MovieID"] ?>").innerHTML = this.responseText;
                                 };
-                                xhttp.open("GET", "get/movie.php?id=<?= $movie["MovieID"] ?>", true);
+                                xhttp.open("GET", "get/movie.php?id=<?= $m["MovieID"] ?>", true);
                                 xhttp.send();
                             </script>
                         </div>
@@ -62,10 +73,10 @@
         </div>
         <div id="series" class="section">
             <div class="section-name">Nouvelles séries</div>
-            <div id="new-series-list" class="section-content series-list">
+            <div class="section-content series-list">
                 <?php
                 require_once("tools/database.php");
-                $stmt = $db->prepare("SELECT SeriesID FROM Series ORDER BY SeriesID DESC LIMIT 8");
+                $stmt = $db->prepare("SELECT SeriesID FROM Series WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
                 $stmt->execute();
                 $series = $stmt->fetchAll();
                 if (!$series)

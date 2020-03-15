@@ -1,8 +1,11 @@
 <?php
+require_once("../tools/init.php");
+require_once("../tools/utilities.php");
+
 if (isset($_GET["id"])) {
     require_once("../tools/database.php");
     $stmt = $db->prepare("SELECT * FROM Series WHERE SeriesID = ?");
-    $stmt->execute(array($_GET["id"]));
+    $stmt->execute(array(htmlspecialchars($_GET["id"])));
     $s = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt = null;
     if (!$s) header("Location: /");
@@ -23,7 +26,7 @@ if (isset($_GET["id"])) {
         <header>
             <div id="header">
                 <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-                <a class="button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
             </div>
             <div id="nav">
                 <a class="nav-link" href="/home" aria-label="Accueil">Accueil</a>

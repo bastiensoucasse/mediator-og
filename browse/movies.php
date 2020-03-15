@@ -1,8 +1,11 @@
 <?php
+require_once("../tools/init.php");
+require_once("../tools/utilities.php");
+
 if (isset($_GET["id"])) {
     require_once("../tools/database.php");
     $stmt = $db->prepare("SELECT * FROM Movies WHERE MovieID = ?");
-    $stmt->execute(array($_GET["id"]));
+    $stmt->execute(array(htmlspecialchars($_GET["id"])));
     $m = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt = null;
     if (!$m) header("Location: /");
@@ -23,7 +26,7 @@ if (isset($_GET["id"])) {
         <header>
             <div id="header">
                 <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-                <a class="button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
             </div>
             <div id="nav">
                 <a class="nav-link" href="/home" aria-label="Accueil">Accueil</a>
@@ -38,7 +41,7 @@ if (isset($_GET["id"])) {
                 </div>
                 <div class="presentation-container">
                     <div class="title"><?= $m["Title"] ?></div>
-                    <div class="section-content info"><?= substr($m["ReleaseDate"], 0, 4) ?> • <?= $m["Genres"] ?> • <?= minutesToString($m["Duration"]) ?></div>
+                    <div class="section-content info"><?= substr($m["ReleaseDate"], 0, 4) ?> • <?= $m["Genres"] ?> • <?= minutes_to_string($m["Duration"]) ?></div>
                     <div class="section-content synopsis"><?= $m["Synopsis"] ?></div>
                     <div class="section-content trailer"><a class="link important" rel="noopener" target="_blank" href="<?= $m["TrailerPath"] ?>">Bande-annonce</a></div>
                     <div class="section-content grade">
