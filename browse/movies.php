@@ -44,12 +44,12 @@ if (isset($_GET["id"])) {
         <main id="title-page">
             <div class="section limited intro">
                 <div class="poster-container">
-                    <div class="poster">
+                    <div class="section-content poster">
                         <img sizes="auto" srcset="<?= $img_path_1x . $m["PosterPath"] ?> 1x, <?= $img_path_2x . $m["PosterPath"] ?> 2x" src="<?= $img_path_1x . $m["PosterPath"] ?>" alt="<?= htmlspecialchars($m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")") ?>" />
                     </div>
                 </div>
                 <div class="presentation-container">
-                    <div class="title"><?= $m["Title"] ?></div>
+                    <div class="section-content title"><?= $m["Title"] ?></div>
                     <div class="section-content info"><?= substr($m["ReleaseDate"], 0, 4) ?> • <?= $m["Genres"] ?> • <?= minutes_to_string($m["Duration"]) ?></div>
                     <div class="section-content synopsis"><?= $m["Synopsis"] ?></div>
                     <div class="section-content trailer"><a class="link important" rel="noopener" target="_blank" href="https://youtu.be/<?= $m["TrailerPath"] ?>">Bande-annonce</a></div>

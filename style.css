@@ -66,14 +66,13 @@ img {
     color: rgb(255, 255, 255);
     font-size: 20px;
     line-height: 24px;
-    margin: 4px;
-    padding: 4px;
+    padding: 8px;
     user-select: none;
 }
 
 .nav-link {
-    margin: 6px 4px;
-    padding: 4px;
+    margin: 0px 4px;
+    padding: 8px;
     user-select: none;
 }
 
@@ -98,9 +97,8 @@ img {
 }
 
 .section {
-    margin: 72px auto;
+    margin: 84px auto;
     max-width: 1660px;
-    padding: 12px;
 }
 
 .section.limited {
@@ -112,20 +110,19 @@ img {
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
-    margin: 4px;
-    padding: 4px;
+    margin: 20px;
 }
 
 .section-content {
-    margin: 4px;
-    padding: 4px;
+    margin: 20px;
 }
 
 .link, .link.important {
     color: var(--theme-color);
     font-weight: 700;
-    margin: 8px 0px;
+    margin: 20px 0px;
     user-select: none;
+    width: fit-content;
 }
 
 .link.important {
@@ -154,11 +151,9 @@ img {
 
 .movies-list, .series-list {
     display: flex;
-    margin: 4px 8px;
+    margin: 0px;
     overflow-x: auto;
-    padding: 4px 0px;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
+    padding: 0px 20px;
 }
 
 .movies-list::-webkit-scrollbar, .series-list::-webkit-scrollbar {
@@ -166,7 +161,7 @@ img {
 }
 
 .movie-container, .series-container {
-    margin-right: 20px;
+    padding-right: 20px;
 }
 
 .movie, .series {
@@ -255,8 +250,6 @@ img {
     font-size: 24px;
     font-weight: 700;
     line-height: 28px;
-    margin: 4px;
-    padding: 4px;
 }
 
 #title-page .poster-container {
@@ -268,16 +261,16 @@ img {
 #title-page .poster {
     border-radius: 8px;
     box-shadow: var(--large-box-shadow);
-    margin: 8px;
+    margin-top:  0px;
     overflow: hidden;
-    width: 300px;
+    width: 240px;
 }
 
 #title-page .grade {
     display: grid;
-    grid-gap: 8px;
+    grid-gap: 20px;
     grid-template-columns: 50px 80px;
-    height: 58px;
+    height: 50px;
 }
 
 #title-page .grade-design, .grade-help {
@@ -312,13 +305,13 @@ img {
         width: 162.5px;
     }
 
+    #title-page .poster {
+        width: 300px;
+    }
+
     #title-page .title {
         font-size: 28px;
         line-height: 32px;
-    }
-
-    #title-page .presentation-container .section-name {
-        display: none;
     }
 }
 
@@ -338,7 +331,7 @@ img {
     }
 
     #title-page .poster {
-        margin-right: 12px;
+        margin-right: 0px;
         width: 100%;
     }
 }

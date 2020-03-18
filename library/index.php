@@ -1,6 +1,6 @@
 <?php
-require_once("tools/init.php");
-require_once("tools/utilities.php");
+require_once("../tools/init.php");
+require_once("../tools/utilities.php");
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,7 @@ require_once("tools/utilities.php");
         ?>
             <div id="request" class="section">
                 <div class="section-name">Proposer un nouveau titre</div>
-                <form class="section-content request-form" method="post" action="tools/request">
+                <form class="section-content request-form" method="post" action="../tools/request">
                     <fieldset class="form-fieldset">
                         <input class="form-fieldset-input" type="text" name="title" required focus />
                         <legend class="form-fieldset-legend">Titre</legend>
@@ -70,8 +70,8 @@ require_once("tools/utilities.php");
                 <div class="section-name">Vos derniers films proposés</div>
                 <div class="section-content movies-list">
                     <?php
-                    require_once("tools/database.php");
-                    $stmt = $db->prepare("SELECT * FROM Movies WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC");
+                    require_once("../tools/database.php");
+                    $stmt = $db->prepare("SELECT * FROM Movies WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $movies = $stmt->fetchAll();
                     if (!$movies)
@@ -86,7 +86,7 @@ require_once("tools/utilities.php");
                                         if (this.readyState == 4 && this.status == 200)
                                             document.querySelector("#movie-<?= $m["MovieID"] ?>").innerHTML = this.responseText;
                                     };
-                                    xhttp.open("GET", "get/movie.php?id=<?= $m["MovieID"] ?>", true);
+                                    xhttp.open("GET", "../get/movie.php?id=<?= $m["MovieID"] ?>", true);
                                     xhttp.send();
                                 </script>
                             </div>
@@ -101,8 +101,8 @@ require_once("tools/utilities.php");
                 <div class="section-name">Vos dernières séries proposées</div>
                 <div class="section-content series-list">
                     <?php
-                    require_once("tools/database.php");
-                    $stmt = $db->prepare("SELECT * FROM Series WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC");
+                    require_once("../tools/database.php");
+                    $stmt = $db->prepare("SELECT * FROM Series WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $series = $stmt->fetchAll();
                     if (!$series)
@@ -117,7 +117,7 @@ require_once("tools/utilities.php");
                                         if (this.readyState == 4 && this.status == 200)
                                             document.querySelector("#series-<?= $s["SeriesID"] ?>").innerHTML = this.responseText;
                                     };
-                                    xhttp.open("GET", "get/series.php?id=<?= $s["SeriesID"] ?>", true);
+                                    xhttp.open("GET", "../get/series.php?id=<?= $s["SeriesID"] ?>", true);
                                     xhttp.send();
                                 </script>
                             </div>
