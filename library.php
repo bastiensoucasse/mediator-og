@@ -47,27 +47,27 @@ require_once("tools/utilities.php");
         } else {
         ?>
             <div id="request" class="section">
-                <div class="section-name">Proposer un titre</div>
-                <form class="section-content request-form" method="get" action="tools/request">
+                <div class="section-name">Proposer un nouveau titre</div>
+                <form class="section-content request-form" method="post" action="tools/request">
                     <fieldset class="form-fieldset">
                         <input class="form-fieldset-input" type="text" name="title" required focus />
                         <legend class="form-fieldset-legend">Titre</legend>
                     </fieldset>
                     <div class="request-switcher">
                         <div class="switch-el">
-                            <input id="movie-radio" name="type" type="radio" required />
+                            <input id="movie-radio" type="radio" name="type" value="movie" required />
                             <label for="movie-radio">Film</label>
                         </div>
                         <div class="switch-el">
-                            <input id="tv-radio" name="type" type="radio" required />
-                            <label for="tv-radio">Série</label>
+                            <input id="series-radio" type="radio" name="type" value="series" required />
+                            <label for="series-radio">Série</label>
                         </div>
                     </div>
                     <input class="button" type="submit" name="submit" value="Demander" />
                 </form>
             </div>
             <div id="movies-ordered" class="section">
-                <div class="section-name">Vos films commandés</div>
+                <div class="section-name">Vos derniers films proposés</div>
                 <div class="section-content movies-list">
                     <?php
                     require_once("tools/database.php");
@@ -98,7 +98,7 @@ require_once("tools/utilities.php");
                 </div>
             </div>
             <div id="series-ordered" class="section">
-                <div class="section-name">Vos séries commandés</div>
+                <div class="section-name">Vos dernières séries proposées</div>
                 <div class="section-content series-list">
                     <?php
                     require_once("tools/database.php");
@@ -126,6 +126,12 @@ require_once("tools/utilities.php");
                         $stmt = null;
                     }
                     ?>
+                </div>
+            </div>
+            <div id="orders" class="section">
+                <div class="section-name">Toutes vos commandes</div>
+                <div class="section-content orders-list">
+                    Cette fonctionnalité est en cours de développement.
                 </div>
             </div>
         <?php

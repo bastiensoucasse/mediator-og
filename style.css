@@ -10,6 +10,10 @@
     position: relative;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: var(--dark-color);
     color: rgba(255, 255, 255, .5);
@@ -43,7 +47,7 @@ img {
 
 #nav {
     bottom: 0px;
-    box-shadow: var(--small-box-shadow);
+    box-shadow: var(--large-box-shadow);
     justify-content: center;
     left: 0px;
     position: fixed;
@@ -95,8 +99,12 @@ img {
 
 .section {
     margin: 72px auto;
-    max-width: 1600px;
+    max-width: 1660px;
     padding: 12px;
+}
+
+.section.limited {
+    max-width: 1250px;
 }
 
 .section-name {
@@ -146,6 +154,15 @@ img {
 
 .movies-list, .series-list {
     display: flex;
+    margin: 4px 8px;
+    overflow-x: auto;
+    padding: 4px 0px;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.movies-list::-webkit-scrollbar, .series-list::-webkit-scrollbar {
+    display: none;
 }
 
 .movie-container, .series-container {
@@ -156,7 +173,7 @@ img {
     border-radius: 8px;
     box-shadow: var(--small-box-shadow);
     display: block;
-    width: 120px;
+    width: 140px;
     overflow: hidden;
 }
 
@@ -229,10 +246,6 @@ img {
     background-color: var(--theme-color);
 }
 
-#title-page .section {
-    max-width: 1200px;
-}
-
 #title-page .intro {
     margin: 0px auto;
 }
@@ -254,10 +267,10 @@ img {
 
 #title-page .poster {
     border-radius: 8px;
-    box-shadow: var(--small-box-shadow);
+    box-shadow: var(--large-box-shadow);
     margin: 8px;
     overflow: hidden;
-    width: 215px;
+    width: 300px;
 }
 
 #title-page .grade {
@@ -296,7 +309,7 @@ img {
     }
 
     .movie, .series {
-        width: 158px;
+        width: 162.5px;
     }
 
     #title-page .title {
@@ -311,12 +324,12 @@ img {
 
 @media all and (min-width: 900px) {
     .movie, .series {
-        width: 196px;
+        width: 185px;
     }
 
     #title-page .intro {
         display: grid;
-        grid-template-columns: 235px 100fr;
+        grid-template-columns: 320px 100fr;
     }
 
     #title-page .title {
