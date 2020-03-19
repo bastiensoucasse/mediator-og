@@ -1,14 +1,44 @@
 <?php
+require_once("../tools/database.php");
 require_once("../tools/init.php");
 require_once("../tools/utilities.php");
 
-if (isset($_GET["id"])) {
-    require_once("../tools/database.php");
+$page = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+$src = urlencode($page);
+
+if (isset($_GET["id"]))
+{
+    $movieID = htmlspecialchars($_GET["id"]);
+
     $stmt = $db->prepare("SELECT * FROM Movies WHERE MovieID = ?");
-    $stmt->execute(array(htmlspecialchars($_GET["id"])));
-    $m = $stmt->fetch(PDO::FETCH_ASSOC);
-    $stmt = null;
-    if (!$m) header("Location: /");
+    $stmt->execute(array($movieID));
+
+    $m = $stmt->fetch();
+    if (!$m)
+    {
+        header("Location: /");
+        exit;
+    }
+
+    if (is_connected())
+    {
+        $userID = htmlspecialchars($_SESSION["id"]);
+
+        $stmt = $db->prepare("SELECT * FROM LikedMovies WHERE MovieID = ? AND UserID = ?");
+        $stmt->execute(array($movieID, $userID));
+
+        $lm = $stmt->fetch();
+        if ($lm) $liked = true;
+        else $liked = false;
+
+        $stmt = $db->prepare("SELECT * FROM SeenMovies WHERE MovieID = ? AND UserID = ?");
+        $stmt->execute(array($movieID, $userID));
+
+        $sm = $stmt->fetch();
+        if ($sm) $seen = true;
+        else $seen = false;
+    }
+
     $img_path_1x = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/";
     $img_path_2x = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/";
 ?>
@@ -56,6 +86,26 @@ if (isset($_GET["id"])) {
                     <div class="section-content grade">
                         <div class="grade-design"><?= floor($m["Grade"]) / 10 ?></div>
                         <div class="grade-help">Note des utilisateurs</div>
+                        <?php if (is_connected()) { ?>
+                            <?php if ($liked) { ?>
+                                <a class="feature checked like" href="<?= "/unlike?type=movie&id=$movieID&src=$src" ?>" aria-label="Unliker ce film" title="Unliker ce film">
+                                    <svg viewBox="0 0 426.667 426.667"><path d="M309.333,17.6c-37.12,0-72.747,17.28-96,44.48c-23.253-27.2-58.88-44.48-96-44.48C51.52,17.6,0,69.12,0,134.933 c0,80.533,72.533,146.347,182.4,246.08l30.933,28.053l30.933-28.053c109.867-99.733,182.4-165.547,182.4-246.08 C426.667,69.12,375.147,17.6,309.333,17.6z"/></svg>
+                                </a>
+                            <?php } else { ?>
+                                <a class="feature like" href="<?= "/like?type=movie&id=$movieID&src=$src" ?>" aria-label="Liker ce film" title="Liker ce film">
+                                    <svg viewBox="0 0 426.667 426.667"><path d="M309.333,17.6c-37.12,0-72.747,17.28-96,44.48c-23.253-27.2-58.88-44.48-96-44.48C51.52,17.6,0,69.12,0,134.933 c0,80.533,72.533,146.347,182.4,246.08l30.933,28.053l30.933-28.053c109.867-99.733,182.4-165.547,182.4-246.08 C426.667,69.12,375.147,17.6,309.333,17.6z"/></svg>
+                                </a>
+                            <?php } ?>
+                            <?php if ($seen) { ?>
+                                <a class="feature checked see" href="<?= "/unsee?type=movie&id=$movieID&src=$src" ?>" aria-label="Marquer ce film comme non vu" title="Marquer ce film comme non vu">
+                                    <svg viewBox="0 0 375.147 375.147"><polygon points="344.96,44.48 119.147,270.293 30.187,181.333 0,211.52 119.147,330.667 375.147,74.667" /></svg>
+                                </a>  
+                            <?php } else { ?>
+                                <a class="feature see" href="<?= "/see?type=movie&id=$movieID&src=$src" ?>" aria-label="Marquer ce film comme vu" title="Marquer ce film comme vu">
+                                    <svg viewBox="0 0 375.147 375.147"><polygon points="344.96,44.48 119.147,270.293 30.187,181.333 0,211.52 119.147,330.667 375.147,74.667" /></svg>
+                                </a>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -76,7 +126,10 @@ if (isset($_GET["id"])) {
 
     </html>
 <?php
-} else {
+}
+else
+{
     header("Location: /browse");
+    exit;
 }
 ?>

@@ -269,7 +269,7 @@ img {
 #title-page .grade {
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: 50px 80px;
+    grid-template-columns: 50px 80px 50px 50px;
     height: 50px;
 }
 
@@ -284,6 +284,34 @@ img {
     border: 3px solid var(--theme-color);
     color: rgb(255, 255, 255);
     font-weight: 700;
+}
+
+#title-page .feature {
+    align-items: center;
+    background: var(--dark-color);
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    display: flex;
+    fill: currentColor;
+    font-size: 20px;
+    font-weight: 700;
+    justify-content: center;
+    line-height: 24px;
+}
+
+#title-page .feature svg {
+    fill: inherit;
+    width: 16px;
+}
+
+#title-page .feature:hover {
+    background: rgb(255, 255, 255);
+    color: var(--dark-color);
+}
+
+#title-page .feature.checked {
+    color: var(--theme-color);
 }
 
 @media all and (min-width: 600px) {

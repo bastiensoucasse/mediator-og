@@ -45,8 +45,16 @@ require_once("tools/utilities.php");
             <div class="section-content movies-list">
                 <?php
                 require_once("tools/database.php");
-                $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
-                $stmt->execute();
+                if (is_connected())
+                {
+                    $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL AND MovieID NOT IN (SELECT * FROM SeenMovies WHERE UserID = ?) ORDER BY AddDate DESC LIMIT 8");
+                    $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+                }
+                else
+                {
+                    $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
+                    $stmt->execute();
+                }
                 $movies = $stmt->fetchAll();
                 if (!$movies)
                     echo ("Il n'y a aucun film à afficher.");
