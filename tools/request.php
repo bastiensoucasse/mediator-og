@@ -41,12 +41,12 @@ $c = $stmt->fetch();
 
 $id = $c["CommandID"];
 
-$to = $user["first_name"] . " " . $user["last_name"] . " <" . $user["email"] . ">";
+$to = $user["id"];
 $subject = "Votre commande #$id sur Mediator";
 $message = "Vous avez récemment proposé $typefr <b>$title</b> sur Mediator. Votre commande (référencée #$id) va être prise en compte dans les plus brefs délais. Nous vous tiendrons informé de son évolution.";
 send($to, $subject, $message);
 
-$to = "Bastien Soucasse <bastien.soucasse@laposte.net>";
+$to = 1;
 $subject = "Nouvelle commande #$id sur Mediator";
 $message = $user["first_name"] . " " . $user["last_name"] . " a proposé $typefr <b>$title</b> sur Mediator. Merci de prendre cette commande (référencée #$id) en compte dans les plus brefs délais.";
 send($to, $subject, $message);

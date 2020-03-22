@@ -19,9 +19,9 @@ $id = htmlspecialchars($_GET["id"]);
 $user = htmlspecialchars($_SESSION["id"]);
 
 if ($type == "series")
-    $stmt = $db->prepare("DELETE FROM LikedSeries WHERE SeriesId = ? AND UserID = ?");
+    $stmt = $db->prepare("DELETE FROM `LikedSeries` WHERE `SeriesID` = ? AND `UserID` = ?");
 else
-    $stmt = $db->prepare("DELETE FROM LikedMovies WHERE MovieId = ? AND UserID = ?");
+    $stmt = $db->prepare("DELETE FROM `LikedMovies` WHERE `MovieID` = ? AND `UserID` = ?");
 
 $stmt->execute(array($id, $user));
 

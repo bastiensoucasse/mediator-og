@@ -35,8 +35,12 @@ function account($id)
     return $stmt->fetch();
 }
 
-function send($to, $subject, $msg)
+function send($user, $subject, $msg)
 {
+    $user = account($user);
+    $name = $user["first_name"];
+    $to = $user["first_name"] . " " . $user["last_name"] . " <" . $user["email"] . ">";
+
     $subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
     $message = "Bonjour $name,<br /><br/>";

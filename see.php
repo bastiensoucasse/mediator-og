@@ -19,9 +19,9 @@ $id = htmlspecialchars($_GET["id"]);
 $user = htmlspecialchars($_SESSION["id"]);
 
 if ($type == "series")
-    $stmt = $db->prepare("INSERT INTO SeenSeries VALUES (?, ?)");
+    $stmt = $db->prepare("INSERT INTO `SeenSeries` (`SeriesID`, `UserID`, `Date`) VALUES (?, ?, NOW())");
 else
-    $stmt = $db->prepare("INSERT INTO SeenMovies VALUES (?, ?)");
+    $stmt = $db->prepare("INSERT INTO `SeenMovies` (`MovieID`, `UserID`, `Date`) VALUES (?, ?, NOW())");
 
 $stmt->execute(array($id, $user));
 
