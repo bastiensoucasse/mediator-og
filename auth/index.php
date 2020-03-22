@@ -16,6 +16,11 @@ if (isset($_GET["id"]))
 }
 else
 {
-    header("Location: https://account.profuder.com/auth?src=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]));
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
+        $PROTOCOL = "https://";
+    else
+        $PROTOCOL = "http://";
+
+    header("Location: https://account.profuder.com/auth?src=" . urlencode($PROTOCOL . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]));
     exit;
 }
