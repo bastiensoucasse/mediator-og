@@ -60,7 +60,7 @@ if (isset($_GET["id"]))
                 <?php
                 if (!is_connected()) {
                 ?>
-                    <a class="nav-button" href="<?= "/auth?source=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
+                    <a class="nav-button" href="<?= "/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
                 <?php
                 }
                 ?>

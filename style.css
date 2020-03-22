@@ -206,11 +206,6 @@ img
     overflow: hidden;
 }
 
-.request-form
-{
-    max-width: 490px;
-}
-
 .form-fieldset
 {
     border: none;
@@ -458,6 +453,18 @@ img
     .series
     {
         width: 185px;
+    }
+
+    .commands
+    {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: 50fr 50fr;
+    }
+
+    .commands-go
+    {
+        margin: 60px 20px 100px 20px;
     }
     
     .command-info
