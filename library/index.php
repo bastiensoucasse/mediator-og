@@ -1,4 +1,5 @@
 <?php
+require_once("../tools/database.php");
 require_once("../tools/init.php");
 require_once("../tools/utilities.php");
 ?>
@@ -70,8 +71,7 @@ require_once("../tools/utilities.php");
                 <div class="section-name">Vos derniers films proposés</div>
                 <div class="section-content movies-list">
                     <?php
-                    require_once("../tools/database.php");
-                    $stmt = $db->prepare("SELECT * FROM Movies WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $movies = $stmt->fetchAll();
                     if (!$movies)
@@ -92,7 +92,6 @@ require_once("../tools/utilities.php");
                             </div>
                     <?php
                         }
-                        $stmt = null;
                     }
                     ?>
                 </div>
@@ -101,8 +100,7 @@ require_once("../tools/utilities.php");
                 <div class="section-name">Vos dernières séries proposées</div>
                 <div class="section-content series-list">
                     <?php
-                    require_once("../tools/database.php");
-                    $stmt = $db->prepare("SELECT * FROM Series WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT SeriesID FROM Series WHERE AddDate IS NOT NULL AND Requester = ? ORDER BY AddDate DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $series = $stmt->fetchAll();
                     if (!$series)
@@ -123,15 +121,37 @@ require_once("../tools/utilities.php");
                             </div>
                     <?php
                         }
-                        $stmt = null;
                     }
                     ?>
                 </div>
             </div>
             <div id="orders" class="section">
                 <div class="section-name">Toutes vos commandes</div>
-                <div class="section-content orders-list">
-                    Cette fonctionnalité est en cours de développement.
+                <div class="section-content commands-list">
+                    <?php
+                    $stmt = $db->prepare("SELECT CommandID FROM Commands WHERE UserID = ? ORDER BY Date DESC");
+                    $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+                    $commands = $stmt->fetchAll();
+                    if (!$commands)
+                        echo ("Vous n'avez effectué aucune commande.");
+                    else {
+                        foreach ($commands as $c) {
+                    ?>
+                            <div id="command-<?= $c["CommandID"] ?>" class="command-container">
+                                <script>
+                                    xhttp = new XMLHttpRequest();
+                                    xhttp.onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200)
+                                            document.querySelector("#command-<?= $c["CommandID"] ?>").innerHTML = this.responseText;
+                                    };
+                                    xhttp.open("GET", "../get/command.php?id=<?= $c["CommandID"] ?>", true);
+                                    xhttp.send();
+                                </script>
+                            </div>
+                    <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         <?php

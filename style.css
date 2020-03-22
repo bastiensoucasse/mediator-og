@@ -1,38 +1,45 @@
-:root {
+:root
+{
     --dark-color: #111111;
     --theme-color: #14AB95;
     --small-box-shadow: 0px 0px 7px -1px rgba(0, 0, 0, .63);
     --large-box-shadow: 0px 0px 21px -3px rgba(0, 0, 0, .63);
 }
 
-* {
+*
+{
     box-sizing: border-box;
     position: relative;
 }
 
-html {
+html
+{
     scroll-behavior: smooth;
 }
 
-body {
+body
+{
     background: var(--dark-color);
     color: rgba(255, 255, 255, .5);
     font: 400 16px/20px "Hylery", system-ui, sans-serif;
     margin: 0px;
 }
 
-a {
+a
+{
     color: inherit;
     text-decoration: inherit;
 }
 
-img {
+img
+{
     display: block;
     height: auto;
     width: 100%;
 }
 
-#header, #nav {
+#header, #nav
+{
     align-items: center;
     background: var(--dark-color);
     display: flex;
@@ -40,12 +47,14 @@ img {
     padding: 12px;
 }
 
-#header {
+#header
+{
     justify-content: space-between;
     z-index: 2;
 }
 
-#nav {
+#nav
+{
     bottom: 0px;
     box-shadow: var(--large-box-shadow);
     justify-content: center;
@@ -56,13 +65,17 @@ img {
     z-index: 2;
 }
 
-.logo, .nav-link, .nav-button {
+.logo,
+.nav-link,
+.nav-button
+{
     display: block;
     font-weight: 700;
     z-index: 3;
 }
 
-.logo {
+.logo
+{
     color: rgb(255, 255, 255);
     font-size: 20px;
     line-height: 24px;
@@ -70,17 +83,20 @@ img {
     user-select: none;
 }
 
-.nav-link {
+.nav-link
+{
     margin: 0px 4px;
     padding: 8px;
     user-select: none;
 }
 
-.nav-link.active {
+.nav-link.active
+{
     color: rgb(255, 255, 255);
 }
 
-.nav-button {
+.nav-button
+{
     background: var(--theme-color);
     border: 2px solid var(--theme-color);
     border-radius: 8px;
@@ -91,21 +107,25 @@ img {
     user-select: none;
 }
 
-.nav-button:hover {
+.nav-button:hover
+{
     background: none;
     color: var(--theme-color);
 }
 
-.section {
+.section
+{
     margin: 84px auto;
     max-width: 1660px;
 }
 
-.section.limited {
+.section.limited
+{
     max-width: 1250px;
 }
 
-.section-name {
+.section-name
+{
     color: rgb(255, 255, 255);
     font-size: 20px;
     font-weight: 700;
@@ -113,11 +133,14 @@ img {
     margin: 20px;
 }
 
-.section-content {
+.section-content
+{
     margin: 20px;
 }
 
-.link, .link.important {
+.link,
+.link.important
+{
     color: var(--theme-color);
     font-weight: 700;
     margin: 20px 0px;
@@ -125,11 +148,13 @@ img {
     width: fit-content;
 }
 
-.link.important {
+.link.important
+{
     display: block;
 }
 
-.button {
+.button
+{
     background: var(--theme-color);
     border: 2px solid var(--theme-color);
     border-radius: 8px;
@@ -144,27 +169,36 @@ img {
     width: fit-content;
 }
 
-.button:hover {
+.button:hover
+{
     background: none;
     color: var(--theme-color);
 }
 
-.movies-list, .series-list {
+.movies-list,
+.series-list
+{
     display: flex;
     margin: 0px;
     overflow-x: auto;
     padding: 0px 20px;
 }
 
-.movies-list::-webkit-scrollbar, .series-list::-webkit-scrollbar {
+.movies-list::-webkit-scrollbar,
+.series-list::-webkit-scrollbar
+{
     display: none;
 }
 
-.movie-container, .series-container {
+.movie-container,
+.series-container
+{
     padding-right: 20px;
 }
 
-.movie, .series {
+.movie,
+.series
+{
     border-radius: 8px;
     box-shadow: var(--small-box-shadow);
     display: block;
@@ -177,13 +211,15 @@ img {
     max-width: 490px;
 }
 
-.form-fieldset {
+.form-fieldset
+{
     border: none;
     margin: 14px 0px;
     padding: 0px;
 }
 
-.form-fieldset-input {
+.form-fieldset-input
+{
     background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 8px;
@@ -195,7 +231,8 @@ img {
     width: 100%;
 }
 
-.form-fieldset-legend {
+.form-fieldset-legend
+{
     color: rgb(119, 119, 119);
     font-size: 12px;
     left: 0px;
@@ -207,13 +244,15 @@ img {
     width: fit-content;
 }
 
-.request-switcher {
+.request-switcher
+{
     display: grid;
     grid-column-gap: 14px;
     grid-template-columns: 100fr 100fr;
 }
 
-.switch-el {
+.switch-el
+{
     background-color: rgb(255, 255, 255);
     border-radius: 9px;
     box-shadow: rgba(154, 160, 185, 0.05) 0px 5px 5px 0px, rgba(166, 173, 201, 0.22) 0px 5px 30px;
@@ -222,12 +261,14 @@ img {
     overflow: hidden;
 }
 
-.switch-el input {
+.switch-el input
+{
     position: absolute;
     visibility: hidden;
 }
 
-.switch-el label {
+.switch-el label
+{
     color: var(--dark-color);
     cursor: pointer;
     display: block;
@@ -237,28 +278,66 @@ img {
     overflow: hidden;
 }
 
-.switch-el input:checked ~ label {
+.switch-el input:checked ~ label
+{
     background-color: var(--theme-color);
 }
 
-#title-page .intro {
+.commands-list
+{
+    display: grid;
+    grid-gap: 10px;
+}
+
+.command
+{
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 8px;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 80px 100fr;
+    padding: 10px 20px;
+}
+
+.command-id
+{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.command-title
+{
+    color: rgb(255, 255, 255);
+}
+
+.command-desc
+{
+    font-size: 14px;
+}
+
+#title-page .intro
+{
     margin: 0px auto;
 }
 
-#title-page .title {
+#title-page .title
+{
     color: rgb(255, 255, 255);
     font-size: 24px;
     font-weight: 700;
     line-height: 28px;
 }
 
-#title-page .poster-container {
+#title-page .poster-container
+{
     align-items: center;
     display: flex;
     justify-content: center;
 }
 
-#title-page .poster {
+#title-page .poster
+{
     border-radius: 8px;
     box-shadow: var(--large-box-shadow);
     margin-top:  0px;
@@ -266,27 +345,32 @@ img {
     width: 240px;
 }
 
-#title-page .grade {
+#title-page .grade
+{
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 50px 80px 50px 50px;
     height: 50px;
 }
 
-#title-page .grade-design, .grade-help {
+#title-page .grade-design,
+.grade-help
+{
     align-items: center;
     display: flex;
     justify-content: center;
 }
 
-#title-page .grade-design {
+#title-page .grade-design
+{
     border-radius: 50%;
     border: 3px solid var(--theme-color);
     color: rgb(255, 255, 255);
     font-weight: 700;
 }
 
-#title-page .feature {
+#title-page .feature
+{
     align-items: center;
     background: var(--dark-color);
     border-radius: 50%;
@@ -300,22 +384,27 @@ img {
     line-height: 24px;
 }
 
-#title-page .feature svg {
+#title-page .feature svg
+{
     fill: inherit;
     width: 16px;
 }
 
-#title-page .feature:hover {
+#title-page .feature:hover
+{
     background: rgb(255, 255, 255);
     color: var(--dark-color);
 }
 
-#title-page .feature.checked {
+#title-page .feature.checked
+{
     color: var(--theme-color);
 }
 
-@media all and (min-width: 600px) {
-    #nav {
+@media all and (min-width: 600px)
+{
+    #nav
+    {
         background: none;
         box-shadow: none;
         height: 100%;
@@ -324,42 +413,81 @@ img {
         z-index: initial;
     }
 
-    .section-name {
+    .section-name
+    {
         font-size: 24px;
         line-height: 28px;
     }
 
-    .movie, .series {
+    .movie,
+    .series
+    {
         width: 162.5px;
     }
 
-    #title-page .poster {
+    #title-page .poster
+    {
         width: 300px;
     }
 
-    #title-page .title {
+    #title-page .title
+    {
         font-size: 28px;
         line-height: 32px;
     }
 }
 
-@media all and (min-width: 900px) {
-    .movie, .series {
-        width: 185px;
+@media all and (min-width: 700px)
+{
+    .command
+    {
+        padding: 20px;
     }
 
-    #title-page .intro {
+    .command-info
+    {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: 75fr 25fr;
+    }
+}
+
+@media all and (min-width: 900px)
+{
+    .movie,
+    .series
+    {
+        width: 185px;
+    }
+    
+    .command-info
+    {
+        grid-template-columns: 70fr 30fr;
+    }
+
+    #title-page .intro
+    {
         display: grid;
         grid-template-columns: 320px 100fr;
     }
 
-    #title-page .title {
+    #title-page .title
+    {
         font-size: 36px;
         line-height: 40px;
     }
 
-    #title-page .poster {
+    #title-page .poster
+    {
         margin-right: 0px;
         width: 100%;
+    }
+}
+
+@media all and (min-width: 1400px)
+{
+    .commands-list
+    {
+        grid-template-columns: 50fr 50fr;
     }
 }
