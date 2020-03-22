@@ -21,13 +21,13 @@ require_once("../tools/utilities.php");
             <?php
             if (!is_connected()) {
             ?>
-                <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                <a class="nav-button" href="<?= "/auth?source=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
             <?php
             }
             ?>
         </div>
         <div id="nav">
-            <a class="nav-link" href="/home" aria-label="Accueil">Accueil</a>
+            <a class="nav-link" href="/" aria-label="Accueil">Accueil</a>
             <a class="nav-link" href="/browse" aria-label="Parcourir">Parcourir</a>
             <a class="nav-link active" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
         </div>
@@ -40,7 +40,7 @@ require_once("../tools/utilities.php");
                 <div class="section-name">Votre bibliothèque</div>
                 <div class="section-content">
                     Veuillez vous connecter pour parcourir votre bibliothèque.
-                    <a class="button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                    <a class="button" href="<?= "/auth?source=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
                 </div>
             </div>
         <?php

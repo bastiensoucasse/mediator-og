@@ -1,4 +1,5 @@
 <?php
+require_once("tools/database.php");
 require_once("tools/init.php");
 require_once("tools/utilities.php");
 ?>
@@ -21,13 +22,13 @@ require_once("tools/utilities.php");
             <?php
             if (!is_connected()) {
             ?>
-                <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                <a class="nav-button" href="<?= "/auth?source=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
             <?php
             }
             ?>
         </div>
         <div id="nav">
-            <a class="nav-link active" href="/home" aria-label="Accueil">Accueil</a>
+            <a class="nav-link active" href="/" aria-label="Accueil">Accueil</a>
             <a class="nav-link" href="/browse" aria-label="Parcourir">Parcourir</a>
             <a class="nav-link" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
         </div>
@@ -44,10 +45,9 @@ require_once("tools/utilities.php");
             <div class="section-name">Nouveaux films</div>
             <div class="section-content movies-list">
                 <?php
-                require_once("tools/database.php");
                 if (is_connected())
                 {
-                    $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL AND MovieID NOT IN (SELECT * FROM SeenMovies WHERE UserID = ?) ORDER BY AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT Movies.MovieID FROM Movies WHERE Movies.AddDate IS NOT NULL AND Movies.MovieID NOT IN( SELECT SeenMovies.MovieID FROM SeenMovies WHERE SeenMovies.UserID = ? ) ORDER BY Movies.AddDate DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 }
                 else
@@ -83,9 +83,16 @@ require_once("tools/utilities.php");
             <div class="section-name">Nouvelles séries</div>
             <div class="section-content series-list">
                 <?php
-                require_once("tools/database.php");
-                $stmt = $db->prepare("SELECT SeriesID FROM Series WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
-                $stmt->execute();
+                if (is_connected())
+                {
+                    $stmt = $db->prepare("SELECT Series.SeriesID FROM Series WHERE Series.AddDate IS NOT NULL AND Series.SeriesID NOT IN( SELECT SeenSeries.SeriesID FROM SeenSeries WHERE SeenSeries.UserID = ? ) ORDER BY Series.AddDate DESC LIMIT 8");
+                    $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+                }
+                else
+                {
+                    $stmt = $db->prepare("SELECT SeriesID FROM Series WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
+                    $stmt->execute();
+                }
                 $series = $stmt->fetchAll();
                 if (!$series)
                     echo ("Il n'y a aucune série à afficher.");

@@ -60,13 +60,13 @@ if (isset($_GET["id"]))
                 <?php
                 if (!is_connected()) {
                 ?>
-                    <a class="nav-button" href="/auth" aria-label="Se connecter">Se connecter</a>
+                    <a class="nav-button" href="<?= "/auth?source=" . urlencode("https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
                 <?php
                 }
                 ?>
             </div>
             <div id="nav">
-                <a class="nav-link" href="/home" aria-label="Accueil">Accueil</a>
+                <a class="nav-link" href="/" aria-label="Accueil">Accueil</a>
                 <a class="nav-link active" href="/browse" aria-label="Parcourir">Parcourir</a>
                 <a class="nav-link" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
             </div>
