@@ -1,8 +1,15 @@
 {
-    "short_name": "Mediator",
     "name": "Profuder Mediator",
+    "short_name": "Mediator",
     "description": "La nouvelle base de données cinéatographique de Profuder.",
-    "icons": [
+    "scope": "/",
+    "start_url": "/?source=pwa",
+    "theme_color": "#111111",
+    "background_color": "#111111",
+    "orientation": "any",
+    "display": "standalone",
+    "icons":
+    [
         {
             "src": "/images/mediator-192.png",
             "type": "image/png",
@@ -13,10 +20,5 @@
             "type": "image/png",
             "sizes": "512x512"
         }
-    ],
-    "background_color": "#111111",
-    "theme_color": "#111111",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/?source=pwa"
+    ]
 }
