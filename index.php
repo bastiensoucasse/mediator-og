@@ -10,7 +10,7 @@ require_once("tools/utilities.php");
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="La nouvelle base de données cinéatographique de Profuder." />
-    <meta name="theme-color" content="#14AB95" />
+    <meta name="theme-color" content="#111111" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/icon.png" />
     <link rel="apple-touch-icon" href="/icon.png" />

@@ -48,7 +48,7 @@ if (isset($_GET["id"]))
     <head>
         <meta charset="utf-8" />
         <meta name="description" content="Découvrez <?= $m["Title"] ?> (<?= substr($m["ReleaseDate"], 0, 4) ?>) sur Mediator." />
-        <meta name="theme-color" content="#14AB95" />
+        <meta name="theme-color" content="#111111" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/icon.png" />
         <link rel="apple-touch-icon" href="/icon.png" />
