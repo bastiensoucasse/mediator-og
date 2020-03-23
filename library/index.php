@@ -10,8 +10,13 @@ require_once("../tools/utilities.php");
 <head>
     <meta charset="utf-8" />
     <meta name="description" content="Parcourez votre bibliothèque sur Mediator." />
+    <meta name="theme-color" content="#14AB95" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/style.css" />
+    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
     <title>Bibliothèque - Mediator</title>
 </head>
 
