@@ -124,8 +124,8 @@ require_once("../tools/utilities.php");
                 <div id="commands" class="commands">
                     <form class="section-content commands-new" method="post" action="../tools/request">
                         <fieldset class="form-fieldset">
-                            <input class="form-fieldset-input" type="text" name="title" required focus />
-                            <legend class="form-fieldset-legend">Titre</legend>
+                            <input id="title-text" class="form-fieldset-input" type="text" name="title" required focus />
+                            <label class="form-fieldset-legend" for="title-text">Titre</label>
                         </fieldset>
                         <div class="request-switcher">
                             <div class="switch-el">
