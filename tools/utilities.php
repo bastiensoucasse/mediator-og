@@ -15,6 +15,7 @@ function is_connected()
 function auth($id)
 {
     $_SESSION["id"] = $id;
+    setcookie("user", $id, time() + (86400 * 30), "/");
 }
 
 function account($id)
