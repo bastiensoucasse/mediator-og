@@ -34,7 +34,7 @@ if (is_connected())
     
     $stmt = $db->prepare("SELECT `SeriesID` FROM `SeenSeries` WHERE `SeriesID` = ? AND `UserID` = ?");
     $stmt->execute(array($series_id, $user_id));
-    $liked = $stmt->fetch() ? true : false;
+    $seen = $stmt->fetch() ? true : false;
 }
 ?>
 
