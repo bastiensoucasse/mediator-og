@@ -17,6 +17,7 @@ require_once("tools/utilities.php");
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/style.css" />
     <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
+    <script src="/lazysizes.min.js" async></script>
     <title>Mediator</title>
 </head>
 

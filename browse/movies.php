@@ -51,6 +51,7 @@ if (is_connected())
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/style.css" />
     <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
+    <script src="/lazysizes.min.js" async></script>
     <title><?= $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")" ?> - Mediator</title>
 </head>
 
@@ -77,7 +78,7 @@ if (is_connected())
         <div class="section limited intro">
             <div class="poster-container">
                 <div class="section-content poster">
-                    <img sizes="auto" srcset="<?= $img_path_1x . $m["PosterPath"] ?> 1x, <?= $img_path_2x . $m["PosterPath"] ?> 2x" src="<?= $img_path_1x . $m["PosterPath"] ?>" alt="<?= htmlspecialchars($m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")") ?>" />
+                    <img class="lazyload" alt="" data-sizes="auto" data-src="<?= $img_path_1x . $m["PosterPath"] ?>" data-srcset="<?= $img_path_1x . $m["PosterPath"] ?> 1x, <?= $img_path_2x . $m["PosterPath"] ?> 2x" />
                 </div>
             </div>
             <div class="presentation-container">
