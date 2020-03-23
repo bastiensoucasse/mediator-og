@@ -1,5 +1,4 @@
 <?php
-
 try
 {
     if ($_SERVER["HTTP_HOST"] == "mediator.profuder.com")

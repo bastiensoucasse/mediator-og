@@ -25,7 +25,8 @@ require_once("tools/utilities.php");
         <div id="header">
             <a class="logo" href="/" aria-label="Mediator">Mediator</a>
             <?php
-            if (!is_connected()) {
+            if (!is_connected())
+            {
             ?>
                 <a class="nav-button" href="<?= "/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
             <?php
@@ -63,8 +64,10 @@ require_once("tools/utilities.php");
                 $movies = $stmt->fetchAll();
                 if (!$movies)
                     echo ("Il n'y a aucun film à afficher.");
-                else {
-                    foreach ($movies as $m) {
+                else
+                {
+                    foreach ($movies as $m)
+                    {
                 ?>
                         <div id="movie-<?= $m["MovieID"] ?>" class="movie-container">
                             <script>
@@ -73,13 +76,12 @@ require_once("tools/utilities.php");
                                     if (this.readyState == 4 && this.status == 200)
                                         document.querySelector("#movie-<?= $m["MovieID"] ?>").innerHTML = this.responseText;
                                 };
-                                xhttp.open("GET", "get/movie.php?id=<?= $m["MovieID"] ?>", true);
+                                xhttp.open("GET", "tools/get/movie.php?id=<?= $m["MovieID"] ?>", true);
                                 xhttp.send();
                             </script>
                         </div>
                 <?php
                     }
-                    $stmt = null;
                 }
                 ?>
             </div>
@@ -101,8 +103,10 @@ require_once("tools/utilities.php");
                 $series = $stmt->fetchAll();
                 if (!$series)
                     echo ("Il n'y a aucune série à afficher.");
-                else {
-                    foreach ($series as $s) {
+                else
+                {
+                    foreach ($series as $s)
+                    {
                 ?>
                         <div id="series-<?= $s["SeriesID"] ?>" class="series-container">
                             <script>
@@ -111,13 +115,12 @@ require_once("tools/utilities.php");
                                     if (this.readyState == 4 && this.status == 200)
                                         document.querySelector("#series-<?= $s["SeriesID"] ?>").innerHTML = this.responseText;
                                 };
-                                xhttp.open("GET", "get/series.php?id=<?= $s["SeriesID"] ?>", true);
+                                xhttp.open("GET", "tools/get/series.php?id=<?= $s["SeriesID"] ?>", true);
                                 xhttp.send();
                             </script>
                         </div>
                 <?php
                     }
-                    $stmt = null;
                 }
                 ?>
             </div>

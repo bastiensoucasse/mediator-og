@@ -60,13 +60,15 @@ require_once("../tools/utilities.php");
                 <div class="section-name">Commandes</div>
                 <div class="section-content commands-list">
                     <?php
-                    $stmt = $db->prepare("SELECT CommandID FROM Commands WHERE UserID = ? ORDER BY Date DESC");
+                    $stmt = $db->prepare("SELECT `CommandID` FROM `Commands` WHERE `UserID` = ? ORDER BY `Date` DESC");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $commands = $stmt->fetchAll();
                     if (!$commands)
                         echo ("Vous n'avez effectué aucune commande.");
-                    else {
-                        foreach ($commands as $c) {
+                    else
+                    {
+                        foreach ($commands as $c)
+                        {
                     ?>
                             <div id="command-<?= $c["CommandID"] ?>" class="command-container">
                                 <script>
@@ -75,7 +77,7 @@ require_once("../tools/utilities.php");
                                         if (this.readyState == 4 && this.status == 200)
                                             document.querySelector("#command-<?= $c["CommandID"] ?>").innerHTML = this.responseText;
                                     };
-                                    xhttp.open("GET", "../get/command.php?id=<?= $c["CommandID"] ?>", true);
+                                    xhttp.open("GET", "../tools/get/command.php?id=<?= $c["CommandID"] ?>", true);
                                     xhttp.send();
                                 </script>
                             </div>

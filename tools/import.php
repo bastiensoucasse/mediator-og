@@ -1,6 +1,7 @@
 <?php
-
 require_once("database.php");
+require_once("init.php");
+require_once("utilities.php");
 
 $type = htmlspecialchars($_POST["type"]);
 $id = htmlspecialchars($_POST["id"]);

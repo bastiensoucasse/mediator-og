@@ -64,9 +64,7 @@ require_once("../tools/utilities.php");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $movies = $stmt->fetchAll();
                     if (!$movies)
-                    {
                         echo ("Vous n'avez liké aucun film.");
-                    }
                     else
                     {
                         foreach ($movies as $m)
@@ -79,7 +77,7 @@ require_once("../tools/utilities.php");
                                         if (this.readyState == 4 && this.status == 200)
                                             document.querySelector("#movie-<?= $m["MovieID"] ?>").innerHTML = this.responseText;
                                     };
-                                    xhttp.open("GET", "../get/movie.php?id=<?= $m["MovieID"] ?>", true);
+                                    xhttp.open("GET", "../tools/get/movie.php?id=<?= $m["MovieID"] ?>", true);
                                     xhttp.send();
                                 </script>
                             </div>
@@ -97,9 +95,7 @@ require_once("../tools/utilities.php");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                     $series = $stmt->fetchAll();
                     if (!$series)
-                    {
                         echo ("Vous n'avez liké aucune série.");
-                    }
                     else
                     {
                         foreach ($series as $s)
@@ -112,7 +108,7 @@ require_once("../tools/utilities.php");
                                         if (this.readyState == 4 && this.status == 200)
                                             document.querySelector("#series-<?= $s["SeriesID"] ?>").innerHTML = this.responseText;
                                     };
-                                    xhttp.open("GET", "../get/series.php?id=<?= $s["SeriesID"] ?>", true);
+                                    xhttp.open("GET", "../tools/get/series.php?id=<?= $s["SeriesID"] ?>", true);
                                     xhttp.send();
                                 </script>
                             </div>
