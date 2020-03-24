@@ -8,7 +8,7 @@
     <link rel="icon" href="/images/icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="/style.css" />
-    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
-    <script src="/lazysizes.min.js" async></script>
+    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/scripts/service-worker.js");</script>
+    <script src="/scripts/lazysizes.min.js" async></script>
     <title><?= $_PAGE["TITLE"] ?></title>
 </head>
