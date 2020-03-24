@@ -1,7 +1,7 @@
 <?php
-require_once("tools/database.php");
-require_once("tools/init.php");
-require_once("tools/utilities.php");
+require_once("../tools/database.php");
+require_once("../tools/init.php");
+require_once("../tools/utilities.php");
 
 if (isset($_GET["src"]))
     $src = htmlspecialchars($_GET["src"]);
