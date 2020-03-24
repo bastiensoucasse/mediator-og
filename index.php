@@ -2,44 +2,24 @@
 require_once("tools/database.php");
 require_once("tools/init.php");
 require_once("tools/utilities.php");
+
+$_PAGE = array(
+    "TITLE" => "Mediator",
+    "LINK" => "https://" . $_SERVER["HTTP_HOST"],
+    "DESCRIPTION" => "La nouvelle base de données cinéatographique de Profuder."
+);
+
+$img_path_1x = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
+$img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
 ?>
 
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="description" content="La nouvelle base de données cinéatographique de Profuder." />
-    <meta name="theme-color" content="#111111" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/icon.png" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="stylesheet" href="/style.css" />
-    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
-    <script src="/lazysizes.min.js" async></script>
-    <title>Mediator</title>
-</head>
+<?php include("tools/get/head.php"); ?>
 
 <body>
-    <header>
-        <div id="header">
-            <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-            <?php
-            if (!is_connected())
-            {
-            ?>
-                <a class="nav-button" href="<?= "/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
-            <?php
-            }
-            ?>
-        </div>
-        <div id="nav">
-            <a class="nav-link active" href="/" aria-label="Accueil">Accueil</a>
-            <a class="nav-link" href="/browse" aria-label="Parcourir">Parcourir</a>
-            <a class="nav-link" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
-        </div>
-    </header>
+    <?php include("tools/get/header.php"); ?>
     <main>
         <div id="home" class="section">
             <div class="section-name">Bandes originales</div>
@@ -54,36 +34,17 @@ require_once("tools/utilities.php");
                 <?php
                 if (is_connected())
                 {
-                    $stmt = $db->prepare("SELECT Movies.MovieID FROM Movies WHERE Movies.AddDate IS NOT NULL AND Movies.MovieID NOT IN( SELECT SeenMovies.MovieID FROM SeenMovies WHERE SeenMovies.UserID = ? ) ORDER BY Movies.AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` WHERE `AddDate` IS NOT NULL AND `MovieID` NOT IN( SELECT `MovieID` FROM `SeenMovies` WHERE `UserID` = ? ) ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 }
                 else
                 {
-                    $stmt = $db->prepare("SELECT MovieID FROM Movies WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` WHERE `AddDate` IS NOT NULL ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute();
                 }
                 $movies = $stmt->fetchAll();
-                if (!$movies)
-                    echo ("Il n'y a aucun film à afficher.");
-                else
-                {
-                    foreach ($movies as $m)
-                    {
-                ?>
-                        <div id="movie-<?= $m["MovieID"] ?>" class="movie-container">
-                            <script>
-                                xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function() {
-                                    if (this.readyState == 4 && this.status == 200)
-                                        document.querySelector("#movie-<?= $m["MovieID"] ?>").innerHTML = this.responseText;
-                                };
-                                xhttp.open("GET", "tools/get/movie.php?id=<?= $m["MovieID"] ?>", true);
-                                xhttp.send();
-                            </script>
-                        </div>
-                <?php
-                    }
-                }
+                if (!$movies) echo ("Il n'y a aucun film à afficher.");
+                else foreach ($movies as $m) include("tools/get/movie.php");
                 ?>
             </div>
         </div>
@@ -93,36 +54,17 @@ require_once("tools/utilities.php");
                 <?php
                 if (is_connected())
                 {
-                    $stmt = $db->prepare("SELECT Series.SeriesID FROM Series WHERE Series.AddDate IS NOT NULL AND Series.SeriesID NOT IN( SELECT SeenSeries.SeriesID FROM SeenSeries WHERE SeenSeries.UserID = ? ) ORDER BY Series.AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` WHERE `AddDate` IS NOT NULL AND `SeriesID` NOT IN( SELECT `SeriesID` FROM `SeenSeries` WHERE `UserID` = ? ) ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 }
                 else
                 {
-                    $stmt = $db->prepare("SELECT SeriesID FROM Series WHERE AddDate IS NOT NULL ORDER BY AddDate DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` WHERE `AddDate` IS NOT NULL ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute();
                 }
                 $series = $stmt->fetchAll();
-                if (!$series)
-                    echo ("Il n'y a aucune série à afficher.");
-                else
-                {
-                    foreach ($series as $s)
-                    {
-                ?>
-                        <div id="series-<?= $s["SeriesID"] ?>" class="series-container">
-                            <script>
-                                xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function() {
-                                    if (this.readyState == 4 && this.status == 200)
-                                        document.querySelector("#series-<?= $s["SeriesID"] ?>").innerHTML = this.responseText;
-                                };
-                                xhttp.open("GET", "tools/get/series.php?id=<?= $s["SeriesID"] ?>", true);
-                                xhttp.send();
-                            </script>
-                        </div>
-                <?php
-                    }
-                }
+                if (!$series) echo ("Il n'y a aucune série à afficher.");
+                else foreach ($series as $s) include("tools/get/series.php");
                 ?>
             </div>
         </div>

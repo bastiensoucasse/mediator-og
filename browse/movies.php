@@ -21,6 +21,12 @@ if (!$m)
     exit;
 }
 
+$_PAGE = array(
+    "TITLE" => $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ") - Mediator",
+    "LINK" => "https://" . $_SERVER["HTTP_HOST"] . "/browse/movies?id=$movie_id",
+    "DESCRIPTION" => "Découvrez le film " . $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")" . " sur Mediator."
+);
+
 $img_path_1x = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/";
 $img_path_2x = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/";
 
@@ -41,39 +47,10 @@ if (is_connected())
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="description" content="Découvrez <?= $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")" ?> sur Mediator." />
-    <meta name="theme-color" content="#111111" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/icon.png" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="stylesheet" href="/style.css" />
-    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
-    <script src="/lazysizes.min.js" async></script>
-    <title><?= $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")" ?> - Mediator</title>
-</head>
+<?php include("../tools/get/head.php"); ?>
 
 <body>
-    <header>
-        <div id="header">
-            <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-            <?php
-            if (!is_connected())
-            {
-            ?>
-                <a class="nav-button" href="<?= "/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
-            <?php
-            }
-            ?>
-        </div>
-        <div id="nav">
-            <a class="nav-link" href="/" aria-label="Accueil">Accueil</a>
-            <a class="nav-link active" href="/browse" aria-label="Parcourir">Parcourir</a>
-            <a class="nav-link" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
-        </div>
-    </header>
+    <?php include("../tools/get/header.php"); ?>
     <main id="title-page">
         <div class="section limited intro">
             <div class="poster-container">

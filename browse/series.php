@@ -21,6 +21,12 @@ if (!$s)
     exit;
 }
 
+$_PAGE = array(
+    "TITLE" => $s["Title"] . " (" . substr($s["StartDate"], 0, 4) . ") - Mediator",
+    "LINK" => "https://" . $_SERVER["HTTP_HOST"] . "/browse/series?id=$series_id",
+    "DESCRIPTION" => "Découvrez la série " . $s["Title"] . " (" . substr($s["StartDate"], 0, 4) . ")" . " sur Mediator."
+);
+
 $img_path_1x = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/";
 $img_path_2x = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/";
 
@@ -41,39 +47,10 @@ if (is_connected())
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="description" content="Découvrez <?= $s["Title"] . " (" . substr($s["StartDate"], 0, 4) . ")" ?> sur Mediator." />
-    <meta name="theme-color" content="#111111" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/icon.png" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="stylesheet" href="/style.css" />
-    <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");</script>
-    <script src="/lazysizes.min.js" async></script>
-    <title><?= $s["Title"] . " (" . substr($s["StartDate"], 0, 4) . ")" ?> - Mediator</title>
-</head>
+<?php include("../tools/get/head.php"); ?>
 
 <body>
-    <header>
-        <div id="header">
-            <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-            <?php
-            if (!is_connected())
-            {
-            ?>
-                <a class="nav-button" href="<?= "/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
-            <?php
-            }
-            ?>
-        </div>
-        <div id="nav">
-            <a class="nav-link" href="/" aria-label="Accueil">Accueil</a>
-            <a class="nav-link active" href="/browse" aria-label="Parcourir">Parcourir</a>
-            <a class="nav-link" href="/library" aria-label="Bibliothèque">Bibliothèque</a>
-        </div>
-    </header>
+    <?php include("../tools/get/header.php"); ?>
     <main id="title-page">
         <div class="section limited intro">
             <div class="poster-container">
@@ -95,7 +72,7 @@ if (is_connected())
                         if ($liked)
                         {
                     ?>
-                            <a class="feature checked like" href="<?= "/unlike?type=series&id=$series_id&src=$src" ?>" aria-label="Unliker ce film" title="Unliker ce film">
+                            <a class="feature checked like" href="<?= "/unlike?type=series&id=$series_id&src=$src" ?>" aria-label="Unliker cette série" title="Unliker cette série">
                                 <svg viewBox="0 0 426.667 426.667"><path d="M309.333,17.6c-37.12,0-72.747,17.28-96,44.48c-23.253-27.2-58.88-44.48-96-44.48C51.52,17.6,0,69.12,0,134.933 c0,80.533,72.533,146.347,182.4,246.08l30.933,28.053l30.933-28.053c109.867-99.733,182.4-165.547,182.4-246.08 C426.667,69.12,375.147,17.6,309.333,17.6z"/></svg>
                             </a>
                         <?php
@@ -103,7 +80,7 @@ if (is_connected())
                         else
                         {
                         ?>
-                            <a class="feature like" href="<?= "/like?type=series&id=$series_id&src=$src" ?>" aria-label="Liker ce film" title="Liker ce film">
+                            <a class="feature like" href="<?= "/like?type=series&id=$series_id&src=$src" ?>" aria-label="Liker cette série" title="Liker cette série">
                                 <svg viewBox="0 0 426.667 426.667"><path d="M309.333,17.6c-37.12,0-72.747,17.28-96,44.48c-23.253-27.2-58.88-44.48-96-44.48C51.52,17.6,0,69.12,0,134.933 c0,80.533,72.533,146.347,182.4,246.08l30.933,28.053l30.933-28.053c109.867-99.733,182.4-165.547,182.4-246.08 C426.667,69.12,375.147,17.6,309.333,17.6z"/></svg>
                             </a>
                         <?php
@@ -111,7 +88,7 @@ if (is_connected())
                         if ($seen)
                         {
                         ?>
-                            <a class="feature checked see" href="<?= "/unsee?type=series&id=$series_id&src=$src" ?>" aria-label="Marquer ce film comme non vu" title="Marquer ce film comme non vu">
+                            <a class="feature checked see" href="<?= "/unsee?type=series&id=$series_id&src=$src" ?>" aria-label="Marquer cette série comme non vu" title="Marquer cette série comme non vu">
                                 <svg viewBox="0 0 375.147 375.147"><polygon points="344.96,44.48 119.147,270.293 30.187,181.333 0,211.52 119.147,330.667 375.147,74.667" /></svg>
                             </a>  
                         <?php
@@ -119,7 +96,7 @@ if (is_connected())
                         else
                         {
                         ?>
-                            <a class="feature see" href="<?= "/see?type=series&id=$series_id&src=$src" ?>" aria-label="Marquer ce film comme vu" title="Marquer ce film comme vu">
+                            <a class="feature see" href="<?= "/see?type=series&id=$series_id&src=$src" ?>" aria-label="Marquer cette série comme vu" title="Marquer cette série comme vu">
                                 <svg viewBox="0 0 375.147 375.147"><polygon points="344.96,44.48 119.147,270.293 30.187,181.333 0,211.52 119.147,330.667 375.147,74.667" /></svg>
                             </a>
                     <?php
