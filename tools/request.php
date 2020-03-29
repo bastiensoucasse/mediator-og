@@ -52,6 +52,6 @@ $message = $user["first_name"] . " " . $user["last_name"] . " a proposé $typefr
 send($to, $subject, $message);
 
 $n = "Votre commande concernant $typefr $title a été transmise sous la référence #$id.";
-setcookie("notification", $n, time() + 600, "/");
+setcookie("notification", $n, time() + 60, "/");
 header("Location: /library");
 exit;
