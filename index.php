@@ -16,10 +16,11 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php include("tools/get/head.php"); ?>
+<?php require("tools/get/head.php"); ?>
 
 <body>
-    <?php include("tools/get/header.php"); ?>
+    <?php require("tools/get/header.php"); ?>
+    <?php require("tools/notif.php"); ?>
     <main>
         <div id="home" class="section">
             <div class="section-name">Bandes originales</div>
@@ -44,7 +45,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 }
                 $movies = $stmt->fetchAll();
                 if (!$movies) echo ("Il n'y a aucun film à afficher.");
-                else foreach ($movies as $m) include("tools/get/movie.php");
+                else foreach ($movies as $m) require("tools/get/movie.php");
                 ?>
             </div>
         </div>
@@ -64,7 +65,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 }
                 $series = $stmt->fetchAll();
                 if (!$series) echo ("Il n'y a aucune série à afficher.");
-                else foreach ($series as $s) include("tools/get/series.php");
+                else foreach ($series as $s) require("tools/get/series.php");
                 ?>
             </div>
         </div>

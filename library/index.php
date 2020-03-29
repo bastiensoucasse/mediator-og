@@ -16,15 +16,16 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php include("../tools/get/head.php"); ?>
+<?php require("../tools/get/head.php"); ?>
 
 <body>
-    <?php include("../tools/get/header.php"); ?>
+    <?php require("../tools/get/header.php"); ?>
+    <?php require("../tools/notif.php"); ?>
     <main>
         <?php
         if (!is_connected())
         {
-            include("../tools/get/out.php");
+            require("../tools/get/out.php");
             exit;
         }
         ?>
@@ -36,7 +37,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 $movies = $stmt->fetchAll();
                 if (!$movies) echo ("Vous n'avez liké aucun film.");
-                else foreach ($movies as $m) include("../tools/get/movie.php");
+                else foreach ($movies as $m) require("../tools/get/movie.php");
                 ?>
             </div>
         </div>
@@ -48,7 +49,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 $series = $stmt->fetchAll();
                 if (!$series) echo ("Vous n'avez liké aucune série.");
-                else foreach ($series as $s) include("../tools/get/series.php");
+                else foreach ($series as $s) require("../tools/get/series.php");
                 ?>
             </div>
         </div>
@@ -60,7 +61,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 $movies = $stmt->fetchAll();
                 if (!$movies) echo ("Vous n'avez visionné aucun film.");
-                else foreach ($movies as $m) include("../tools/get/movie.php");
+                else foreach ($movies as $m) require("../tools/get/movie.php");
                 ?>
             </div>
         </div>
@@ -72,7 +73,7 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 $series = $stmt->fetchAll();
                 if (!$series) echo ("Vous n'avez visionné aucune série.");
-                else foreach ($series as $s) include("../tools/get/series.php");
+                else foreach ($series as $s) require("../tools/get/series.php");
                 ?>
             </div>
         </div>

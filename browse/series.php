@@ -1,7 +1,7 @@
 <?php
 if (!isset($_GET["id"]))
 {
-    include("series-index.php");
+    require("series-index.php");
     exit;
 }
 
@@ -47,10 +47,11 @@ if (is_connected())
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php include("../tools/get/head.php"); ?>
+<?php require("../tools/get/head.php"); ?>
 
 <body>
-    <?php include("../tools/get/header.php"); ?>
+    <?php require("../tools/get/header.php"); ?>
+    <?php require("../tools/notif.php"); ?>
     <main id="title-page">
         <div class="section limited intro">
             <div class="poster-container">

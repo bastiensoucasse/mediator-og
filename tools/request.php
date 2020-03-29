@@ -51,5 +51,7 @@ $subject = "Nouvelle commande #$id sur Mediator";
 $message = $user["first_name"] . " " . $user["last_name"] . " a proposé $typefr <b>$title</b> sur Mediator. Merci de prendre cette commande (référencée #$id) en compte dans les plus brefs délais.";
 send($to, $subject, $message);
 
-header("Location: /library?status=0&id=$id");
+$n = "Votre commande concernant $typefr $title a été transmise sous la référence #$id.";
+setcookie("notification", $n, time() + 600);
+header("Location: /library");
 exit;

@@ -175,6 +175,16 @@ img
     color: var(--theme-color);
 }
 
+.notification
+{
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    margin: 20px;
+    padding: 20px;
+}
+
 .movies-list,
 .series-list
 {
@@ -412,6 +422,13 @@ img
     {
         font-size: 24px;
         line-height: 28px;
+    }
+
+    .notification
+    {
+        margin-left: auto;
+        max-width: 420px;
+        width: fit-content;
     }
 
     .movie,

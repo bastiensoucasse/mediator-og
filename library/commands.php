@@ -13,15 +13,16 @@ $_PAGE = array(
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php include("../tools/get/head.php"); ?>
+<?php require("../tools/get/head.php"); ?>
 
 <body>
-    <?php include("../tools/get/header.php"); ?>
+    <?php require("../tools/get/header.php"); ?>
+    <?php require("../tools/notif.php"); ?>
     <main>
         <?php
         if (!is_connected())
         {
-            include("../tools/get/out.php");
+            require("../tools/get/out.php");
             exit;
         }
         ?>
@@ -47,7 +48,7 @@ $_PAGE = array(
                         $stmt->execute(array($c["CommandID"]));
                         $c = $stmt->fetch();
                     }
-                    include("../tools/get/command.php");
+                    require("../tools/get/command.php");
                 }
                 ?>
             </div>
