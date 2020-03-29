@@ -52,6 +52,30 @@ $img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
                 ?>
             </div>
         </div>
+        <div id="seen-movies" class="section">
+            <div class="section-name">Films visionnés</div>
+            <div class="section-content movies-list">
+                <?php
+                $stmt = $db->prepare("SELECT `Movies`.`MovieID`, `Movies`.`Title`, `Movies`.`ReleaseDate`, `Movies`.`PosterPath` FROM `SeenMovies` INNER JOIN `Movies` ON `SeenMovies`.`MovieID` = `Movies`.`MovieID` WHERE `SeenMovies`.`UserID` = ? ORDER BY `SeenMovies`.`Date` DESC");
+                $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+                $movies = $stmt->fetchAll();
+                if (!$movies) echo ("Vous n'avez visionné aucun film.");
+                else foreach ($movies as $m) include("../tools/get/movie.php");
+                ?>
+            </div>
+        </div>
+        <div id="seen-series" class="section">
+            <div class="section-name">Séries visionnées</div>
+            <div class="section-content series-list">
+                <?php
+                $stmt = $db->prepare("SELECT `Series`.`SeriesID`, `Series`.`Title`, `Series`.`StartDate`, `Series`.`PosterPath` FROM `SeenSeries` INNER JOIN `Series` ON `SeenSeries`.`SeriesID` = `Series`.`SeriesID` WHERE `SeenSeries`.`UserID` = ? ORDER BY `SeenSeries`.`Date` DESC");
+                $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+                $series = $stmt->fetchAll();
+                if (!$series) echo ("Vous n'avez visionné aucune série.");
+                else foreach ($series as $s) include("../tools/get/series.php");
+                ?>
+            </div>
+        </div>
         <div class="section">
             <div class="section-name">Commander</div>
             <div id="commands" class="commands">

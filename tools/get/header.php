@@ -6,7 +6,9 @@ else $active = "home";
 <header>
     <div id="header">
         <a class="logo" href="/" aria-label="Mediator">Mediator</a>
-        <?php if (!is_connected()) echo("<a class=\"nav-button\" href=\"/auth?source=" . urlencode($_SERVER["REQUEST_URI"]) . "\" aria-label=\"Se connecter\">Se connecter</a>"); ?>
+        <?php if (!is_connected()) : ?>
+            <a class="nav-button" href="/auth?source=<?= urlencode($_SERVER["REQUEST_URI"]) ?>" aria-label="Se connecter">Se connecter</a>
+        <?php endif; ?>
     </div>
     <div id="nav">
         <a class="nav-link<?= $active == "home" ? " active" : "" ?>" href="/" aria-label="Accueil">Accueil</a>
