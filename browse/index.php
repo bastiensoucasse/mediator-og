@@ -23,11 +23,8 @@ $_PAGE = array(
             <div class="section-name">Rechercher</div>
             <div class="section-content">
                 <div id="search-box" role="search">
-                    <input type="search" id="search-input" role="combobox" aria-autocomplete="list" aria-owns="suggestion-list" aria-expanded="true" placeholder="Recherche" />
-                    <div id="suggestion-list" role="list-box">
-                        <div class="search-suggestion">suggestion one</div>
-                        <div class="search-suggestion">suggestion two</div>
-                    </div>
+                    <input type="search" id="search-input" role="combobox" aria-autocomplete="list" aria-owns="suggestion-list" aria-expanded="false" placeholder="Recherche" />
+                    <div id="suggestion-list" role="list-box"></div>
                 </div>
             </div>
         </div>
