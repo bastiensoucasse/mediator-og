@@ -69,7 +69,7 @@ $_PAGE = array(
 
         searchInput.addEventListener("blur", event =>
         {
-            searchInput.setAttribute("aria-expanded", false);
+            setTimeout(function() { searchInput.setAttribute("aria-expanded", false); }, 70);
         });
     </script>
 </body>
