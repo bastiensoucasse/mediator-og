@@ -13,11 +13,11 @@ $_PAGE = array(
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php require("tools/get/head.php"); ?>
+<?php require("../tools/get/head.php"); ?>
 
 <body>
-    <?php require("tools/get/header.php"); ?>
-    <?php require("tools/notif.php"); ?>
+    <?php require("../tools/get/header.php"); ?>
+    <?php require("../tools/notif.php"); ?>
     <main>
         <div id="search" class="section">
             <div class="section-name">Rechercher</div>
