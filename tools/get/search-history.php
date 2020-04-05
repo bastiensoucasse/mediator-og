@@ -2,8 +2,10 @@
 require_once("../database.php");
 require_once("../init.php");
 
-$stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `User` = ? ORDER BY `Date` DESC LIMIT 8");
-$stmt->execute(array(htmlspecialchars($_SESSION["id"])));
+$userID = htmlspecialchars($_SESSION["id"]);
+
+$stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `UserID` = ? ORDER BY `Date` DESC LIMIT 8");
+$stmt->execute(array($userID));
 $searches = $stmt->fetchAll();
 
 if (!$searches) echo("Vous n'avez effectué aucune recherche.");
