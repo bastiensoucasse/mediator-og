@@ -52,14 +52,14 @@ $series = $stmt->fetchAll();
 
             <?php if ($movies): ?>
                 <div class="section-name">Films</div>
-                <div id="movies-list section-content">
+                <div id="section-content movies-list">
                     <?php foreach ($movies as $m) require("../tools/get/movie.php"); ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($series): ?>
                 <div class="section-name">Séries</div>
-                <div id="movies-list section-content">
+                <div id="section-content series-list">
                     <?php foreach ($series as $s) require("../tools/get/series.php"); ?>
                 </div>
             <?php endif; ?>
