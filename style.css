@@ -573,11 +573,11 @@ img
     padding: 8px 0px;
 }
 
-.suggestion
+.suggestion,
+.no-suggestion
 {
     align-items: center;
     color: var(--gray-color);
-    cursor: pointer;
     display: flex;
     font-size: 14px;
     font-weight: 500;
@@ -586,6 +586,11 @@ img
     overflow: hidden;
     padding: 0px 56px;
     user-select: none;
+}
+
+.suggestion
+{
+    cursor: pointer;
 }
 
 .suggestion:hover
