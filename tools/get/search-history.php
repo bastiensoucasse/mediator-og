@@ -8,7 +8,7 @@ $stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `UserID` 
 $stmt->execute(array($userID));
 $searches = $stmt->fetchAll();
 
-if (!$searches) echo("<div class=\"suggestion\">Vous n'avez effectué aucune recherche.</div>");
+if (!$searches) echo("<div class=\"no-suggestion\">Vous n'avez effectué aucune recherche.</div>");
 else foreach ($searches as $s)
 {
 ?>
