@@ -12,9 +12,9 @@ if (!$searches) echo("<div class=\"no-suggestion\">Vous n'avez effectué aucune 
 else foreach ($searches as $s)
 {
 ?>
-<div class="suggestion">
+<a class="suggestion" href="/browse/search?q=<?= $s["Query"] ?>">
     <?= $s["Query"] ?>
-</div>
+</a>
 <?php
 }
 ?>

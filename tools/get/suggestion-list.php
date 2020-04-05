@@ -1,18 +1,19 @@
 <?php
 require_once("../database.php");
+require_once("../init.php");
 
-$q = $_GET["q"];
+$query = htmlspecialchars($_GET["q"]);
 
-$stmt = $db->prepare("SELECT `MovieID`, `Title` FROM `Movies` WHERE LOWER(`Title`) LIKE ? ORDER BY `AddDate` DESC LIMIT 8");
-$stmt->execute(array("%$q%"));
-$movies = $stmt->fetchAll();
+$stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `Query` LIKE ? ORDER BY `Date` DESC LIMIT 8");
+$stmt->execute(array("%$query%"));
+$searches = $stmt->fetchAll();
 
-if (!$movies) echo("");
-else foreach ($movies as $m)
+if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne semble retourner aucun résultat.</div>");
+else foreach ($searches as $s)
 {
 ?>
-<a class="suggestion" href="/browse/movies?id=<?= $m["MovieID"] ?>">
-    <?= strtolower($m["Title"]) ?>
+<a class="suggestion" href="/browse/search?q=<?= $s["Query"] ?>">
+    <?= $s["Query"] ?>
 </a>
 <?php
 }
