@@ -7,7 +7,7 @@ $userID = htmlspecialchars($_SESSION["id"]);
 if (!$userID) $userID = 0;
 
 $stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` HAVING `UserID` IS NULL OR `UserID` = ? ORDER BY `UserID` DESC, COUNT(*) DESC, `Date` DESC LIMIT 12");
-$stmt->execute(array("%$query%"));
+$stmt->execute(array("%$query%", $userID));
 $searches = $stmt->fetchAll();
 
 if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne semble retourner aucun résultat.</div>");
