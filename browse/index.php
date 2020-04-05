@@ -8,6 +8,14 @@ $_PAGE = array(
     "LINK" => "https://" . $_SERVER["HTTP_HOST"] . "/browse",
     "DESCRIPTION" => "Parcourez la base de données cinéatographique Mediator."
 );
+
+$stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
+$stmt->execute();
+$movies = $stmt->fetchAll();
+
+$stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
+$stmt->execute();
+$series = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +34,18 @@ $_PAGE = array(
                     <input type="search" id="search-input" role="combobox" aria-autocomplete="list" aria-owns="suggestion-list" aria-expanded="false" placeholder="Recherche" />
                     <div id="suggestion-list" role="list-box"></div>
                 </div>
+            </div>
+        </div>
+        <div id="popular-movies">
+            <div class="section-name">Films populaires</div>
+            <div class="section-content movies-list">
+                <?php foreach ($movies as $m) require("../tools/get/movie.php"); ?>
+            </div>
+        </div>
+        <div id="popular-series">
+            <div class="section-name">Films populaires</div>
+            <div class="section-content series-list">
+                <?php foreach ($series as $s) require("../tools/get/series.php"); ?>
             </div>
         </div>
     </main>
