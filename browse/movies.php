@@ -27,9 +27,6 @@ $_PAGE = array(
     "DESCRIPTION" => "Découvrez le film " . $m["Title"] . " (" . substr($m["ReleaseDate"], 0, 4) . ")" . " sur Mediator."
 );
 
-$img_path_1x = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/";
-$img_path_2x = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/";
-
 if (is_connected())
 {
     $user_id = htmlspecialchars($_SESSION["id"]);

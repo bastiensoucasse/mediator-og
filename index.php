@@ -8,9 +8,6 @@ $_PAGE = array(
     "LINK" => "https://" . $_SERVER["HTTP_HOST"],
     "DESCRIPTION" => "La nouvelle base de données cinéatographique de Profuder."
 );
-
-$img_path_1x = "https://image.tmdb.org/t/p/w185_and_h278_bestv2/";
-$img_path_2x = "https://image.tmdb.org/t/p/w370_and_h556_bestv2/";
 ?>
 
 <!DOCTYPE html>
