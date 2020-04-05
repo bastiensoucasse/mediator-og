@@ -4,11 +4,11 @@ require_once("../init.php");
 
 $query = htmlspecialchars($_GET["q"]);
 
-$stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `Query` LIKE ? ORDER BY `Date` DESC LIMIT 8");
+$stmt = $db->prepare("SELECT `SearchID`, `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` ORDER BY COUNT(*) DESC LIMIT 8");
 $stmt->execute(array("%$query%"));
 $searches = $stmt->fetchAll();
 
-if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne semble retourner aucun résultat.</div>");
+if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne retourne aucun résultat.</div>");
 else foreach ($searches as $s)
 {
 ?>
