@@ -37,12 +37,6 @@ $_PAGE = array(
         {
             q = searchInput.value.trim().toLowerCase();
 
-            if (q == "")
-            {
-                console.log("TODO: Load search history.");
-                return;
-            }
-
             if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
             else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 
@@ -52,7 +46,9 @@ $_PAGE = array(
                     suggestionList.innerHTML = this.responseText;
             }
 
-            xmlhttp.open("GET","../tools/get/suggestion-list?q=" + q, true);
+            if (q == "") path = "../tools/get/search-history";
+            else path = "../tools/get/suggestion-list?q=" + q;
+            xmlhttp.open("GET", path, true);
             xmlhttp.send();
         };
 
