@@ -6,7 +6,7 @@ $query = htmlspecialchars($_GET["q"]);
 $userID = htmlspecialchars($_SESSION["id"]);
 if (!$userID) $userID = 0;
 
-$stmt = $db->prepare("SELECT `SearchID`, `UserID`, `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` HAVING `UserID` IS NULL OR `UserID` = ? ORDER BY `UserID` DESC, COUNT(*) DESC, `Date` DESC LIMIT 12");
+$stmt = $db->prepare("SELECT `UserID`, `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` HAVING `UserID` IS NULL OR `UserID` = ? ORDER BY `UserID` DESC, COUNT(*) DESC, `Date` DESC LIMIT 12");
 $stmt->execute(array("%$query%", $userID));
 $searches = $stmt->fetchAll();
 
