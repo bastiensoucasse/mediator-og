@@ -36,13 +36,13 @@ $series = $stmt->fetchAll();
                 </div>
             </div>
         </div>
-        <div id="popular-movies">
+        <div id="popular-movies" class="section">
             <div class="section-name">Films populaires</div>
             <div class="section-content movies-list">
                 <?php foreach ($movies as $m) require("../tools/get/movie.php"); ?>
             </div>
         </div>
-        <div id="popular-series">
+        <div id="popular-series" class="section">
             <div class="section-name">Films populaires</div>
             <div class="section-content series-list">
                 <?php foreach ($series as $s) require("../tools/get/series.php"); ?>
