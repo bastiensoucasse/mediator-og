@@ -4,9 +4,9 @@ require_once("../tools/init.php");
 require_once("../tools/utilities.php");
 
 $_PAGE = array(
-    "TITLE" => "Mediator",
-    "LINK" => "https://" . $_SERVER["HTTP_HOST"],
-    "DESCRIPTION" => "La nouvelle base de données cinéatographique de Profuder."
+    "TITLE" => "Parcourir - Mediator",
+    "LINK" => "https://" . $_SERVER["HTTP_HOST"] . "/browse",
+    "DESCRIPTION" => "Parcourez la base de données cinéatographique Mediator."
 );
 ?>
 
