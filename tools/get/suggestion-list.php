@@ -3,11 +3,9 @@ require_once("../database.php");
 require_once("../init.php");
 
 $query = htmlspecialchars($_GET["q"]);
-$userID = htmlspecialchars($_SESSION["id"]);
-if (!$userID) $userID = 0;
 
-$stmt = $db->prepare("SELECT `UserID`, `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` HAVING `UserID` IS NULL OR `UserID` = ? ORDER BY `UserID` DESC, COUNT(*) DESC, `Date` DESC LIMIT 12");
-$stmt->execute(array("%$query%", $userID));
+$stmt = $db->prepare("SELECT `Query` FROM `Searches` WHERE `Query` LIKE ? GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
+$stmt->execute(array("%$query%"));
 $searches = $stmt->fetchAll();
 
 if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne semble retourner aucun résultat.</div>");

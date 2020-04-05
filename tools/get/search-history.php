@@ -7,7 +7,7 @@ $userID = htmlspecialchars($_SESSION["id"]);
 $searches = null;
 if ($userID)
 {
-    $stmt = $db->prepare("SELECT DISTINCT `Query` FROM `Searches` WHERE `UserID` = ? ORDER BY `Date` DESC LIMIT 12");
+    $stmt = $db->prepare("SELECT DISTINCT `Query` FROM `Searches` WHERE `UserID` = ? ORDER BY `Date` DESC LIMIT 8");
     $stmt->execute(array($userID));
     $searches = $stmt->fetchAll();
 }
