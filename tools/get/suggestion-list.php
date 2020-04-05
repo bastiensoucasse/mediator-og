@@ -14,7 +14,7 @@ if (!$searches) echo("<div class=\"no-suggestion\">Votre recherche ne semble ret
 else foreach ($searches as $s)
 {
 ?>
-<a class="suggestion" href="/browse/search?q=<?= $s["Query"] ?>">
+<a class="suggestion" href="/browse/search?q=<?= urlencode($s["Query"]) ?>">
     <?= $s["Query"] ?>
 </a>
 <?php
