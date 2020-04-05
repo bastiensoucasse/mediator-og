@@ -9,11 +9,11 @@ $_PAGE = array(
     "DESCRIPTION" => "Parcourez la base de données cinéatographique Mediator."
 );
 
-$stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
+$stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `AddDate` IS NOT NULL AND `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
 $stmt->execute();
 $movies = $stmt->fetchAll();
 
-$stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
+$stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` `M` INNER JOIN `Searches` `S` ON `S`.`Query` = LOWER(`M`.`Title`) WHERE `AddDate` IS NOT NULL AND `Query` IN (SELECT `Query` FROM `Searches` WHERE `UserID` IS NULL) GROUP BY `Query` ORDER BY COUNT(*) DESC, `Date` DESC LIMIT 8");
 $stmt->execute();
 $series = $stmt->fetchAll();
 ?>

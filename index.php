@@ -32,7 +32,7 @@ $_PAGE = array(
                 <?php
                 if (is_connected())
                 {
-                    $stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` WHERE `AddDate` IS NOT NULL AND `MovieID` NOT IN( SELECT `MovieID` FROM `SeenMovies` WHERE `UserID` = ? ) ORDER BY `AddDate` DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` WHERE `AddDate` IS NOT NULL AND `MovieID` NOT IN (SELECT `MovieID` FROM `SeenMovies` WHERE `UserID` = ?) ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 }
                 else
@@ -52,7 +52,7 @@ $_PAGE = array(
                 <?php
                 if (is_connected())
                 {
-                    $stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` WHERE `AddDate` IS NOT NULL AND `SeriesID` NOT IN( SELECT `SeriesID` FROM `SeenSeries` WHERE `UserID` = ? ) ORDER BY `AddDate` DESC LIMIT 8");
+                    $stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` WHERE `AddDate` IS NOT NULL AND `SeriesID` NOT IN (SELECT `SeriesID` FROM `SeenSeries` WHERE `UserID` = ?) ORDER BY `AddDate` DESC LIMIT 8");
                     $stmt->execute(array(htmlspecialchars($_SESSION["id"])));
                 }
                 else
