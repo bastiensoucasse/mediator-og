@@ -1,1 +1,5 @@
 .vscode/
+phpmyadmin/
+info.php
+update-movies.php
+update-series.php
