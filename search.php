@@ -1,7 +1,7 @@
 <?php
-require_once("../tools/database.php");
-require_once("../tools/init.php");
-require_once("../tools/utilities.php");
+require_once("tools/database.php");
+require_once("tools/init.php");
+require_once("tools/utilities.php");
 
 $query = htmlspecialchars($_GET["q"]);
 $userID = htmlspecialchars($_SESSION["id"]);
@@ -36,11 +36,11 @@ $series = $stmt->fetchAll();
 <!DOCTYPE html>
 <html lang="fr-fr">
 
-<?php require("../tools/get/head.php"); ?>
+<?php require("tools/get/head.php"); ?>
 
 <body>
-    <?php require("../tools/get/header.php"); ?>
-    <?php require("../tools/notif.php"); ?>
+    <?php require("tools/get/header.php"); ?>
+    <?php require("tools/notif.php"); ?>
     <main>
         <div id="search" class="section">
             <div class="section-name">Rechercher</div>
@@ -62,14 +62,14 @@ $series = $stmt->fetchAll();
             <?php if ($movies): ?>
                 <div class="section-name">Films</div>
                 <div class="section-content movies-list">
-                    <?php foreach ($movies as $m) require("../tools/get/movie.php"); ?>
+                    <?php foreach ($movies as $m) require("tools/get/movie.php"); ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($series): ?>
                 <div class="section-name">Séries</div>
                 <div class="section-content series-list">
-                    <?php foreach ($series as $s) require("../tools/get/series.php"); ?>
+                    <?php foreach ($series as $s) require("tools/get/series.php"); ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -91,8 +91,8 @@ $series = $stmt->fetchAll();
                     suggestionList.innerHTML = this.responseText;
             }
 
-            if (q == "") path = "../tools/get/search-history";
-            else path = "../tools/get/suggestion-list?q=" + q;
+            if (q == "") path = "tools/get/search-history";
+            else path = "tools/get/suggestion-list?q=" + q;
             xmlhttp.open("GET", path, true);
             xmlhttp.send();
         };

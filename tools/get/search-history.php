@@ -16,7 +16,7 @@ if (!$userID || !$searches) echo("<div class=\"no-suggestion\">Vous n'avez effec
 else foreach ($searches as $s)
 {
 ?>
-<a class="suggestion" href="/browse/search?q=<?= urlencode($s["Query"]) ?>">
+<a class="suggestion" href="/search?q=<?= urlencode($s["Query"]) ?>">
     <?= $s["Query"] ?>
 </a>
 <?php

@@ -43,7 +43,7 @@ $series = $stmt->fetchAll();
             </div>
         </div>
         <div id="popular-series" class="section">
-            <div class="section-name">Films populaires</div>
+            <div class="section-name">Séries populaires</div>
             <div class="section-content series-list">
                 <?php foreach ($series as $s) require("../tools/get/series.php"); ?>
             </div>
