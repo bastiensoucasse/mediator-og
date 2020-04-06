@@ -24,12 +24,12 @@ if ($userID)
     $stmt->execute(array($userID, $query));
 }
 
-$stmt = $db->prepare("SELECT `MovieID`, `Title`, `ReleaseDate`, `PosterPath` FROM `Movies` WHERE `AddDate` IS NOT NULL AND `Title` LIKE ? ORDER BY `AddDate` DESC LIMIT 8");
-$stmt->execute(array("%$query%"));
+$stmt = $db->prepare("SELECT M.`MovieID`, M.`Title`, M.`ReleaseDate`, M.`PosterPath` FROM `Credits` C INNER JOIN `Movies` M ON M.`MovieID` = C.`ContentID` INNER JOIN `Persons` P ON P.`PersonID` = C.`PersonID` WHERE C.`Type` = \"movie\" AND M.`AddDate` IS NOT NULL AND (M.`Title` LIKE :q OR P.`Name` LIKE :q) GROUP BY M.`MovieID` ORDER BY M.`AddDate` DESC LIMIT 8");
+$stmt->execute(array("q" => "%$query%"));
 $movies = $stmt->fetchAll();
 
-$stmt = $db->prepare("SELECT `SeriesID`, `Title`, `StartDate`, `PosterPath` FROM `Series` WHERE `AddDate` IS NOT NULL AND `Title` LIKE ? ORDER BY `AddDate` DESC LIMIT 8");
-$stmt->execute(array("%$query%"));
+$stmt = $db->prepare("SELECT S.`SeriesID`, S.`Title`, S.`StartDate`, S.`PosterPath` FROM `Credits` C INNER JOIN `Series` S ON S.`SeriesID` = C.`ContentID` INNER JOIN `Persons` P ON P.`PersonID` = C.`PersonID` WHERE C.`Type` = \"series\" AND S.`AddDate` IS NOT NULL AND (S.`Title` LIKE :q OR P.`Name` LIKE :q) GROUP BY S.`SeriesID` ORDER BY S.`AddDate` DESC LIMIT 8");
+$stmt->execute(array("q" => "%$query%"));
 $series = $stmt->fetchAll();
 ?>
 
