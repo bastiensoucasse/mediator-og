@@ -3,6 +3,7 @@ if (substr($_SERVER["REQUEST_URI"], 1, 7) == "library") $active = "library";
 else if (substr($_SERVER["REQUEST_URI"], 1, 6) == "browse") $active = "browse";
 else $active = "home";
 ?>
+
 <header>
     <div id="header">
         <a class="logo" href="/" aria-label="Mediator">Mediator</a>
