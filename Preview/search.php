@@ -1,9 +1,11 @@
 <?php
-    $_PAGE = [
-        "URI" => "search",
-        "TITLE" => "Rechercher",
-        "DESCRIPTION" => "Parcourez les titres de Mediator."
-    ];
+require_once "tools/init.php";
+
+$_PAGE = [
+    "URI" => "search",
+    "TITLE" => "Rechercher",
+    "DESCRIPTION" => "Parcourez les titres de Mediator."
+];
 ?>
 
 <!doctype html>
@@ -13,7 +15,7 @@
     <body>
         <?php require "include/header.php" ?>
 
-        <main>
+        <main class="main">
             <!-- TODO -->
         </main>
         

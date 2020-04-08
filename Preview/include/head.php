@@ -20,5 +20,7 @@ define("DESCRIPTION", $_PAGE["DESCRIPTION"]);
     <meta name="theme-color" content="#111111" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
+    <script src="scripts/lazysizes.min.js" async></script>
+    
     <title><?= TITLE ?></title>
 </head>
