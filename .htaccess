@@ -1,7 +1,9 @@
 RewriteEngine On
 
-RewriteCond %{HTTPS} !on
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^series/(.*)$ series.php?id=$1 [NC,L]
+RewriteRule ^movies/(.*)$ movies.php?id=$1 [NC,L]
 
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+Redirect 301 /index.php /home
