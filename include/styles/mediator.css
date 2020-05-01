@@ -66,7 +66,7 @@ h4 {
 }
 
 p {
-    color: #cccccc;
+    color: #aaaaaa;
     margin: 24px;
 }
 
@@ -116,9 +116,9 @@ a {
 
 .button {
     background-color: #14ab95;
-    border: 1px solid transparent;
+    border: none;
     border-radius: 8px;
-    color: #ffffff;
+    color: #202124;
     cursor: pointer;
     display: block;
     font: inherit;
@@ -159,21 +159,32 @@ input.button {
     display: grid;
     grid-template-columns: 100fr 240px;
     left: 0px;
-    position: fixed;
+    position: absolute;
     right: 0px;
     top: 0px;
     width: 100%;
     z-index: 2;
 }
+@media (max-width: 336px) {
+    #header {
+        grid-template-columns: 30fr 70fr;
+    }
+}
 
-#logo-banner, #nav-banner {
+#left-header, #right-header {
+    overflow: hidden;
+}
+
+#logo-banner {
     display: inline-block;
     padding: 12px 24px;
     vertical-align: middle;
 }
 
-#logo-banner {
-    padding-right: 12px;
+@media (min-width: 900px) {
+    #logo-banner {
+        padding-right: 12px;
+    }
 }
 
 #logo-banner .logo {
@@ -182,22 +193,43 @@ input.button {
 }
 
 #nav-banner {
-    padding-left: 12px;
+    background-color: #2d2e30;
+    border-top: 1px solid #000000;
+    display: inline-block;
+    bottom: 0px;
+    left: 0px;
+    padding: 0px 24px;
+    position: fixed;
+    right: 0px;
+    vertical-align: middle;
+    width: 100%;
+}
+@media (min-width: 900px) {
+    #nav-banner {
+        background-color: transparent;
+        border: none;
+        padding: 12px 24px;
+        padding-left: 12px;
+        position: relative;
+        width: auto;
+    }
 }
 
 #nav {
     display: grid;
-    grid-gap: 24px;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, 100fr);
+}
+@media (min-width: 900px) {
+    #nav {
+        grid-gap: 24px;
+        grid-template-columns: repeat(3, auto);
+    }
 }
 
 .nav-el {
-    border-radius: 8px;
-    color: #cccccc;
+    color: #aaaaaa;
     display: block;
-    font-weight: 500;
-    line-height: 24px;
-    padding: 12px;
+    padding: 6px;
 }
 .nav-el:hover {
     background-color: #ffffff0f;
@@ -205,9 +237,46 @@ input.button {
 .nav-el.active {
     color: #ffffff;
 }
+@media (min-width: 900px) {
+    .nav-el {
+        border-radius: 8px;
+        padding: 12px;
+    }
+}
 
 .nav-el-icon {
+    display: block;
     fill: currentColor;
+    height: 32px;
+    margin: auto;
+    padding: 6px;
+    width: 32px;
+}
+@media (min-width: 900px) {
+    .nav-el-icon {
+        display: none;
+    }
+}
+
+.nav-el-icon svg {
+    height: 100%;
+    width: 100%;
+}
+
+.nav-el-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    margin: auto;
+    text-align: center;
+}
+@media (min-width: 900px) {
+    .nav-el-label {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+    }
 }
 
 #account-overview:hover {
@@ -225,6 +294,7 @@ input.button {
     cursor: pointer;
     padding: 12px 24px;
     text-align: right;
+    white-space: nowrap;
 }
 
 #account-name, #account-avatar {
@@ -236,7 +306,10 @@ input.button {
     font-weight: 500;
     line-height: 24px;
     margin-right: 12px;
+    max-width: calc(100% - 64px);
     overflow: hidden;
+    padding: 12px 0px;
+    text-overflow: ellipsis;
     white-space: nowrap;
 }
 
@@ -302,7 +375,6 @@ input.button {
 
 #footer {
     text-align: center;
-    z-index: 2;
 }
 
 .license {
@@ -326,9 +398,14 @@ input.button {
 
 /* Main */
 
-#main:not(.fullscreen) {
-    min-height: calc(100% - 72px);
-}
-#main.fullscreen {
+#main {
     min-height: 100%;
+    overflow-y: auto;
+    padding-top: 72px;
+    padding-bottom: 57px;
+}
+@media (min-width: 900px) {
+    #main {
+        padding-bottom: 0px;
+    }
 }

@@ -15,10 +15,8 @@ $page = array(
     <body>
         <?php require "include/header.php"; ?>
 
-        <main id="main">
+        <main id="main" role="main">
             <!-- TODO -->
         </main>
-
-        <?php require "include/footer.php"; ?>
     </body>
 </html>

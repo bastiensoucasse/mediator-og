@@ -1,5 +1,6 @@
 RewriteEngine On
 
+RewriteRule ^people/(.*)$ people.php?id=$1 [NC,L]
 RewriteRule ^series/(.*)$ series.php?id=$1 [NC,L]
 RewriteRule ^movies/(.*)$ movies.php?id=$1 [NC,L]
 

@@ -144,4 +144,11 @@ function signin($email, $password, $first_name, $last_name) {
 }
 
 if (!is_connected() && isset($_COOKIE["token"])) connect(htmlspecialchars($_COOKIE["token"]));
-if (is_connected()) $user = get_user_from_token(htmlspecialchars($_SESSION["token"]));
+
+if (is_connected()) {
+    $user = get_user_from_token(htmlspecialchars($_SESSION["token"]));
+    if (!$user || !$user->first_name || !$user->last_name || !$user->email || !$user->avatar) {
+        $user = null;
+        logout();
+    }
+}
