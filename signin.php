@@ -38,7 +38,7 @@ $page = array(
     <?php require "include/head.php"; ?>
 
     <body>
-        <main id="main" role="main" class="fullscreen">
+        <main id="main" class="fullscreen">
             <form id="signin" action="signin" method="post">
                 <a class="logo" href="home" aria-label="Mediator">
                     <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>

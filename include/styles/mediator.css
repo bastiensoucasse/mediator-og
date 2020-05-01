@@ -43,6 +43,7 @@ h1 {
     font-weight: 500;
     line-height: 40px;
     margin: 24px;
+    margin-bottom: 0px;
 }
 
 h2 {
@@ -408,4 +409,37 @@ input.button {
     #main {
         padding-bottom: 0px;
     }
+}
+
+/* Cards */
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(2, 100fr);
+    padding: 12px;
+}
+@media (min-width: 900px) {
+    .card-list {
+        grid-template-columns: repeat(3, 100fr);
+    }
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px;
+    display: block;
+    margin: 12px;
+    overflow: hidden;
+    transition-property: box-shadow, transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+}
+.card:hover, .card:focus, .card:focus-within {
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 40px 58px -16px, rgba(0, 0, 0, 0.72) 0px 30px 22px -10px;
+    transform: scale(1.05);
+}
+
+.card img {
+    display: block;
+    width: 100%;
 }
