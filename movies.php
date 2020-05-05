@@ -1,24 +1,14 @@
 <?php
 require_once "include/utilities.php";
-
-$movie = get_movie(htmlspecialchars($_GET["id"]));
+$movie = $db->get_movie(htmlspecialchars($_GET["id"]));
 if (!$movie) relocate("home");
-$movie = (object) $movie;
-
-$page = array(
-    "id" => "movie/" . $movie->id,
-    "name" => $movie->title,
-    "description" => "Découvrez le film " . $movie->title . " sur Mediator."
-);
+$page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . $movie->title . " sur Mediator.");
 ?>
-
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>
-
     <body>
         <?php require "include/header.php"; ?>
-
         <main id="main">
             <div id="presentation" class="section movie-presentation">
                 <div class="movie-poster">
@@ -33,17 +23,17 @@ $page = array(
                             <div class="movie-grade-design"><?= get_grade($movie->grade) ?></div>
                             <div class="movie-grade-help">Note des spectateurs</div>
                         </div>
-                        <?php if (is_connected()) { ?>
+                        <?php if ($db->is_connected()) { ?>
                             <div class="movie-tools">
-                                <?php if (is_liked($movie->id, $user->id)) { ?>
-                                    <div class="movie-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php include "include/icons/heart.svg"; ?></div>
+                                <?php if ($db->is_liked($movie->id, $user->id)) { ?>
+                                    <div class="movie-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php require "include/icons/heart.svg"; ?></div>
                                 <?php } else { ?>
-                                    <div class="movie-tool" aria-label="Mettre un like" title="Mettre un like"><?php include "include/icons/heart.svg"; ?></div>
+                                    <div class="movie-tool" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></div>
                                 <?php } ?>
-                                <?php if (is_watchlisted($movie->id, $user->id)) { ?>
-                                    <div class="movie-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php include "include/icons/done.svg"; ?></div>
+                                <?php if ($db->is_watchlisted($movie->id, $user->id)) { ?>
+                                    <div class="movie-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php require "include/icons/done.svg"; ?></div>
                                 <?php } else { ?>
-                                    <div class="movie-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php include "include/icons/plus.svg"; ?></div>
+                                    <div class="movie-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php require "include/icons/plus.svg"; ?></div>
                                 <?php } ?>
                             </div>
                         <?php } ?>

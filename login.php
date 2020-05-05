@@ -1,36 +1,14 @@
 <?php
 require_once "include/utilities.php";
-
 $src = get_source();
-
-if (isset($_POST["email"]) && isset($_POST["password"])) $step = 1;
-else $step = 0;
-
-if ($step == 1) {
+if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = strtolower(htmlspecialchars($_POST["email"]));
     $password = htmlspecialchars($_POST["password"]);
-
-    if (!$email || !$password) {
-        header("Location: /login?src=$src");
-        exit;
-    }
-
-    if (!login($email, $password)) {
-        header("Location: /login?src=$src");
-        exit;
-    }
-
-    header("Location: /$src");
-    exit;
+    if (!$email || !$password || !$db->login($email, $password)) relocate("login?src=" . $src);
+    relocate($src);
 }
-
-$page = array(
-    "id" => "login",
-    "name" => "Se connecter",
-    "description" => "Connectez-vous à votre compte Mediator."
-);
+$page = new Page("login", "Se connecter", "Connectez-vous à votre compte Mediator.");
 ?>
-
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>

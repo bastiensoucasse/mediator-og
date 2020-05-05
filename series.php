@@ -1,24 +1,14 @@
 <?php
 require_once "include/utilities.php";
-
-$series = get_series(htmlspecialchars($_GET["id"]));
+$series = $db->get_series(htmlspecialchars($_GET["id"]));
 if (!$series) relocate("home");
-$series = (object) $series;
-
-$page = array(
-    "id" => "series/" . $series->id,
-    "name" => $series->title,
-    "description" => "Découvrez la série " . $series->title . " sur Mediator."
-);
+$page = new Page("series/" . $series->id, $series->title, "Découvrez la série " . $series->title . " sur Mediator.");
 ?>
-
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>
-
     <body>
         <?php require "include/header.php"; ?>
-
         <main id="main">
             <div id="presentation" class="section series-presentation">
                 <div class="series-poster">
@@ -33,17 +23,17 @@ $page = array(
                             <div class="series-grade-design"><?= get_grade($series->grade) ?></div>
                             <div class="series-grade-help">Note des spectateurs</div>
                         </div>
-                        <?php if (is_connected()) { ?>
+                        <?php if ($db->is_connected()) { ?>
                             <div class="series-tools">
-                                <?php if (is_liked($series->id, $user->id)) { ?>
-                                    <div class="series-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php include "include/icons/heart.svg"; ?></div>
+                                <?php if ($db->is_liked($series->id, $user->id)) { ?>
+                                    <div class="series-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php require "include/icons/heart.svg"; ?></div>
                                 <?php } else { ?>
-                                    <div class="series-tool" aria-label="Mettre un like" title="Mettre un like"><?php include "include/icons/heart.svg"; ?></div>
+                                    <div class="series-tool" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></div>
                                 <?php } ?>
-                                <?php if (is_watchlisted($series->id, $user->id)) { ?>
-                                    <div class="series-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php include "include/icons/done.svg"; ?></div>
+                                <?php if ($db->is_watchlisted($series->id, $user->id)) { ?>
+                                    <div class="series-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php require "include/icons/done.svg"; ?></div>
                                 <?php } else { ?>
-                                    <div class="series-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php include "include/icons/plus.svg"; ?></div>
+                                    <div class="series-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php require "include/icons/plus.svg"; ?></div>
                                 <?php } ?>
                             </div>
                         <?php } ?>

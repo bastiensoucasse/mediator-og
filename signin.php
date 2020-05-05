@@ -1,38 +1,16 @@
 <?php
 require_once "include/utilities.php";
-
 $src = get_source();
-
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["first_name"]) && isset($_POST["last_name"])) $step = 1;
-else $step = 0;
-
-if ($step == 1) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["first_name"]) && isset($_POST["last_name"])) {
     $email = strtolower(htmlspecialchars($_POST["email"]));
     $password = htmlspecialchars($_POST["password"]);
     $first_name = ucwords(htmlspecialchars($_POST["first_name"]));
     $last_name = ucwords(htmlspecialchars($_POST["last_name"]));
-
-    if (!$email || !$password || !$first_name || !$last_name) {
-        header("Location: /signin?src=$src");
-        exit;
-    }
-
-    if (!signin($email, $password, $first_name, $last_name)) {
-        header("Location: /signin?src=$src");
-        exit;
-    }
-
-    header("Location: /$src");
-    exit;
+    if (!$email || !$password || !$first_name || !$last_name || !$db->signin($email, $password, $first_name, $last_name)) relocate("signin?src=" . $src);
+    relocate($src);
 }
-
-$page = array(
-    "id" => "signin",
-    "name" => "S'inscrire",
-    "description" => "Inscrivez-vous sur Mediator pour personnaliser votre expérience et accéder à encore plus de fonctionnalités."
-);
+$page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour personnaliser votre expérience et accéder à encore plus de fonctionnalités.");
 ?>
-
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>

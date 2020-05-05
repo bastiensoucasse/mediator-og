@@ -1,12 +1,11 @@
 <?php
 define("PROTOCOL", isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on" ? "https" : "http");
 define("BASE", PROTOCOL . "://" . $_SERVER["HTTP_HOST"] . "/");
-define("ID", $page["id"]);
+define("ID", $page->id);
 if (ID == "home") define("TITLE", "Mediator");
-else define ("TITLE", $page["name"] . " - " . "Mediator");
-define("DESCRIPTION", $page["description"]);
+else define ("TITLE", $page->name . " - " . "Mediator");
+define("DESCRIPTION", $page->description);
 ?>
-
 <head>
     <base href="<?= BASE ?>" />
     <link rel="canonical" href="<?= BASE . ID ?>" />
