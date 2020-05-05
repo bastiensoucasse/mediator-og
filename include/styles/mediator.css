@@ -35,40 +35,62 @@ body {
 h1, h2, h3, h4, h5, h6, p {
     display: block;
     font: inherit;
-    margin: 0px;
 }
 
 h1 {
+    color: #ffffff;
     font-size: 32px;
     font-weight: 500;
     line-height: 40px;
-    margin: 24px;
-    margin-bottom: 0px;
+    margin: 12px;
 }
 
 h2 {
+    color: #ffffff;
     font-size: 28px;
     font-weight: 500;
     line-height: 36px;
-    margin: 24px;
+    margin: 12px;
 }
 
 h3 {
+    color: #ffffff;
     font-size: 24px;
     font-weight: 500;
     line-height: 32px;
-    margin: 24px;
+    margin: 12px;
 }
 
 h4 {
+    color: #ffffff;
     font-size: 20px;
     font-weight: 500;
     line-height: 28px;
+    margin: 12px;
+}
+
+h5 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 12px;
+}
+
+h6 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 12px;
 }
 
 p {
     color: #aaaaaa;
-    margin: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 12px;
 }
 
 a {
@@ -101,6 +123,7 @@ a {
 
 .section {
     margin: 0px auto;
+    padding: 12px;
     max-width: 1200px;
 }
 
@@ -426,7 +449,7 @@ input.button {
 
 .card {
     border-radius: 12px;
-    box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px;
+    box-shadow: #000000b0 0px 26px 30px -10px, #000000ba 0px 16px 10px -10px;
     display: block;
     margin: 12px;
     overflow: hidden;
@@ -435,11 +458,130 @@ input.button {
     transition-timing-function: ease-out;
 }
 .card:hover, .card:focus, .card:focus-within {
-    box-shadow: rgba(0, 0, 0, 0.8) 0px 40px 58px -16px, rgba(0, 0, 0, 0.72) 0px 30px 22px -10px;
+    box-shadow: #000000cc 0px 40px 58px -16px, #000000b8 0px 30px 22px -10px;
     transform: scale(1.05);
 }
 
 .card img {
     display: block;
+    width: 100%;
+}
+
+/* Movies and series */
+
+.movie-presentation, .series-presentation {
+    padding: 12px;
+}
+@media (min-width: 900px) {
+    .movie-presentation, .series-presentation {
+        display: grid;
+        grid-template-columns: 324px 100fr;
+    }
+}
+
+.movie-poster, .series-poster {
+    border-radius: 12px;
+    box-shadow: #000000b0 0px 26px 30px -10px, #000000ba 0px 16px 10px -10px;
+    margin: 12px auto 24px auto;
+    overflow: hidden;
+    max-width: 276px;
+}
+@media (min-width: 900px) {
+    .movie-poster, .series-poster {
+        margin: 12px;
+        max-width: 300px;
+    }
+}
+
+.movie-poster img, .series-poster img {
+    display: block;
+    width: 100%;
+}
+
+.movie-title, .series-title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
+    margin: 12px;
+}
+
+.movie-info, .series-info {
+    color: #aaaaaa;
+    margin: 12px;
+}
+
+.movie-overview, .series-overview {
+    color: #aaaaaa;
+    margin: 12px;
+}
+
+.movie-features, .series-features {
+    display: grid;
+    grid-gap: 12px;
+    margin: 12px;
+}
+@media (min-width: 360px) {
+    .movie-features, .series-features {
+        grid-template-columns: repeat(2, min-content);
+    }
+}
+
+.movie-grade, .series-grade {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: 60px 90px;
+    height: 60px;
+}
+
+.movie-grade-design, .series-grade-design {
+    align-items: center;
+    border-radius: 30px;
+    border: 3px solid #14ab95;
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 30px;
+}
+
+.movie-grade-help, .series-grade-help {
+    align-items: center;
+    color: #aaaaaa;
+    display: flex;
+    justify-content: center;
+}
+
+.movie-tools, .series-tools {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(2, 60px);
+    height: 60px;
+}
+
+.movie-tool, .series-tool {
+    background-color: transparent;
+    border-radius: 30px;
+    border: 3px solid #ffffff;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    transition-property: background-color color;
+    transition-duration: 120ms;
+    transition-timing-function: ease-out;
+}
+.movie-tool.active, .series-tool.active {
+    color: #14ab95;
+}
+.movie-tool:hover, .series-tool:hover {
+    background-color: #ffffff;
+}
+.movie-tool:hover:not(.active), .series-tool:hover:not(.active) {
+    color: #202124;
+}
+
+.movie-tool svg, .series-tool svg {
+    display: block;
+    fill: currentColor;
+    height: 100%;
     width: 100%;
 }

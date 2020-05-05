@@ -1,0 +1,73 @@
+<?php
+require_once "include/utilities.php";
+
+$series = get_series(htmlspecialchars($_GET["id"]));
+if (!$series) relocate("home");
+$series = (object) $series;
+
+$page = array(
+    "id" => "series/" . $series->id,
+    "name" => $series->title,
+    "description" => "Découvrez la série " . $series->title . " sur Mediator."
+);
+?>
+
+<!doctype html>
+<html lang="fr-fr">
+    <?php require "include/head.php"; ?>
+
+    <body>
+        <?php require "include/header.php"; ?>
+
+        <main id="main">
+            <div id="presentation" class="section series-presentation">
+                <div class="series-poster">
+                    <img alt src="<?= get_poster($series->poster) ?>" />
+                </div>
+                <div class="series-description">
+                    <h1 class="series-title"><?= $series->title ?></h1>
+                    <p class="series-info"><?= get_year($series->start_date) . " • " . get_seasons($series->seasons) ?></p>
+                    <p class="series-overview"><?= $series->overview ?></p>
+                    <div class="series-features">
+                        <div class="series-grade">
+                            <div class="series-grade-design"><?= get_grade($series->grade) ?></div>
+                            <div class="series-grade-help">Note des spectateurs</div>
+                        </div>
+                        <?php if (is_connected()) { ?>
+                            <div class="series-tools">
+                                <?php if (is_liked($series->id, $user->id)) { ?>
+                                    <div class="series-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php include "include/icons/heart.svg"; ?></div>
+                                <?php } else { ?>
+                                    <div class="series-tool" aria-label="Mettre un like" title="Mettre un like"><?php include "include/icons/heart.svg"; ?></div>
+                                <?php } ?>
+                                <?php if (is_watchlisted($series->id, $user->id)) { ?>
+                                    <div class="series-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php include "include/icons/done.svg"; ?></div>
+                                <?php } else { ?>
+                                    <div class="series-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php include "include/icons/plus.svg"; ?></div>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <div id="stars" class="section">
+                <h2 class="section-name">Tête d'affiche</h2>
+                <div class="section-content">
+                    <p>Cette fonctionnalité est en développement</p>
+                </div>
+            </div>
+            <div id="media" class="section">
+                <h2 class="section-name">Médias</h2>
+                <div class="section-content">
+                    <p>Cette fonctionnalité est en développement</p>
+                </div>
+            </div>
+            <div id="recommendations" class="section">
+                <h2 class="section-name">Recommandations</h2>
+                <div class="section-content">
+                    <p>Cette fonctionnalité est en développement</p>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

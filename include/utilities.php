@@ -4,6 +4,14 @@ ini_set("display_startup_errors", "1");
 session_start();
 
 /**
+ * Relocate to another page from its id.
+ */
+function relocate($id) {
+    header("Location: /$id");
+    exit;
+}
+
+/**
  * Get the source page of the current one.
  */
 function get_source() {
@@ -53,6 +61,61 @@ function post_one_data($sql, $args = array()) {
     $db = get_database();
     $query = $db->prepare($sql);
     $query->execute($args);
+}
+
+/**
+ * Get a movie from its id.
+ */
+function get_movie($id) {
+    if (!$id) return null;
+    return get_one_data("SELECT * FROM `Movies` `MOV` WHERE `MOV`.`id` = ?", array($id));
+}
+
+/**
+ * Get a series from its id.
+ */
+function get_series($id) {
+    if (!$id) return null;
+    return get_one_data("SELECT * FROM `Series` `SER` WHERE `SER`.`id` = ?", array($id));
+}
+
+/**
+ * Get the poster string from its raw data.
+ */
+function get_poster($poster) {
+    return "https://image.tmdb.org/t/p/original/" . $poster . ".jpg";
+}
+
+/**
+ * Get the year string from its rax data.
+ */
+function get_year($date) {
+    return substr($date, 0, 4);
+}
+
+/**
+ * Get the duration string from its raw data.
+ */
+function get_duration($duration) {
+    $hours = floor($duration / 60);
+    $minutes = $duration % 60;
+    if ($hours > 0 && $minutes > 0) return $hours . "h " . $minutes . "min";
+    else if ($hours > 0) return $hours . "h";
+    else return $minutes . "min";
+}
+
+/**
+ * Get the seasons string from its raw data
+ */
+function get_seasons($seasons) {
+    return $seasons . " saisons";
+}
+
+/**
+ * Get the grade string from its raw data
+ */
+function get_grade($grade) {
+    return $grade / 10;
 }
 
 /**
@@ -143,6 +206,25 @@ function signin($email, $password, $first_name, $last_name) {
     post_one_data("INSERT INTO `Users` (`email`, `hash`, `first_name`, `last_name`) VALUES (?, ?, ?, ?)", array($email, password_hash($password, PASSWORD_DEFAULT), $first_name, $last_name));
     return login($email, $password);
 }
+
+/**
+ * Check if a command is liked by a user from their ids.
+ */
+function is_liked($command_id, $user_id) {
+    $row = get_one_data("SELECT * FROM `Liked` `LIK` WHERE `LIK`.`command_id` = ? AND `LIK`.`user_id` = ?", array($command_id, $user_id));
+    if (!$row) return false;
+    return true;
+}
+
+/**
+ * Check if a command is watchlisted by a user from their ids.
+ */
+function is_watchlisted($command_id, $user_id) {
+    $row = get_one_data("SELECT * FROM `Watchlisted` `WAT` WHERE `WAT`.`command_id` = ? AND `WAT`.`user_id` = ?", array($command_id, $user_id));
+    if (!$row) return false;
+    return true;
+}
+
 
 if (!is_connected() && isset($_COOKIE["token"])) connect(htmlspecialchars($_COOKIE["token"]));
 
