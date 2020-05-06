@@ -12,7 +12,7 @@ $page = new Page("series/" . $series->id, $series->title, "Découvrez la série 
         <main id="main">
             <div id="presentation" class="section series-presentation">
                 <div class="series-poster">
-                    <img alt src="<?= get_poster($series->poster) ?>" />
+                    <img alt src="<?= "images/posters/originals/$series->id.webp" ?>" />
                 </div>
                 <div class="series-description">
                     <h1 class="series-title"><?= $series->title ?></h1>
@@ -20,7 +20,7 @@ $page = new Page("series/" . $series->id, $series->title, "Découvrez la série 
                     <p class="series-overview"><?= $series->overview ?></p>
                     <div class="series-features">
                         <div class="series-grade">
-                            <div class="series-grade-design"><?= get_grade($series->grade) ?></div>
+                            <div class="series-grade-design"><?= $series->grade / 10 ?></div>
                             <div class="series-grade-help">Note des spectateurs</div>
                         </div>
                         <?php if ($db->is_connected()) { ?>

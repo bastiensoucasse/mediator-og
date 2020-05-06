@@ -12,7 +12,7 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
         <main id="main">
             <div id="presentation" class="section movie-presentation">
                 <div class="movie-poster">
-                    <img alt src="<?= get_poster($movie->poster) ?>" />
+                    <img alt src="<?= "images/posters/originals/$movie->id.webp" ?>" />
                 </div>
                 <div class="movie-description">
                     <h1 class="movie-title"><?= $movie->title ?></h1>
@@ -20,7 +20,7 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
                     <p class="movie-overview"><?= $movie->overview ?></p>
                     <div class="movie-features">
                         <div class="movie-grade">
-                            <div class="movie-grade-design"><?= get_grade($movie->grade) ?></div>
+                            <div class="movie-grade-design"><?= $movie->grade / 10 ?></div>
                             <div class="movie-grade-help">Note des spectateurs</div>
                         </div>
                         <?php if ($db->is_connected()) { ?>

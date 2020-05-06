@@ -29,6 +29,24 @@ class Database {
         return $query->fetchAll();
     }
 
+    // Download images privitive
+    private function download_images($command_id, $tmdb_image_id, $type) {
+        if (!$command_id || !$tmdb_image_id || !$type) return false;
+        if ($type == "backdrop" || $type == "tile") $sizes = array("original", 840);
+        else if ($type == "poster") $sizes = array("original", 360);
+        else return false;
+        foreach ($sizes as $size) {
+            if ($size == "original") { $img = imagecreatefromjpeg("https://image.tmdb.org/t/p/original/$tmdb_image_id.jpg"); $path = "images/" . $type . "s/originals/" . $command_id . ".webp"; }
+            else { $img = imagescale(imagecreatefromjpeg("https://image.tmdb.org/t/p/original/$tmdb_image_id.jpg"), $size);$path = "images/" . $type . "s/x" . $size . "/" . $command_id . ".webp"; }
+            imagepalettetotruecolor($img);
+            imagealphablending($img, true);
+            imagesavealpha($img, true);
+            imagewebp($img, $path, 100);
+            imagedestroy($img);
+        }
+        return true;
+    }
+
     // Get user from email privitive
     private function get_user_from_email($email) {
         if (!$email) return null;
@@ -102,12 +120,12 @@ class Database {
         setcookie("token", "", time() - 3600, "/");
     }
 
-    // Get novelties method
-    public function get_novelties() {
-        $novelties = $this->get_all("SELECT `COM`.`id`, CONCAT(\"movies/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `MOV`.`title`, `MOV`.`release_date` AS `date`, `MOV`.`grade`, `MOV`.`poster`, `MOV`.`backdrop` FROM `Commands` `COM` INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id` WHERE `COM`.`type` = \"movie\" AND `COM`.`import_date` IS NOT NULL UNION SELECT `COM`.`id`, CONCAT(\"series/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `SER`.`title`, `SER`.`start_date` AS `date`, `SER`.`grade`, `SER`.`poster`, `SER`.`backdrop` FROM `Commands` `COM` INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id` WHERE `COM`.`type` = \"series\" AND `COM`.`import_date` IS NOT NULL ORDER BY `import_date` DESC LIMIT 6");
-        if (!$novelties) return null;
-        function array_to_object($array) { return (object) $array; }
-        return array_map("array_to_object", $novelties);
+    // Get command method
+    public function get_command($command_id) {
+        if (!$command_id) return null;
+        $command = $this->get_one("SELECT * FROM `Commands` `COM` WHERE `COM`.`id` = ?", array($command_id));
+        if (!$command) return null;
+        return (object) $command;
     }
 
     // Get movie method
@@ -139,6 +157,36 @@ class Database {
         if (!$command_id || !$user_id) return false;
         $row = $this->get_one("SELECT * FROM `Watchlisted` `WAT` WHERE `WAT`.`command_id` = ? AND `WAT`.`user_id` = ?", array($command_id, $user_id));
         if (!$row) return false;
+        return true;
+    }
+
+    // Get novelties method
+    public function get_novelties() {
+        $novelties = $this->get_all("SELECT `COM`.`id`, CONCAT(\"movies/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `MOV`.`title`, `MOV`.`release_date` AS `date`, `MOV`.`grade` FROM `Commands` `COM` INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id` WHERE `COM`.`type` = \"movie\" AND `COM`.`import_date` IS NOT NULL UNION SELECT `COM`.`id`, CONCAT(\"series/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `SER`.`title`, `SER`.`start_date` AS `date`, `SER`.`grade` FROM `Commands` `COM` INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id` WHERE `COM`.`type` = \"series\" AND `COM`.`import_date` IS NOT NULL ORDER BY `import_date` DESC LIMIT 6");
+        if (!$novelties) return null;
+        function array_to_object($array) { return (object) $array; }
+        return array_map("array_to_object", $novelties);
+    }
+
+    // Import method
+    public function import($command_id, $tmdb_id, $poster, $tile, $backdrop) {
+        $tmdb_api_key = "b1b14176b6d31b632930a69cbd4b71f3";
+        if (!$command_id || !$tmdb_id || !$poster || !$tile || !$backdrop) return false;
+        $command = $this->get_command($command_id);
+        if (!$command) return false;
+        $type = $command->type;
+        if ($type == "series") $type = "tv";
+        $tmdb_data = json_decode(file_get_contents("https://api.themoviedb.org/3/$type/$tmdb_id?api_key=$tmdb_api_key&language=fr-FR&region=FR&append_to_response=videos,images"));
+        if (!$tmdb_data) return false;
+        if ($command->type == "series") $this->post("DELETE FROM `Series` `SER` WHERE `SER`.`id` = ?; INSERT INTO `Series`(`id`, `title`, `grade`, `start_date`, `end_date`, `seasons`, `episodes`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`, `imdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->name, $tmdb_data->vote_average * 10, $tmdb_data->first_air_date, $tmdb_data->last_air_date, $tmdb_data->number_of_seasons, $tmdb_data->number_of_episodes, $tmdb_data->status, $tmdb_data->original_language, $tmdb_data->original_name, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id, $tmdb_data->imdb_id));
+        else if ($command->type == "movie") $this->post("DELETE FROM `Movies` `MOV` WHERE `MOV`.`id` = ?; INSERT INTO `Movies`(`id`, `title`, `grade`, `release_date`, `duration`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`, `imdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->title, $tmdb_data->vote_average * 10, $tmdb_data->release_date, $tmdb_data->runtime, $tmdb_data->status, $tmdb_data->original_language, $tmdb_data->original_title, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id, $tmdb_data->imdb_id));
+        else return false;
+        if (!$this->download_images($command->id, $poster, "poster")) return false;
+        if (!$this->download_images($command->id, $tile, "tile")) return false;
+        if (!$this->download_images($command->id, $backdrop, "backdrop")) return false;
+        // TODO: Import genres
+        // TODO: Import stars
+        $this->post("UPDATE `Commands` `COM` SET `COM`.`import_date` = CURRENT_TIME() WHERE `COM`.`id` = ?", array($command->id));
         return true;
     }
 

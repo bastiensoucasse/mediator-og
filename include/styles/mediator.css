@@ -406,15 +406,15 @@ input.button {
     text-align: center;
 }
 
-/* Login */
+/* Forms */
 
-#login, #signin {
+.form {
     margin: auto;
     max-width: 420px;
     padding: 72px 0px;
 }
 
-#login .logo, #signin .logo {
+.form .logo {
     height: 96px;
     margin: auto;
     width: 96px;
@@ -439,7 +439,16 @@ input.button {
 .card-list {
     display: grid;
     grid-template-columns: repeat(2, 100fr);
-    padding: 12px;
+}
+@media (min-width: 420px) {
+    .card-list {
+        grid-template-columns: repeat(3, 100fr);
+    }
+}
+@media (min-width: 600px) {
+    .card-list {
+        grid-template-columns: repeat(2, 100fr);
+    }
 }
 @media (min-width: 900px) {
     .card-list {
@@ -460,6 +469,24 @@ input.button {
 .card:hover, .card:focus, .card:focus-within {
     box-shadow: #000000cc 0px 40px 58px -16px, #000000b8 0px 30px 22px -10px;
     transform: scale(1.05);
+}
+
+.card .poster {
+    display: block;
+}
+@media (min-width: 600px) {
+    .card .poster {
+        display: none;
+    }
+}
+
+.card .tile {
+    display: none;
+}
+@media (min-width: 600px) {
+    .card .tile {
+        display: block;
+    }
 }
 
 .card img {

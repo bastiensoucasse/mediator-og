@@ -38,10 +38,6 @@ function get_seasons($seasons) {
     return $seasons . " saisons";
 }
 
-function get_grade($grade) {
-    return $grade / 10;
-}
-
 $db = new Database();
 if (!$db->is_connected() && isset($_COOKIE["token"])) $db->connect(htmlspecialchars($_COOKIE["token"]));
 if ($db->is_connected()) $user = $db->get_connected_user();

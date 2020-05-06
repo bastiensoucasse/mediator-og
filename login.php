@@ -4,7 +4,7 @@ $src = get_source();
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = strtolower(htmlspecialchars($_POST["email"]));
     $password = htmlspecialchars($_POST["password"]);
-    if (!$email || !$password || !$db->login($email, $password)) relocate("login?src=" . $src);
+    if (!$db->login($email, $password)) relocate("login?src=" . $src);
     relocate($src);
 }
 $page = new Page("login", "Se connecter", "Connectez-vous à votre compte Mediator.");
@@ -12,10 +12,9 @@ $page = new Page("login", "Se connecter", "Connectez-vous à votre compte Mediat
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>
-
     <body>
         <main id="main" class="fullscreen">
-            <form id="login" action="login" method="post">
+            <form id="login" class="form" action="login" method="post">
                 <a class="logo" href="home" aria-label="Mediator">
                     <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>
                 </a>

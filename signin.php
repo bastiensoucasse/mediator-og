@@ -6,7 +6,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["first_n
     $password = htmlspecialchars($_POST["password"]);
     $first_name = ucwords(htmlspecialchars($_POST["first_name"]));
     $last_name = ucwords(htmlspecialchars($_POST["last_name"]));
-    if (!$email || !$password || !$first_name || !$last_name || !$db->signin($email, $password, $first_name, $last_name)) relocate("signin?src=" . $src);
+    if (!$db->signin($email, $password, $first_name, $last_name)) relocate("signin?src=" . $src);
     relocate($src);
 }
 $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour personnaliser votre expérience et accéder à encore plus de fonctionnalités.");
@@ -14,10 +14,9 @@ $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour perso
 <!doctype html>
 <html lang="fr-fr">
     <?php require "include/head.php"; ?>
-
     <body>
         <main id="main" class="fullscreen">
-            <form id="signin" action="signin" method="post">
+            <form id="signin" class="form" action="signin" method="post">
                 <a class="logo" href="home" aria-label="Mediator">
                     <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>
                 </a>
