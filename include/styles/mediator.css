@@ -101,6 +101,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 /* Logo */
 
 .logo {
@@ -205,7 +209,7 @@ input.button {
     vertical-align: middle;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     #logo-banner {
         padding-right: 12px;
     }
@@ -228,7 +232,7 @@ input.button {
     vertical-align: middle;
     width: 100%;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     #nav-banner {
         background-color: transparent;
         border: none;
@@ -243,7 +247,7 @@ input.button {
     display: grid;
     grid-template-columns: repeat(3, 100fr);
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     #nav {
         grid-gap: 24px;
         grid-template-columns: repeat(3, auto);
@@ -261,7 +265,7 @@ input.button {
 .nav-el.active {
     color: #ffffff;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .nav-el {
         border-radius: 8px;
         padding: 12px;
@@ -276,7 +280,7 @@ input.button {
     padding: 6px;
     width: 32px;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .nav-el-icon {
         display: none;
     }
@@ -295,7 +299,7 @@ input.button {
     margin: auto;
     text-align: center;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .nav-el-label {
         font-size: 16px;
         font-weight: 500;
@@ -428,7 +432,7 @@ input.button {
     padding-top: 72px;
     padding-bottom: 57px;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     #main {
         padding-bottom: 0px;
     }
@@ -438,7 +442,9 @@ input.button {
 
 .card-list {
     display: grid;
+    grid-gap: 12px;
     grid-template-columns: repeat(2, 100fr);
+    padding: 12px;
 }
 @media (min-width: 420px) {
     .card-list {
@@ -447,10 +453,11 @@ input.button {
 }
 @media (min-width: 600px) {
     .card-list {
+        grid-gap: 24px;
         grid-template-columns: repeat(2, 100fr);
     }
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .card-list {
         grid-template-columns: repeat(3, 100fr);
     }
@@ -460,7 +467,6 @@ input.button {
     border-radius: 12px;
     box-shadow: #000000b0 0px 26px 30px -10px, #000000ba 0px 16px 10px -10px;
     display: block;
-    margin: 12px;
     overflow: hidden;
     transition-property: box-shadow, transform;
     transition-duration: 300ms;
@@ -499,7 +505,7 @@ input.button {
 .movie-presentation, .series-presentation {
     padding: 12px;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .movie-presentation, .series-presentation {
         display: grid;
         grid-template-columns: 324px 100fr;
@@ -513,7 +519,7 @@ input.button {
     overflow: hidden;
     max-width: 276px;
 }
-@media (min-width: 900px) {
+@media (min-width: 840px) {
     .movie-poster, .series-poster {
         margin: 12px;
         max-width: 300px;
@@ -545,9 +551,9 @@ input.button {
 .movie-features, .series-features {
     display: grid;
     grid-gap: 12px;
-    margin: 12px;
+    margin: 24px 12px;
 }
-@media (min-width: 360px) {
+@media (min-width: 420px) {
     .movie-features, .series-features {
         grid-template-columns: repeat(2, min-content);
     }
@@ -611,4 +617,24 @@ input.button {
     fill: currentColor;
     height: 100%;
     width: 100%;
+}
+
+.movie-details, .series-details {
+    margin: 12px 0px;
+}
+
+.movie-detail, .series-detail {
+    display: inline-block;
+    margin: 0px 12px;
+    margin-bottom: 12px;
+}
+
+.movie-detail-title, .series-detail-title {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.movie-detail-content, .series-detail-content {
+    color: #aaaaaa;
+    font-size: 14px;
 }

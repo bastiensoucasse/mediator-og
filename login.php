@@ -4,7 +4,7 @@ $src = get_source();
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = strtolower(htmlspecialchars($_POST["email"]));
     $password = htmlspecialchars($_POST["password"]);
-    if (!$db->login($email, $password)) relocate("login?src=" . $src);
+    if (!$db->login($email, $password)) relocate("login?src=" . urlencode($src));
     relocate($src);
 }
 $page = new Page("login", "Se connecter", "Connectez-vous à votre compte Mediator.");
@@ -22,7 +22,7 @@ $page = new Page("login", "Se connecter", "Connectez-vous à votre compte Mediat
                 <input type="email" class="text-input" name="email" aria-label="Adresse e-mail" placeholder="Adresse e-mail" required />
                 <input type="password" class="text-input" name="password" aria-label="Mot de passe" placeholder="Mot de passe" required />
                 <input type="submit" class="button" aria-label="Se connecter" value="Se connecter" />
-                <p>Nouveau sur Mediator ? <a class="link" href="<?= "signin?src=$src" ?>" aria-label="S'inscrire">S'inscrire</a></p>
+                <p>Nouveau sur Mediator ? <a class="link" href="<?= "signin?src=" . urlencode($src) ?>" aria-label="S'inscrire">S'inscrire</a></p>
             </form>
         </main>
     </body>

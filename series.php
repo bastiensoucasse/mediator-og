@@ -12,11 +12,11 @@ $page = new Page("series/" . $series->id, $series->title, "Découvrez la série 
         <main id="main">
             <div id="presentation" class="section series-presentation">
                 <div class="series-poster">
-                    <img alt src="<?= "images/posters/originals/$series->id.webp" ?>" />
+                    <img class="lazyload" alt data-sizes="auto" data-src="<?= "images/posters/originals/$series->id.webp" ?>" />
                 </div>
                 <div class="series-description">
                     <h1 class="series-title"><?= $series->title ?></h1>
-                    <p class="series-info"><?= get_year($series->start_date) . " • " . get_seasons($series->seasons) ?></p>
+                    <p class="series-info"><?= get_year($series->start_date) . " • " . get_genres($db->get_genres($series->id)) . " • " . get_seasons($series->seasons) ?></p>
                     <p class="series-overview"><?= $series->overview ?></p>
                     <div class="series-features">
                         <div class="series-grade">
@@ -35,6 +35,18 @@ $page = new Page("series/" . $series->id, $series->title, "Découvrez la série 
                                 <?php } else { ?>
                                     <div class="series-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php require "include/icons/plus.svg"; ?></div>
                                 <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div class="series-details">
+                        <div class="series-detail">
+                            <div class="series-detail-title">Date de début</div>
+                            <div class="series-detail-content"><?= get_date($series->start_date) ?></div>
+                        </div>
+                        <?php if ($series->status == "Ended" || $series->status == "Cancelled") { ?>
+                            <div class="series-detail">
+                                <div class="series-detail-title">Date de fin</div>
+                                <div class="series-detail-content"><?= get_date($series->end_date) ?></div>
                             </div>
                         <?php } ?>
                     </div>

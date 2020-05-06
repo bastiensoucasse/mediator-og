@@ -13,6 +13,7 @@ define("DESCRIPTION", $page->description);
     <meta name="description" content="<?= DESCRIPTION ?>" />
     <meta name="theme-color" content="#202124" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script><?php require_once "include/scripts/lazysizes.min.js"; ?></script>
     <style><?php require_once "include/styles/hylery.css"; ?></style>
     <style><?php require_once "include/styles/mediator.css"; ?></style>
     <title><?= TITLE ?></title>

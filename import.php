@@ -2,7 +2,7 @@
 require_once "include/utilities.php";
 $src = get_source();
 if (!empty($_POST)) {
-    if (!$db->import(htmlspecialchars($_POST["command_id"]), htmlspecialchars($_POST["tmdb_id"]), htmlspecialchars($_POST["poster"]), htmlspecialchars($_POST["tile"]), htmlspecialchars($_POST["backdrop"]))) relocate("import?src=$src");
+    if (!$db->import(htmlspecialchars($_POST["command_id"]), htmlspecialchars($_POST["tmdb_id"]), htmlspecialchars($_POST["poster"]), htmlspecialchars($_POST["tile"]), htmlspecialchars($_POST["backdrop"]))) relocate("import?src=" . urlencode($src));
     relocate($src);
 }
 $page = new Page("import", "Importer", "Importez un film ou une série sur Mediator.");

@@ -12,11 +12,11 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
         <main id="main">
             <div id="presentation" class="section movie-presentation">
                 <div class="movie-poster">
-                    <img alt src="<?= "images/posters/originals/$movie->id.webp" ?>" />
+                    <img class="lazyload" alt data-sizes="auto" data-src="<?= "images/posters/originals/$movie->id.webp" ?>" />
                 </div>
                 <div class="movie-description">
                     <h1 class="movie-title"><?= $movie->title ?></h1>
-                    <p class="movie-info"><?= get_year($movie->release_date) . " • " . get_duration($movie->duration) ?></p>
+                    <p class="movie-info"><?= get_year($movie->release_date) . " • " . get_genres($db->get_genres($movie->id)) . " • " . get_duration($movie->duration) ?></p>
                     <p class="movie-overview"><?= $movie->overview ?></p>
                     <div class="movie-features">
                         <div class="movie-grade">
@@ -37,6 +37,12 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
                                 <?php } ?>
                             </div>
                         <?php } ?>
+                    </div>
+                    <div class="movie-details">
+                        <div class="movie-detail">
+                            <div class="movie-detail-title">Date de sortie</div>
+                            <div class="movie-detail-content"><?= get_date($movie->release_date) ?></div>
+                        </div>
                     </div>
                 </div>
             </div>

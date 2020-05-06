@@ -6,7 +6,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["first_n
     $password = htmlspecialchars($_POST["password"]);
     $first_name = ucwords(htmlspecialchars($_POST["first_name"]));
     $last_name = ucwords(htmlspecialchars($_POST["last_name"]));
-    if (!$db->signin($email, $password, $first_name, $last_name)) relocate("signin?src=" . $src);
+    if (!$db->signin($email, $password, $first_name, $last_name)) relocate("signin?src=" . urlencode($src));
     relocate($src);
 }
 $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour personnaliser votre expérience et accéder à encore plus de fonctionnalités.");
@@ -26,7 +26,7 @@ $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour perso
                 <input type="email" class="text-input" name="email" aria-label="Adresse e-mail" placeholder="Adresse e-mail" required />
                 <input type="password" class="text-input" name="password" aria-label="Mot de passe" placeholder="Mot de passe" required />
                 <input type="submit" class="button" aria-label="S'inscrire" value="S'inscrire" />
-                <p>Vous avez déjà un compte ? <a class="link" href="<?= "login?src=$src" ?>" aria-label="Se connecter">Se connecter</a></p>
+                <p>Vous avez déjà un compte ? <a class="link" href="<?= "login?src=" . urlencode($src) ?>" aria-label="Se connecter">Se connecter</a></p>
             </form>
         </main>
     </body>

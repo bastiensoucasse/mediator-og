@@ -1,7 +1,7 @@
 <?php
 $page_ref = explode('/', $page->id)[0];
 if ($page_ref == "library" || $page_ref == "commands") $nav_active = "library";
-else if ($page_ref == "browse" || $page_ref == "search" || $page_ref == "movies" || $page_ref == "series" || $page_ref == "people") $nav_active = "browse";
+else if ($page_ref == "browse" || $page_ref == "search" || $page_ref == "movies" || $page_ref == "series" || $page_ref == "genres" || $page_ref == "persons") $nav_active = "browse";
 else $nav_active = "home";
 ?>
 <header id="header">
@@ -33,7 +33,7 @@ else $nav_active = "home";
             <div id="account-overview">
                 <div id="account-banner">
                     <div id="account-name"><?= $user->first_name ?></div>
-                    <div id="account-avatar"><img alt src="<?= $user->avatar ?>" /></div>
+                    <div id="account-avatar"><img class="lazyload" alt data-sizes="auto" data-src="<?= $user->avatar ?>" /></div>
                 </div>
                 <div id="account">
                     <div id="account-links">
@@ -41,7 +41,7 @@ else $nav_active = "home";
                             <span class="account-link-icon"><?php require "include/icons/account.svg"; ?></span>
                             <span class="account-link-label">Gérer le compte</span>
                         </a>
-                        <a class="account-link" href="logout" aria-label="Se déconnecter">
+                        <a class="account-link" href="<?= "logout?src=" . urlencode($page->id) ?>" aria-label="Se déconnecter">
                             <span class="account-link-icon"><?php require "include/icons/logout.svg"; ?></span>
                             <span class="account-link-label">Se déconnecter</span>
                         </a>
@@ -50,7 +50,7 @@ else $nav_active = "home";
             </div>
         <?php } else { ?>
             <div id="login-banner">
-                <a class="button" href="<?= "login?src=" . $page->id ?>" aria-label="Se connecter">
+                <a class="button" href="<?= "login?src=" . urlencode($page->id) ?>" aria-label="Se connecter">
                     <span class="button-label">Se connecter</span>
                 </a>
             </div>

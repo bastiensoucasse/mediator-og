@@ -7,7 +7,7 @@ require_once "tools/database.class.php";
 require_once "tools/page.class.php";
 
 function relocate($id) {
-    header("Location: /$id");
+    header("Location: /" . urldecode($id));
     exit;
 }
 
@@ -26,6 +26,11 @@ function get_year($date) {
     return substr($date, 0, 4);
 }
 
+function get_genres($genres) {
+    function get_genre($genre) { return "<a href=\"genres/$genre->id\" aria-label=\"$genre->name\">$genre->name</a>"; }
+    return implode(", ", array_map("get_genre", $genres));
+}
+
 function get_duration($duration) {
     $hours = floor($duration / 60);
     $minutes = $duration % 60;
@@ -35,7 +40,12 @@ function get_duration($duration) {
 }
 
 function get_seasons($seasons) {
+    if ($seasons == 1) return $seasons . " saison";
     return $seasons . " saisons";
+}
+ 
+function get_date($date) {
+    return date("d/m/Y", strtotime($date));
 }
 
 $db = new Database();
