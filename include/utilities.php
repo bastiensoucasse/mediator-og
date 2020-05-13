@@ -48,6 +48,10 @@ function get_date($date) {
     return date("d/m/Y", strtotime($date));
 }
 
+function get_language($language) {
+    return ucfirst(Locale::getDisplayLanguage(strtolower($language), "fr"));
+}
+
 $db = new Database();
 if (!$db->is_connected() && isset($_COOKIE["token"])) $db->connect(htmlspecialchars($_COOKIE["token"]));
 if ($db->is_connected()) $user = $db->get_connected_user();

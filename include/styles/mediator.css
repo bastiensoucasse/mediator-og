@@ -35,6 +35,8 @@ body {
 h1, h2, h3, h4, h5, h6, p {
     display: block;
     font: inherit;
+    margin: 0;
+    user-select: text;
 }
 
 h1 {
@@ -80,9 +82,8 @@ h5 {
 h6 {
     color: #ffffff;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 20px;
-    margin: 12px;
 }
 
 p {
@@ -90,6 +91,8 @@ p {
     font-size: 16px;
     font-weight: 400;
     line-height: 20px;
+}
+p.paragraph {
     margin: 12px;
 }
 
@@ -99,10 +102,6 @@ a {
     display: inline;
     font: inherit;
     text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 /* Logo */
@@ -543,6 +542,10 @@ input.button {
     margin: 12px;
 }
 
+.movie-info a:hover, .series-info a:hover, .movie-details a:hover, .series-details a:hover {
+    text-decoration: underline;
+}
+
 .movie-overview, .series-overview {
     color: #aaaaaa;
     margin: 12px;
@@ -575,6 +578,7 @@ input.button {
     font-weight: 500;
     justify-content: center;
     line-height: 30px;
+    user-select: text;
 }
 
 .movie-grade-help, .series-grade-help {

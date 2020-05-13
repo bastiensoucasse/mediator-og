@@ -1,6 +1,6 @@
 <?php
 require_once "include/utilities.php";
-$novelties = $db->get_novelties();
+$novelties = $db->get_novelties(true);
 $page = new Page("home", "Accueil", "Une base de données cinématographique propulsée par Profuder.");
 ?>
 <!doctype html>

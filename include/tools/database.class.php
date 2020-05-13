@@ -29,6 +29,12 @@ class Database {
         return $query->fetchAll();
     }
 
+    // Convert to objects primitive
+    private function convert_to_objects($array) {
+        foreach ($array as $key => $element) $array[$key] = (object) $element;
+        return $array;
+    }
+
     // Download images privitive
     private function download_images($id, $tmdb_image_id, $type) {
         if (!$id || !$tmdb_image_id || !$type) return false;
@@ -159,6 +165,7 @@ class Database {
         if (!$person) return null;
         return (object) $person;
     }
+
     // Is liked method
     public function is_liked($command_id, $user_id) {
         if (!$command_id || !$user_id) return false;
@@ -180,29 +187,147 @@ class Database {
         if (!$command_id) return null;
         $genres = $this->get_all("SELECT `GEN`.`id`, `GEN`.`name` FROM `HasGenre` `HAS` INNER JOIN `Genres` `GEN` ON `HAS`.`genre_id` = `GEN`.`id` WHERE `HAS`.`command_id` = ?", array($command_id));
         if (!$genres) return null;
-        function array_to_object($array) { return (object) $array; }
-        return array_map("array_to_object", $genres);
+        return $this->convert_to_objects($genres);
     }
 
-    // Get of genre method
-    public function get_of_genre($genre_id) {
-        if (!$genre_id) return null;
-        $of_genre = $this->get_all("SELECT `COM`.`id`, CONCAT(\"movies/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `MOV`.`title`, `MOV`.`release_date` AS `date`, `MOV`.`grade` FROM `Commands` `COM` INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id` INNER JOIN `HasGenre` `HAS` ON `HAS`.`command_id` = `COM`.`id` WHERE `HAS`.`genre_id` = ? AND `COM`.`type` = \"movie\" AND `COM`.`import_date` IS NOT NULL UNION SELECT `COM`.`id`, CONCAT(\"series/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `SER`.`title`, `SER`.`start_date` AS `date`, `SER`.`grade` FROM `Commands` `COM` INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id` INNER JOIN `HasGenre` `HAS` ON `HAS`.`command_id` = `COM`.`id` WHERE `HAS`.`genre_id` = ? AND `COM`.`type` = \"series\" AND `COM`.`import_date` IS NOT NULL ORDER BY `import_date` DESC", array($genre_id, $genre_id));
-        if (!$of_genre) return null;
-        function array_to_object($array) { return (object) $array; }
-        return array_map("array_to_object", $of_genre);
+    // Get crew method
+    public function get_crew($command_id) {
+        if (!$command_id) return null;
+        $crew_member = $this->get_all("SELECT `PER`.`id`, `PER`.`name`, `CRE`.`job` FROM `Crew` `CRE` INNER JOIN `Persons` `PER` ON `CRE`.`person_id` = `PER`.`id` WHERE `CRE`.`command_id` = ?", array($command_id));
+        if (!$crew_member) return null;
+        return $this->convert_to_objects($crew_member);
+    }
+
+    // Get best method
+    public function get_best($limited = false) {
+        $sql = "SELECT `COM`.`id`, CONCAT('movies/', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                WHERE `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series/', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                WHERE `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `grade` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $best = $this->get_all($sql);
+        if (!$best) return null;
+        return $this->convert_to_objects($best);
     }
 
     // Get novelties method
-    public function get_novelties() {
-        $novelties = $this->get_all("SELECT `COM`.`id`, CONCAT(\"movies/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `MOV`.`title`, `MOV`.`release_date` AS `date`, `MOV`.`grade` FROM `Commands` `COM` INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id` WHERE `COM`.`type` = \"movie\" AND `COM`.`import_date` IS NOT NULL UNION SELECT `COM`.`id`, CONCAT(\"series/\", `COM`.`id`) AS `link`, `COM`.`import_date`, `SER`.`title`, `SER`.`start_date` AS `date`, `SER`.`grade` FROM `Commands` `COM` INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id` WHERE `COM`.`type` = \"series\" AND `COM`.`import_date` IS NOT NULL ORDER BY `import_date` DESC LIMIT 6");
+    public function get_novelties($limited = false) {
+        $sql = "SELECT `COM`.`id`, CONCAT('movies/', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                WHERE `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series/', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                WHERE `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `import_date` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $novelties = $this->get_all($sql);
         if (!$novelties) return null;
-        function array_to_object($array) { return (object) $array; }
-        return array_map("array_to_object", $novelties);
+        return $this->convert_to_objects($novelties);
+    }
+
+    // Get of genre method
+    public function get_of_genre($genre_id, $limited = false) {
+        if (!$genre_id) return null;
+        $sql = "SELECT `COM`.`id`, CONCAT('movies/', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `HasGenre` `HAS` ON `HAS`.`command_id` = `COM`.`id`
+                WHERE `HAS`.`genre_id` = :genre_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series/', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `HasGenre` `HAS` ON `HAS`.`command_id` = `COM`.`id`
+                WHERE `HAS`.`genre_id` = :genre_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `import_date` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $parameters = array("genre_id" => $genre_id);
+        $of_genre = $this->get_all($sql, $parameters);
+        if (!$of_genre) return null;
+        return $this->convert_to_objects($of_genre);
+    }
+
+    // Get watchlisted method
+    public function get_watchlisted($user_id, $limited = false) {
+        if (!$user_id) return null;
+        $sql = "SELECT `COM`.`id`, CONCAT('movies/', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `Watchlisted` `WAT` ON `WAT`.`command_id` = `COM`.`id`
+                WHERE `WAT`.`user_id` = :user_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series/', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `Watchlisted` `WAT` ON `WAT`.`command_id` = `COM`.`id`
+                WHERE `WAT`.`user_id` = :user_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `import_date` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $parameters = array("user_id" => $user_id);
+        $watchlisted = $this->get_all($sql, $parameters);
+        if (!$watchlisted) return null;
+        return $this->convert_to_objects($watchlisted);
+    }
+
+    // Get liked method
+    public function get_liked($user_id, $limited = false) {
+        if (!$user_id) return null;
+        $sql = "SELECT `COM`.`id`, CONCAT('movies/', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `Liked` `LIK` ON `LIK`.`command_id` = `COM`.`id`
+                WHERE `LIK`.`user_id` = :user_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series/', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `Liked` `LIK` ON `LIK`.`command_id` = `COM`.`id`
+                WHERE `LIK`.`user_id` = :user_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `import_date` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $parameters = array("user_id" => $user_id);
+        $liked = $this->get_all($sql, $parameters);
+        if (!$liked) return null;
+        return $this->convert_to_objects($liked);
     }
 
     // Import method
     public function import($command_id, $tmdb_id, $poster, $tile, $backdrop) {
+        function translate($text, $src_lang = "en", $dest_lang = "fr") {
+            $json = json_decode(file_get_contents("https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200513T092948Z.1481a214a2520e19.2d34476634e7ee60f08a74fd64d8af63dc0a0335&text=" . urlencode($text) . "&lang=$src_lang-$dest_lang"));
+            return $json->text[0];
+        }
+        function convert_status($status) {
+            $correspondances = array("Released" => "Sorti", "Returning Series" => "En cours", "Ended" => "Terminée", "Cancelled" => "Annulée");
+            $string = $correspondances[$status];
+            if (!$string) return ucfirst(translate(strtolower($status)));
+            return $string;
+        }
         $tmdb_api_key = "b1b14176b6d31b632930a69cbd4b71f3";
         if (!$command_id || !$tmdb_id || !$poster || !$tile || !$backdrop) return false;
         $command = $this->get_command($command_id);
@@ -211,8 +336,8 @@ class Database {
         if ($type == "series") $type = "tv";
         $tmdb_data = json_decode(file_get_contents("https://api.themoviedb.org/3/$type/$tmdb_id?api_key=$tmdb_api_key&language=fr-FR&region=FR&append_to_response=credits,images,videos"));
         if (!$tmdb_data) return false;
-        if ($command->type == "series") $this->post("DELETE FROM `Series` `SER` WHERE `SER`.`id` = ?; INSERT INTO `Series`(`id`, `title`, `grade`, `start_date`, `end_date`, `seasons`, `episodes`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`, `imdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->name, $tmdb_data->vote_average * 10, $tmdb_data->first_air_date, $tmdb_data->last_air_date, $tmdb_data->number_of_seasons, $tmdb_data->number_of_episodes, $tmdb_data->status, $tmdb_data->original_language, $tmdb_data->original_name, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id, $tmdb_data->imdb_id));
-        else if ($command->type == "movie") $this->post("DELETE FROM `Movies` `MOV` WHERE `MOV`.`id` = ?; INSERT INTO `Movies`(`id`, `title`, `grade`, `release_date`, `duration`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`, `imdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->title, $tmdb_data->vote_average * 10, $tmdb_data->release_date, $tmdb_data->runtime, $tmdb_data->status, $tmdb_data->original_language, $tmdb_data->original_title, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id, $tmdb_data->imdb_id));
+        if ($command->type == "series") $this->post("DELETE FROM `Series` `SER` WHERE `SER`.`id` = ?; INSERT INTO `Series`(`id`, `title`, `grade`, `start_date`, `end_date`, `seasons`, `episodes`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->name, $tmdb_data->vote_average * 10, $tmdb_data->first_air_date, $tmdb_data->status == "Returning Series" ? null : $tmdb_data->last_air_date, $tmdb_data->number_of_seasons, $tmdb_data->number_of_episodes, convert_status($tmdb_data->status), $tmdb_data->original_language, $tmdb_data->original_name, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id));
+        else if ($command->type == "movie") $this->post("DELETE FROM `Movies` `MOV` WHERE `MOV`.`id` = ?; INSERT INTO `Movies`(`id`, `title`, `grade`, `release_date`, `duration`, `status`, `original_language`, `original_title`, `overview`, `video`, `tmdb_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($command->id, $command->id, $tmdb_data->title, $tmdb_data->vote_average * 10, $tmdb_data->release_date, $tmdb_data->runtime,  convert_status($tmdb_data->status), $tmdb_data->original_language, $tmdb_data->original_title, $tmdb_data->overview, $tmdb_data->videos->results[0]->key, $tmdb_data->id));
         else return false;
         if (!$this->download_images($command->id, $poster, "poster")) return false;
         if (!$this->download_images($command->id, $tile, "tile")) return false;
