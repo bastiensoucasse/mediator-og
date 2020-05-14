@@ -193,9 +193,17 @@ class Database {
     // Get crew method
     public function get_crew($command_id) {
         if (!$command_id) return null;
-        $crew_member = $this->get_all("SELECT `PER`.`id`, `PER`.`name`, `CRE`.`job` FROM `Crew` `CRE` INNER JOIN `Persons` `PER` ON `CRE`.`person_id` = `PER`.`id` WHERE `CRE`.`command_id` = ?", array($command_id));
-        if (!$crew_member) return null;
-        return $this->convert_to_objects($crew_member);
+        $crew = $this->get_all("SELECT `PER`.`id`, `PER`.`name`, `CRE`.`job` FROM `Crew` `CRE` INNER JOIN `Persons` `PER` ON `CRE`.`person_id` = `PER`.`id` WHERE `CRE`.`command_id` = ?", array($command_id));
+        if (!$crew) return null;
+        return $this->convert_to_objects($crew);
+    }
+
+    // Get cast method
+    public function get_cast($command_id) {
+        if (!$command_id) return null;
+        $cast = $this->get_all("SELECT `PER`.`id`, `PER`.`name`, `CAS`.`character` FROM `Cast` `CAS` INNER JOIN `Persons` `PER` ON `CAS`.`person_id` = `PER`.`id` WHERE `CAS`.`command_id` = ?", array($command_id));
+        if (!$cast) return null;
+        return $this->convert_to_objects($cast);
     }
 
     // Get best method

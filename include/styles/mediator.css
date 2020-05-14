@@ -103,6 +103,9 @@ a {
     font: inherit;
     text-decoration: none;
 }
+a.classic:hover {
+    text-decoration: underline;
+}
 
 /* Logo */
 
@@ -540,10 +543,6 @@ input.button {
 .movie-info, .series-info {
     color: #aaaaaa;
     margin: 12px;
-}
-
-.movie-info a:hover, .series-info a:hover, .movie-details a:hover, .series-details a:hover {
-    text-decoration: underline;
 }
 
 .movie-overview, .series-overview {

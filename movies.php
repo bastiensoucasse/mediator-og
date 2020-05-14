@@ -3,6 +3,7 @@ require_once "include/utilities.php";
 $movie = $db->get_movie(htmlspecialchars($_GET["id"]));
 if (!$movie) relocate("home");
 $crew = $db->get_crew($movie->id);
+$cast = $db->get_cast($movie->id);
 $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . $movie->title . " sur Mediator.");
 ?>
 <!doctype html>
@@ -69,7 +70,7 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
                         <?php foreach ($crew as $crew_member) { ?>
                             <div class="movie-detail">
                                 <h6 class="movie-detail-title"><?= $crew_member->job ?></h6>
-                                <p class="movie-detail-content"><?= "<a href=\"persons/" . $crew_member->id . "\" aria-label=\"" . $crew_member->name . "\">" . $crew_member->name . "</a>" ?></p>
+                                <p class="movie-detail-content"><?= "<a class=\"classic\" href=\"persons/" . $crew_member->id . "\" aria-label=\"" . $crew_member->name . "\">" . $crew_member->name . "</a>" ?></p>
                             </div>
                         <?php } ?>
                     </div>
@@ -78,7 +79,12 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
             <div id="stars" class="section">
                 <h2 class="section-name">Tête d'affiche</h2>
                 <div class="section-content">
-                    <p class="paragraph">Cette fonctionnalité est en développement.</p>
+                    <?php foreach ($cast as $cast_member) { ?>
+                        <div class="movie-detail">
+                            <h6 class="movie-detail-title"><?= $cast_member->character ?></h6>
+                            <p class="movie-detail-content"><?= "<a class=\"classic\" href=\"persons/" . $cast_member->id . "\" aria-label=\"" . $cast_member->name . "\">" . $cast_member->name . "</a>" ?></p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
             <div id="media" class="section">

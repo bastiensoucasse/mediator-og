@@ -27,7 +27,7 @@ function get_year($date) {
 }
 
 function get_genres($genres) {
-    function get_genre($genre) { return "<a href=\"genres/$genre->id\" aria-label=\"$genre->name\">$genre->name</a>"; }
+    function get_genre($genre) { return "<a class=\"classic\" href=\"genres/$genre->id\" aria-label=\"$genre->name\">$genre->name</a>"; }
     return implode(", ", array_map("get_genre", $genres));
 }
 
