@@ -1,9 +1,14 @@
-RewriteEngine On
-Redirect 301 /index.php https://${HTTP_HOST}/home.php
+RewriteEngine on
+Redirect "/index.php" "/home"
 
-RewriteCond %{HTTPS} !On
+RewriteCond %{HTTPS} !on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-<IfModule mod_headers.c>
-    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-</IfModule>
+RewriteRule ^persons/(.*)$ persons.php?id=$1 [NC,L]
+RewriteRule ^movies/(.*)$ movies.php?id=$1 [NC,L]
+RewriteRule ^series/(.*)$ series.php?id=$1 [NC,L]
+RewriteRule ^genres/(.*)$ genres.php?id=$1 [NC,L]
+RewriteRule ^collections/(.*)$ collections.php?id=$1 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

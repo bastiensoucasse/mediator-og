@@ -13,7 +13,7 @@ $page = new Page("import", "Importer", "Importez un film ou une série sur Media
     <body>
         <main id="main" class="fullscreen">
             <form id="import" class="form" action="import" method="post">
-                <a class="logo" href="home" aria-label="Mediator">
+                <a class="logo" href="/home" aria-label="Mediator">
                     <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>
                 </a>
                 <h3>Importez une commande dans la base de données</h3>

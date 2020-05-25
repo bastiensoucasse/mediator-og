@@ -15,7 +15,7 @@ $page = new Page("series/" . $series->id, $series->title, "Découvrez la série 
             <div id="presentation" class="section series-presentation">
                 <div class="series-image">
                     <div class="series-poster">
-                        <img class="lazyload" alt data-sizes="auto" data-src="<?= "images/posters/originals/$series->id.webp" ?>" />
+                        <img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/posters/originals/$series->id.webp" ?>" />
                     </div>
                 </div>
                 <div class="series-description">

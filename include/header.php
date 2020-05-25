@@ -7,21 +7,21 @@ else $nav_active = "home";
 <header id="header">
     <div id="left-header">
         <div id="logo-banner">
-            <a class="logo" href="home" aria-label="Mediator">
+            <a class="logo" href="/home" aria-label="Mediator">
                 <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>
             </a>
         </div>
         <div id="nav-banner">
             <nav id="nav">
-                <a class="nav-el <?php if ($nav_active == "home") echo "active"; ?>" href="home" aria-label="Accueil">
+                <a class="nav-el <?php if ($nav_active == "home") echo "active"; ?>" href="/home" aria-label="Accueil">
                     <span class="nav-el-icon"><?php require "include/icons/home.svg"; ?></span>
                     <span class="nav-el-label">Accueil</span>
                 </a>
-                <a class="nav-el <?php if ($nav_active == "browse") echo "active"; ?>" href="browse" aria-label="Parcourir">
+                <a class="nav-el <?php if ($nav_active == "browse") echo "active"; ?>" href="/browse" aria-label="Parcourir">
                     <span class="nav-el-icon"><?php require "include/icons/browse.svg"; ?></span>
                     <span class="nav-el-label">Parcourir</span>
                 </a>
-                <a class="nav-el <?php if ($nav_active == "library") echo "active"; ?>" href="library" aria-label="Bibliothèque">
+                <a class="nav-el <?php if ($nav_active == "library") echo "active"; ?>" href="/library" aria-label="Bibliothèque">
                     <span class="nav-el-icon"><?php require "include/icons/library.svg"; ?></span>
                     <span class="nav-el-label">Bibliothèque</span>
                 </a>
@@ -33,15 +33,15 @@ else $nav_active = "home";
             <div id="account-overview">
                 <div id="account-banner">
                     <div id="account-name"><?= $user->first_name ?></div>
-                    <div id="account-avatar"><img class="lazyload" alt data-sizes="auto" data-src="<?= $user->avatar ?>" /></div>
+                    <div id="account-avatar"><img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/avatars/$user->avatar.webp" ?>" /></div>
                 </div>
                 <div id="account">
                     <div id="account-links">
-                        <a class="account-link" href="account" aria-label="Gérer le compte">
+                        <a class="account-link" href="/account" aria-label="Gérer le compte">
                             <span class="account-link-icon"><?php require "include/icons/account.svg"; ?></span>
                             <span class="account-link-label">Gérer le compte</span>
                         </a>
-                        <a class="account-link" href="<?= "logout?src=" . urlencode($page->id) ?>" aria-label="Se déconnecter">
+                        <a class="account-link" href="<?= "/logout?src=" . urlencode($page->id) ?>" aria-label="Se déconnecter">
                             <span class="account-link-icon"><?php require "include/icons/logout.svg"; ?></span>
                             <span class="account-link-label">Se déconnecter</span>
                         </a>
@@ -50,7 +50,7 @@ else $nav_active = "home";
             </div>
         <?php } else { ?>
             <div id="login-banner">
-                <a class="button" href="<?= "login?src=" . urlencode($page->id) ?>" aria-label="Se connecter">
+                <a class="button" href="<?= "/login?src=" . urlencode($page->id) ?>" aria-label="Se connecter">
                     <span class="button-label">Se connecter</span>
                 </a>
             </div>

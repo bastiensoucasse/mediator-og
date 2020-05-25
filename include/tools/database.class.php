@@ -43,7 +43,7 @@ class Database {
         else return false;
         foreach ($sizes as $size) {
             if ($size == "original") { $img = imagecreatefromjpeg("https://image.tmdb.org/t/p/original/$tmdb_image_id.jpg"); $path = "images/" . $type . "s/originals/" . $id . ".webp"; }
-            else { $img = imagescale(imagecreatefromjpeg("https://image.tmdb.org/t/p/original/$tmdb_image_id.jpg"), $size);$path = "images/" . $type . "s/x" . $size . "/" . $id . ".webp"; }
+            else { $img = imagescale(imagecreatefromjpeg("https://image.tmdb.org/t/p/original/$tmdb_image_id.jpg"), $size); $path = "images/" . $type . "s/x" . $size . "/" . $id . ".webp"; }
             imagepalettetotruecolor($img);
             imagealphablending($img, true);
             imagesavealpha($img, true);
@@ -322,6 +322,13 @@ class Database {
         $liked = $this->get_all($sql, $parameters);
         if (!$liked) return null;
         return $this->convert_to_objects($liked);
+    }
+
+    // Order method
+    public function order($query, $type, $user_id) {
+        if (!$query || !$type || !$user_id) return false;
+        $this->post("INSERT INTO `Commands`(`query`, `type`, `user_id`, `request_date`) VALUES (?, ?, ?, CURRENT_TIME())", array(strtolower($query), strtolower($type), $user_id));
+        return true;
     }
 
     // Import method

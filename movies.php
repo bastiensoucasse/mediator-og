@@ -15,7 +15,7 @@ $page = new Page("movies/" . $movie->id, $movie->title, "Découvrez le film " . 
             <div id="presentation" class="section movie-presentation">
                 <div class="movie-image">
                     <div class="movie-poster">
-                        <img class="lazyload" alt data-sizes="auto" data-src="<?= "images/posters/originals/$movie->id.webp" ?>" />
+                        <img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/posters/originals/$movie->id.webp" ?>" />
                     </div>
                 </div>
                 <div class="movie-description">

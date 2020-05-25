@@ -17,7 +17,7 @@ $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour perso
     <body>
         <main id="main" class="fullscreen">
             <form id="signin" class="form" action="signin" method="post">
-                <a class="logo" href="home" aria-label="Mediator">
+                <a class="logo" href="/home" aria-label="Mediator">
                     <span class="logo-icon"><?php require "include/icons/stadia.svg"; ?></span>
                 </a>
                 <h3>Inscrivez-vous avec votre adresse e-mail</h3>
@@ -26,7 +26,7 @@ $page = new Page("signin", "S'inscrire", "Inscrivez-vous sur Mediator pour perso
                 <input type="email" class="text-input" name="email" aria-label="Adresse e-mail" placeholder="Adresse e-mail" required />
                 <input type="password" class="text-input" name="password" aria-label="Mot de passe" placeholder="Mot de passe" required />
                 <input type="submit" class="button" aria-label="S'inscrire" value="S'inscrire" />
-                <p>Vous avez déjà un compte ? <a class="link" href="<?= "login?src=" . urlencode($src) ?>" aria-label="Se connecter">Se connecter</a></p>
+                <p>Vous avez déjà un compte ? <a class="link" href="<?= "/login?src=" . urlencode($src) ?>" aria-label="Se connecter">Se connecter</a></p>
             </form>
         </main>
     </body>
