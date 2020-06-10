@@ -2,109 +2,92 @@
 require_once "include/utilities.php";
 $series = $db->get_series(htmlspecialchars($_GET["id"]));
 if (!$series) relocate("home");
+$genres = $db->get_genres($series->id);
 $crew = $db->get_crew($series->id);
 $cast = $db->get_cast($series->id);
-$page = new Page("series/" . $series->id, $series->title, "Découvrez la série " . $series->title . " sur Mediator.");
+$page = new Page("series?id=$series->id", "$series->title", "Découvrez la série $series->title sur Mediator.");
 ?>
 <!doctype html>
 <html lang="fr-fr">
-    <?php require "include/head.php"; ?>
-    <body>
-        <?php require "include/header.php"; ?>
-        <main id="main">
-            <div id="presentation" class="section series-presentation">
-                <div class="series-image">
-                    <div class="series-poster">
-                        <img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/posters/originals/$series->id.webp" ?>" />
-                    </div>
-                </div>
-                <div class="series-description">
-                    <h1 class="series-title"><?= $series->title ?></h1>
-                    <p class="series-info paragraph"><?= get_year($series->start_date) . " • " . get_genres($db->get_genres($series->id)) . " • " . get_seasons($series->seasons) ?></p>
-                    <p class="series-overview paragraph"><?= $series->overview ?></p>
-                    <div class="series-features">
-                        <div class="series-grade">
-                            <div class="series-grade-design"><?= $series->grade / 10 ?></div>
-                            <p class="series-grade-help">Note des spectateurs</p>
-                        </div>
-                        <?php if ($db->is_connected()) { ?>
-                            <div class="series-tools">
-                                <?php if ($db->is_liked($series->id, $user->id)) { ?>
-                                    <div class="series-tool active" aria-label="Supprimer le like" title="Supprimer le like"><?php require "include/icons/heart.svg"; ?></div>
-                                <?php } else { ?>
-                                    <div class="series-tool" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></div>
-                                <?php } ?>
-                                <?php if ($db->is_watchlisted($series->id, $user->id)) { ?>
-                                    <div class="series-tool active" aria-label="Supprimer de votre liste" title="Supprimer de votre liste"><?php require "include/icons/done.svg"; ?></div>
-                                <?php } else { ?>
-                                    <div class="series-tool" aria-label="Ajouter à votre liste" title="Ajouter à votre liste"><?php require "include/icons/plus.svg"; ?></div>
-                                <?php } ?>
-                            </div>
-                        <?php } ?>
-                    </div>
-                    <div class="series-details">
-                        <?php if (!empty($series->status)) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title">État</h6>
-                                <p class="series-detail-content"><?= $series->status ?></p>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty($series->start_date)) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title">Date de début</h6>
-                                <p class="series-detail-content"><?= get_date($series->start_date) ?></p>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty($series->end_date)) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title">Date de fin</h6>
-                                <p class="series-detail-content"><?= get_date($series->end_date) ?></p>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty($series->original_language)) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title">Langue originelle</h6>
-                                <p class="series-detail-content"><?= get_language($series->original_language) ?></p>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty($series->original_title && $series->original_title != $series->title)) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title">Titre originel</h6>
-                                <p class="series-detail-content"><?= $series->original_title ?></p>
-                            </div>
-                        <?php } ?>
-                        <?php foreach ($crew as $crew_member) { ?>
-                            <div class="series-detail">
-                                <h6 class="series-detail-title"><?= $crew_member->job ?></h6>
-                                <p class="series-detail-content"><?= "<a class=\"classic\" href=\"persons/" . $crew_member->id . "\" aria-label=\"" . $crew_member->name . "\">" . $crew_member->name . "</a>" ?></p>
-                            </div>
-                        <?php } ?>
-                    </div>
+<?php require "include/head.php"; ?>
+
+<body>
+    <div class="background"><img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/backdrops/originals/$series->id.webp"?>" /></div>
+    <div class="background-header"></div>
+    <?php require "include/header.php"; ?>
+    <main id="main">
+        <div id="presentation" class="section series-presentation">
+            <div class="series-image">
+                <div class="series-poster">
+                    <img class="lazyload" alt data-sizes="auto" data-src="<?= "/images/posters/originals/$series->id.webp" ?>" />
                 </div>
             </div>
-            <div id="stars" class="section">
-                <h2 class="section-name">Tête d'affiche</h2>
-                <div class="section-content">
-                    <?php foreach ($cast as $cast_member) { ?>
-                        <div class="series-detail">
-                            <h6 class="series-detail-title"><?= $cast_member->character ?></h6>
-                            <p class="series-detail-content"><?= "<a class=\"classic\" href=\"persons/" . $cast_member->id . "\" aria-label=\"" . $cast_member->name . "\">" . $cast_member->name . "</a>" ?></p>
+            <div class="series-description">
+                <h1 class="series-title"><?= $series->title ?></h1>
+                <p class="series-info paragraph">
+                    <a class="link" href="/series" aria-label="Séries">Série</a>
+                    •
+                    <?php
+                    foreach ($genres as $genre_id => $genre) $genre_links[$genre_id] = "<a class=\"link\" href=\"genres?id=" . $genre->id . "\" aria-label=\"" . $genre->name . "\">" . $genre->name . "</a>";
+                    echo implode(", ", $genre_links);
+                    ?>
+                </p>
+                <p class="series-overview paragraph"><?= $series->overview ?></p>
+            </div>
+            <div class="series-details">
+                <?php if (!empty($series->start_date)) { ?>
+                    <div class="series-detail">
+                        <h6 class="series-detail-title">Débutée le</h6>
+                        <p class="series-detail-content"><?= get_date($series->start_date) ?></p>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($series->end_date)) { ?>
+                    <div class="series-detail">
+                        <h6 class="series-detail-title">Terminée le</h6>
+                        <p class="series-detail-content"><?= get_date($series->end_date) ?></p>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($crew)) { ?>
+                    <div class="series-detail">
+                        <h6 class="series-detail-title">Réalisé par</h6>
+                        <?php
+                        foreach ($crew as $crew_id => $crew_member) $crew_links[$crew_id] = "<a class=\"link\" href=\"persons?id=" . $crew_member->id . "\" aria-label=\"" . $crew_member->name . "\">" . $crew_member->name . "</a>";
+                        echo "<p class=\"series-detail-content\">", implode("<br />", $crew_links), "</p>";
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($cast)) { ?>
+                    <div class="series-detail">
+                        <h6 class="series-detail-title">Avec</h6>
+                        <?php
+                        foreach ($cast as $cast_id => $cast_member) $cast_links[$cast_id] = "<a class=\"link\" href=\"persons?id=" . $cast_member->id . "\" aria-label=\"" . $cast_member->name . "\">" . $cast_member->name . "</a>";
+                        echo "<p class=\"series-detail-content\">", implode("<br />", $cast_links), "</p>";
+                        ?>
+                    </div>
+                <?php } ?>
+                <div class="series-features">
+                    <div class="series-grade">
+                        <div class="series-grade-design"><?= $series->grade / 10 ?></div>
+                        <p class="series-grade-help">Note des spectateurs</p>
+                    </div>
+                    <?php if ($db->is_connected()) { ?>
+                        <div class="series-tools">
+                            <?php if ($db->is_liked($series->id, $user->id)) { ?>
+                                <a class="series-tool active" href="/update?action=unlike&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Enlever le like" title="Enlever le like"><?php require "include/icons/heart.svg"; ?></a>
+                            <?php } else { ?>
+                                <a class="series-tool" href="/update?action=like&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></a>
+                            <?php } ?>
+                            <?php if ($db->is_watchlisted($series->id, $user->id)) { ?>
+                                <a class="series-tool active" href="/update?action=unwatchlist&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Supprimer de votre watchlist" title="Supprimer de votre watchlist"><?php require "include/icons/done.svg"; ?></a>
+                            <?php } else { ?>
+                                <a class="series-tool" href="/update?action=watchlist&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Ajouter à votre watchlist" title="Ajouter à votre watchlist"><?php require "include/icons/plus.svg"; ?></a>
+                            <?php } ?>
                         </div>
                     <?php } ?>
                 </div>
             </div>
-            <div id="media" class="section">
-                <h2 class="section-name">Médias</h2>
-                <div class="section-content">
-                    <p class="paragraph">Cette fonctionnalité est en développement.</p>
-                </div>
-            </div>
-            <div id="recommendations" class="section">
-                <h2 class="section-name">Recommandations</h2>
-                <div class="section-content">
-                    <p class="paragraph">Cette fonctionnalité est en développement.</p>
-                </div>
-            </div>
-        </main>
-    </body>
+        </div>
+    </main>
+</body>
+
 </html>

@@ -1,8 +1,10 @@
 <?php
+
 /**
  * Page class
  */
-class Page {
+class Page
+{
     // ID attribute
     public $id;
 
@@ -13,7 +15,8 @@ class Page {
     public $description;
 
     // Constructor
-    public function __construct($id, $name, $description) {
+    public function __construct($id, $name, $description)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;

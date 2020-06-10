@@ -6,32 +6,37 @@ session_start();
 require_once "tools/database.class.php";
 require_once "tools/page.class.php";
 
-function relocate($id) {
+function relocate($id)
+{
     header("Location: /" . urldecode($id));
     exit;
 }
 
-function get_source() {
+function get_source()
+{
     $src = null;
     if (isset($_GET["src"])) $src = strtolower(htmlspecialchars($_GET["src"]));
     if (!$src) $src = "home";
     return $src;
 }
 
-function get_poster($poster) {
+function get_poster($poster)
+{
     return "https://image.tmdb.org/t/p/original/" . $poster . ".jpg";
 }
 
-function get_year($date) {
+function get_year($date)
+{
     return substr($date, 0, 4);
 }
 
-function get_genres($genres) {
-    function get_genre($genre) { return "<a class=\"classic\" href=\"genres/$genre->id\" aria-label=\"$genre->name\">$genre->name</a>"; }
-    return implode(", ", array_map("get_genre", $genres));
+function get_genre($genre)
+{
+    return "<a class=\"link\" href=\"genres?id=$genre->id\" aria-label=\"$genre->name\">$genre->name</a>";
 }
 
-function get_duration($duration) {
+function get_duration($duration)
+{
     $hours = floor($duration / 60);
     $minutes = $duration % 60;
     if ($hours > 0 && $minutes > 0) return $hours . "h " . $minutes . "min";
@@ -39,17 +44,26 @@ function get_duration($duration) {
     else return $minutes . "min";
 }
 
-function get_seasons($seasons) {
+function get_seasons($seasons)
+{
     if ($seasons == 1) return $seasons . " saison";
     return $seasons . " saisons";
 }
- 
-function get_date($date) {
+
+function get_date($date)
+{
     return date("d/m/Y", strtotime($date));
 }
 
-function get_language($language) {
+function get_language($language)
+{
     return ucfirst(Locale::getDisplayLanguage(strtolower($language), "fr"));
+}
+
+function get_type($type)
+{
+    $types = array("movie" => "Film", "series" => "Série");
+    return $types[$type];
 }
 
 $db = new Database();
