@@ -136,7 +136,8 @@ class Database
     {
         if (!$email || !$password || !$first_name || !$last_name) return null;
         if ($this->get_user_from_email($email)) return null;
-        $this->post("INSERT INTO `Users` (`email`, `hash`, `first_name`, `last_name`) VALUES (?, ?, ?, ?)", array($email, password_hash($password, PASSWORD_DEFAULT), $first_name, $last_name));
+        $this->post("INSERT INTO `Users` (`email`, `hash`, `first_name`, `last_name`) VALUES (?, ?, ?, ?, ?)", array($email, password_hash($password, PASSWORD_DEFAULT), $first_name, $last_name));
+        $this->generate_token($email);
         return $this->login($email, $password);
     }
 
