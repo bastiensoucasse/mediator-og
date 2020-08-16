@@ -4,7 +4,5 @@ Redirect "/index.php" "/home"
 RewriteCond %{HTTPS} !on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-RewriteRule ^collections/(.*)$ collections.php?id=$1 [NC,L]
-
 RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
