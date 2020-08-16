@@ -335,7 +335,7 @@ class Database
                 WHERE `INL`.`list_id` = :list_id
                 AND `COM`.`type` = 'series'
                 AND `COM`.`import_date` IS NOT NULL
-                ORDER BY `import_date` DESC";
+                ORDER BY `date` DESC";
         if ($limited) $sql .= " LIMIT 6";
         $parameters = array("list_id" => $list_id);
         $of_list = $this->get_all($sql, $parameters);
@@ -347,7 +347,7 @@ class Database
     public function get_lists($collection_id)
     {
         if (!$collection_id) return null;
-        $lists = $this->get_all("SELECT * FROM `Lists` `LIS` WHERE `LIS`.`collection_id` = ?", array($collection_id));
+        $lists = $this->get_all("SELECT * FROM `Lists` `LIS` WHERE `LIS`.`collection_id` = ? ORDER BY `LIS`.`id` DESC", array($collection_id));
         if (!$lists) return null;
         return $this->convert_to_objects($lists);
     }
