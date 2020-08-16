@@ -14,7 +14,7 @@ $page = new Page("collection?id=" . $collection->id, $collection->name, "Découv
     <main id="main">
         <div id="collection-intro" class="section">
             <h2 class="section-title"><?= $collection->name ?></h2>
-            <div class="section-content"><p class="paragraph"><?= $collection->desctiption ?></p></div>
+            <div class="section-content"><p class="paragraph"><?= $collection->description ?></p></div>
         </div>
         <?php foreach ($lists as $list) { ?>
             <?php $of_list = $db->get_of_list($list->id); ?>
