@@ -184,6 +184,15 @@ class Database
         return (object) $genre;
     }
 
+    // Get collection method
+    public function get_collection($collection_id)
+    {
+        if (!$collection_id) return null;
+        $collection = $this->get_one("SELECT * FROM `Collections` `COL` WHERE `COL`.`id` = ?", array($collection_id));
+        if (!$collection) return null;
+        return (object) $collection;
+    }
+
     // Get person method
     public function get_person($person_id)
     {
@@ -305,6 +314,15 @@ class Database
         $of_genre = $this->get_all($sql, $parameters);
         if (!$of_genre) return null;
         return $this->convert_to_objects($of_genre);
+    }
+
+    // Get lists method
+    public function get_lists($collection_id)
+    {
+        if (!$collection_id) return null;
+        $lists = $this->get_all("SELECT * FROM `Collections` `COL` WHERE `COL`.`id` = ?", array($collection_id));
+        if (!$lists) return null;
+        return $this->convert_to_objects($lists);
     }
 
     // Get watchlisted method
