@@ -18,10 +18,12 @@ $page = new Page("collection?id=" . $collection->id, $collection->name, "Découv
         </div>
         <?php foreach ($lists as $list) { ?>
             <?php $of_list = $db->get_of_list($list->id); ?>
-            <div id="list-<?= $list->id ?>" class="section">
-                <h2 class="section-title"><?= $list->name ?></h2>
-                <div class="section-content card-list overview"><?php foreach ($of_list as $card) require "include/card.php"; ?></div>
-            </div>
+            <?php if ($of_list) { ?>
+                <div id="list-<?= $list->id ?>" class="section">
+                    <h2 class="section-title"><?= $list->name ?></h2>
+                    <div class="section-content card-list overview"><?php foreach ($of_list as $card) require "include/card.php"; ?></div>
+                </div>
+            <?php } ?>
         <? } ?>
     </main>
 </body>
