@@ -1,7 +1,7 @@
 <?php
 require_once "include/utilities.php";
 if (!$db->is_connected()) die("Vous devez être connectés.");
-$orders = $db->get_commands($user->id, true);
+$orders = $db->get_commands($user->id);
 $src = get_source();
 $page = new Page("orders", "Commandes", "Consultez vos commandes sur Mediator.");
 ?>
