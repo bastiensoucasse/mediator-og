@@ -320,7 +320,7 @@ class Database
     public function get_lists($collection_id)
     {
         if (!$collection_id) return null;
-        $lists = $this->get_all("SELECT * FROM `Collections` `COL` WHERE `COL`.`id` = ?", array($collection_id));
+        $lists = $this->get_all("SELECT * FROM `Lists` `LIS` WHERE `LIS`.`collection_id` = ?", array($collection_id));
         if (!$lists) return null;
         return $this->convert_to_objects($lists);
     }
