@@ -316,6 +316,33 @@ class Database
         return $this->convert_to_objects($of_genre);
     }
 
+    // Get of list method
+    public function get_of_list($list_id, $limited = false)
+    {
+        if (!$list_id) return null;
+        $sql = "SELECT `COM`.`id`, CONCAT('movies?id=', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `InList` `INL` ON `INL`.`command_id` = `COM`.`id`
+                WHERE `INL`.`list_id` = :list_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series?id=', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `InList` `INL` ON `INL`.`command_id` = `COM`.`id`
+                WHERE `INL`.`list_id` = :list_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `import_date` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $parameters = array("list_id" => $list_id);
+        $of_list = $this->get_all($sql, $parameters);
+        if (!$of_list) return null;
+        return $this->convert_to_objects($of_list);
+    }
+
     // Get lists method
     public function get_lists($collection_id)
     {
