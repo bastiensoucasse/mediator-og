@@ -537,7 +537,7 @@ input.button {
     grid-template-columns: repeat(2, 100fr);
     padding: 12px;
 }
-@media (min-width: 380px) {
+@media (min-width: 340px) {
     .card-list {
         grid-template-columns: repeat(3, 100fr);
     }
@@ -599,7 +599,7 @@ input.button {
     grid-template-columns: repeat(1, 100fr);
     padding: 12px;
 }
-@media (min-width: 380px) {
+@media (min-width: 340px) {
     .filter-list {
         grid-template-columns: repeat(2, 50fr);
     }
@@ -717,7 +717,7 @@ input.button {
     grid-gap: 12px;
     margin: 24px 12px;
 }
-@media (min-width: 380px) {
+@media (min-width: 340px) {
     .movie-features, .series-features {
         grid-template-columns: repeat(2, min-content);
     }
