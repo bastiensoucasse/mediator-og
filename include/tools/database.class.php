@@ -289,6 +289,14 @@ class Database
         return $this->convert_to_objects($novelties);
     }
 
+    // Get collections method
+    public function get_collections()
+    {
+        $collections = $this->get_all("SELECT * FROM `Collections`");
+        if (!$collections) return null;
+        return $this->convert_to_objects($collections);
+    }
+
     // Get of genre method
     public function get_of_genre($genre_id, $limited = false)
     {

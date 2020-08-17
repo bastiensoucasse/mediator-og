@@ -1,6 +1,7 @@
 <?php
 require_once "include/utilities.php";
 $novelties = $db->get_novelties(true);
+$best = $db->get_best(true);
 $page = new Page("home", "Accueil", "Une base de données cinématographique propulsée par Profuder.");
 ?>
 <!doctype html>
@@ -19,6 +20,18 @@ $page = new Page("home", "Accueil", "Une base de données cinématographique pro
             <?php } else { ?>
                 <div class="section-content card-list overview">
                     <?php foreach ($novelties as $card) require "include/card.php"; ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div id="best" class="section">
+            <h2 class="section-title">Les mieux notés</h2>
+            <?php if (empty($best)) { ?>
+                <div class="section-content">
+                    <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
+                </div>
+            <?php } else { ?>
+                <div class="section-content card-list overview">
+                    <?php foreach ($best as $card) require "include/card.php"; ?>
                 </div>
             <?php } ?>
         </div>
