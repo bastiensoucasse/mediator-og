@@ -591,6 +591,31 @@ input.button {
     width: 100%;
 }
 
+/* Collections */
+
+.collection-list {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(3, 100fr);
+    padding: 12px;
+}
+
+.collection {
+    background: #2D2E30;
+    border-radius: 9px;
+    box-shadow: #000000b0 0px 26px 30px -10px, #000000ba 0px 16px 10px -10px;
+    display: block;
+    overflow: hidden;
+    padding: 4px;
+    transition-property: box-shadow, transform;
+    transition-duration: 300ms;
+    transition-timing-function: ease-out;
+}
+.collection:hover, .collection:focus, .collection:focus-within {
+    box-shadow: #000000cc 0px 40px 58px -16px, #000000b8 0px 30px 22px -10px;
+    transform: scale(1.05);
+}
+
 /* Movies and series */
 
 .movie-presentation, .series-presentation {
