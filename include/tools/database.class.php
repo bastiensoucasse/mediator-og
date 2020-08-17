@@ -290,7 +290,7 @@ class Database
     }
 
     // Get collections method
-    public function get_collections()
+    public function get_all_collections()
     {
         $collections = $this->get_all("SELECT * FROM `Collections`");
         if (!$collections) return null;
@@ -298,7 +298,7 @@ class Database
     }
 
     // Get genres method
-    public function get_genres()
+    public function get_all_genres()
     {
         $genres = $this->get_all("SELECT * FROM `Genres`");
         if (!$genres) return null;

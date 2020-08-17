@@ -1,7 +1,7 @@
 <?php
 require_once "include/utilities.php";
-$collections = $db->get_collections();
-$genres = $db->get_genres();
+$collections = $db->get_all_collections();
+$genres = $db->get_all_genres();
 $page = new Page("browse", "Parcourir", "Parcourez la base de données cinématographique Mediator.");
 ?>
 <!doctype html>
