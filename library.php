@@ -22,7 +22,7 @@ $page = new Page("library", "Bibliothèque", "Retrouvez votre bibliothèque pers
             </div>
         <?php } else { ?>
             <div id="watchlisted" class="section">
-                <h2 class="section-title">Titres watchlistés</h2>
+                <h2 class="section-title">Titres watchlistés<a class="section-title-link" href="/watchlisted" aria-label="Titres watchlistés"><span>Voir plus</span> ›</a></h2>
                 <?php if (empty($watchlisted)) { ?>
                     <div class="section-content">
                         <p class="paragraph limited">Vous n'avez watchlisté aucun titre.</p>
@@ -34,7 +34,7 @@ $page = new Page("library", "Bibliothèque", "Retrouvez votre bibliothèque pers
                 <?php } ?>
             </div>
             <div id="liked" class="section">
-                <h2 class="section-title">Titres likés</h2>
+                <h2 class="section-title">Titres likés<a class="section-title-link" href="/liked" aria-label="Titres likés"><span>Voir plus</span> ›</a></h2>
                 <?php if (empty($liked)) { ?>
                     <div class="section-content">
                         <p class="paragraph limited">Vous n'avez liké aucun titre.</p>
