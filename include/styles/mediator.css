@@ -596,8 +596,24 @@ input.button {
 .filter-list {
     display: grid;
     grid-gap: 12px;
-    grid-template-columns: repeat(3, 33.33fr);
+    grid-template-columns: repeat(1, 100fr);
     padding: 12px;
+}
+@media (min-width: 380px) {
+    .card-list {
+        grid-template-columns: repeat(2, 50fr);
+    }
+}
+@media (min-width: 600px) {
+    .filter-list {
+        grid-gap: 24px;
+        grid-template-columns: repeat(3, 33.33fr);
+    }
+}
+@media (min-width: 1080px) {
+    .card-list {
+        grid-template-columns: repeat(4, 25fr);
+    }
 }
 
 .filter {
