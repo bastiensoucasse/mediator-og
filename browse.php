@@ -17,7 +17,7 @@ $page = new Page("browse", "Parcourir", "Parcourez la base de données cinémato
                     <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
                 </div>
             <?php } else { ?>
-                <div class="section-content card-list overview">
+                <div class="section-content collection-list">
                     <?php foreach ($collections as $collection) require "include/collection.php"; ?>
                 </div>
             <?php } ?>
