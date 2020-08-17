@@ -1,6 +1,6 @@
 <?php
 require_once "include/utilities.php";
-$novelties = $db->get_novelties(true);
+$new = $db->get_new(true);
 $best = $db->get_best(true);
 $page = new Page("home", "Accueil", "Une base de données cinématographique propulsée par Profuder.");
 ?>
@@ -11,20 +11,20 @@ $page = new Page("home", "Accueil", "Une base de données cinématographique pro
 <body>
     <?php require "include/header.php"; ?>
     <main id="main">
-        <div id="novelties" class="section">
-            <h2 class="section-title">Nouveautés</h2>
-            <?php if (empty($novelties)) { ?>
+        <div id="new" class="section">
+            <h2 class="section-title">Nouveautés<a class="section-title-link" href="/new" aria-label="Nouveautés">Voir plus ›</a></h2>
+            <?php if (empty($new)) { ?>
                 <div class="section-content">
                     <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
                 </div>
             <?php } else { ?>
                 <div class="section-content card-list overview">
-                    <?php foreach ($novelties as $card) require "include/card.php"; ?>
+                    <?php foreach ($new as $card) require "include/card.php"; ?>
                 </div>
             <?php } ?>
         </div>
         <div id="best" class="section">
-            <h2 class="section-title">Les mieux notés</h2>
+            <h2 class="section-title">Meilleurs titres<a class="section-title-link" href="/best" aria-label="Meilleurs titres">Voir plus ›</a></h2>
             <?php if (empty($best)) { ?>
                 <div class="section-content">
                     <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>

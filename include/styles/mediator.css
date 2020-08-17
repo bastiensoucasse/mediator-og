@@ -139,6 +139,15 @@ a.classic:hover {
     max-width: 600px;
 }
 
+.section-title-link {
+    color: #14AB95;
+    float: right;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 8px 0px;
+}
+
 /* Link */
 
 .link {

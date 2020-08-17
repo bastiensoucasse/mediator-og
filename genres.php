@@ -12,7 +12,7 @@ $page = new Page("genres?id=" . $genre->id, $genre->name, "Découvrez le genre "
 <body>
     <?php require "include/header.php"; ?>
     <main id="main">
-        <div id="novelties" class="section">
+        <div id="genre-<?= $genre->id ?>" class="section">
             <h2 class="section-title"><?= $genre->name ?></h2>
             <div class="section-content card-list overview"><?php foreach ($of_genre as $card) require "include/card.php"; ?></div>
         </div>

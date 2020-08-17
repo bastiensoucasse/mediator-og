@@ -12,7 +12,7 @@ $page = new Page("collection?id=" . $collection->id, $collection->name, "Découv
 <body>
     <?php require "include/header.php"; ?>
     <main id="main">
-        <div id="collection-intro" class="section">
+        <div id="collection-<?= $collection->id ?>" class="section">
             <h2 class="section-title"><?= $collection->name ?></h2>
             <div class="section-content"><p class="paragraph"><?= $collection->description ?></p></div>
         </div>

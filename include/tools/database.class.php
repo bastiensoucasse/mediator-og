@@ -268,8 +268,8 @@ class Database
         return $this->convert_to_objects($best);
     }
 
-    // Get novelties method
-    public function get_novelties($limited = false)
+    // Get new method
+    public function get_new($limited = false)
     {
         $sql = "SELECT `COM`.`id`, CONCAT('movies?id=', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
                 FROM `Commands` `COM`
@@ -284,9 +284,9 @@ class Database
                 AND `COM`.`import_date` IS NOT NULL
                 ORDER BY `import_date` DESC, `id` DESC";
         if ($limited) $sql .= " LIMIT 6";
-        $novelties = $this->get_all($sql);
-        if (!$novelties) return null;
-        return $this->convert_to_objects($novelties);
+        $new = $this->get_all($sql);
+        if (!$new) return null;
+        return $this->convert_to_objects($new);
     }
 
     // Get collections method
