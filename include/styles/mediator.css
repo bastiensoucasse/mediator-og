@@ -596,17 +596,18 @@ input.button {
 .collection-list {
     display: grid;
     grid-gap: 12px;
-    grid-template-columns: repeat(3, 100fr);
+    grid-template-columns: repeat(3, 33.33fr);
     padding: 12px;
 }
 
 .collection {
+    align-items: center;
     background: #2D2E30;
     border-radius: 9px;
     box-shadow: #000000b0 0px 26px 30px -10px, #000000ba 0px 16px 10px -10px;
-    display: block;
+    display: flex;
     overflow: hidden;
-    padding: 4px;
+    padding: 12px;
     transition-property: box-shadow, transform;
     transition-duration: 300ms;
     transition-timing-function: ease-out;
