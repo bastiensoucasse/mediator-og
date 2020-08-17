@@ -261,7 +261,7 @@ class Database
                 INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
                 WHERE `COM`.`type` = 'series'
                 AND `COM`.`import_date` IS NOT NULL
-                ORDER BY `grade` DESC";
+                ORDER BY `grade` DESC, `date` ASC, `id` DESC";
         if ($limited) $sql .= " LIMIT 6";
         $best = $this->get_all($sql);
         if (!$best) return null;
@@ -282,7 +282,7 @@ class Database
                 INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
                 WHERE `COM`.`type` = 'series'
                 AND `COM`.`import_date` IS NOT NULL
-                ORDER BY `import_date` DESC";
+                ORDER BY `import_date` DESC, `id` DESC";
         if ($limited) $sql .= " LIMIT 6";
         $novelties = $this->get_all($sql);
         if (!$novelties) return null;
@@ -316,7 +316,7 @@ class Database
                 WHERE `HAS`.`genre_id` = :genre_id
                 AND `COM`.`type` = 'series'
                 AND `COM`.`import_date` IS NOT NULL
-                ORDER BY `import_date` DESC";
+                ORDER BY `date` DESC, `id` DESC";
         if ($limited) $sql .= " LIMIT 6";
         $parameters = array("genre_id" => $genre_id);
         $of_genre = $this->get_all($sql, $parameters);
@@ -343,7 +343,7 @@ class Database
                 WHERE `INL`.`list_id` = :list_id
                 AND `COM`.`type` = 'series'
                 AND `COM`.`import_date` IS NOT NULL
-                ORDER BY `date` DESC";
+                ORDER BY `date` DESC, `id` DESC";
         if ($limited) $sql .= " LIMIT 6";
         $parameters = array("list_id" => $list_id);
         $of_list = $this->get_all($sql, $parameters);
