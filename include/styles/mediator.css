@@ -606,12 +606,12 @@ input.button {
 }
 @media (min-width: 600px) {
     .filter-list {
-        grid-gap: 24px;
         grid-template-columns: repeat(3, 33.33fr);
     }
 }
 @media (min-width: 1080px) {
     .filter-list {
+        grid-gap: 24px;
         grid-template-columns: repeat(4, 25fr);
     }
 }
