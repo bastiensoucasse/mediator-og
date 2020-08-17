@@ -600,7 +600,7 @@ input.button {
     padding: 12px;
 }
 @media (min-width: 380px) {
-    .card-list {
+    .filter-list {
         grid-template-columns: repeat(2, 50fr);
     }
 }
@@ -611,7 +611,7 @@ input.button {
     }
 }
 @media (min-width: 1080px) {
-    .card-list {
+    .filter-list {
         grid-template-columns: repeat(4, 25fr);
     }
 }
