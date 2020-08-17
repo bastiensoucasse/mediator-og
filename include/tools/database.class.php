@@ -292,7 +292,7 @@ class Database
     // Get collections method
     public function get_all_collections()
     {
-        $collections = $this->get_all("SELECT `id`, CONCAT('collections?id', `id`) AS `link`, `name` FROM `Collections`");
+        $collections = $this->get_all("SELECT `id`, CONCAT('collections?id=', `id`) AS `link`, `name` FROM `Collections`");
         if (!$collections) return null;
         return $this->convert_to_objects($collections);
     }
@@ -300,7 +300,7 @@ class Database
     // Get genres method
     public function get_all_genres()
     {
-        $genres = $this->get_all("SELECT `id`, CONCAT('genres?id', `id`) AS `link`, `name` FROM `Genres`");
+        $genres = $this->get_all("SELECT `id`, CONCAT('genres?id=', `id`) AS `link`, `name` FROM `Genres`");
         if (!$genres) return null;
         return $this->convert_to_objects($genres);
     }
