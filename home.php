@@ -24,7 +24,7 @@ $page = new Page("home", "Accueil", "Une base de données cinématographique pro
             <?php } ?>
         </div>
         <div id="best" class="section">
-            <h2 class="section-title">Meilleurs titres<a class="section-title-link" href="/best" aria-label="Meilleurs titres"><span>Voir plus</span> ›</h2>
+            <h2 class="section-title">Meilleurs titres<a class="section-title-link" href="/best" aria-label="Meilleurs titres"><span>Voir plus</span> ›</a></h2>
             <?php if (empty($best)) { ?>
                 <div class="section-content">
                     <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
