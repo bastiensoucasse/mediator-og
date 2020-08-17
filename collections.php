@@ -3,7 +3,7 @@ require_once "include/utilities.php";
 $collection = $db->get_collection(htmlspecialchars($_GET["id"]));
 if (!$collection) relocate("home");
 $lists = $db->get_lists($collection->id);
-$page = new Page("collection?id=" . $collection->id, $collection->name, "Découvrez la collection " . $collection->name . " sur Mediator.");
+$page = new Page("collections?id=" . $collection->id, $collection->name, "Découvrez la collection " . $collection->name . " sur Mediator.");
 ?>
 <!doctype html>
 <html lang="fr-fr">

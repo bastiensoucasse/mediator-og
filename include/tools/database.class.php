@@ -359,6 +359,49 @@ class Database
         return $this->convert_to_objects($of_list);
     }
 
+    // Get with person method
+    public function get_with_person($person_id, $limited = false)
+    {
+        if (!$person_id) return null;
+        $sql = "SELECT `COM`.`id`, CONCAT('movies?id=', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `Cast` `CAS` ON `CAS`.`command_id` = `COM`.`id`
+                WHERE `CAS`.`person_id` = :person_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series?id=', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `Cast` `CAS` ON `CAS`.`command_id` = `COM`.`id`
+                WHERE `CAS`.`person_id` = :person_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('movies?id=', `COM`.`id`) AS `link`, `MOV`.`title`, `MOV`.`grade`, `MOV`.`release_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Movies` `MOV` ON `MOV`.`id` = `COM`.`id`
+                INNER JOIN `Crew` `CRE` ON `CRE`.`command_id` = `COM`.`id`
+                WHERE `CRE`.`person_id` = :person_id
+                AND `COM`.`type` = 'movie'
+                AND `COM`.`import_date` IS NOT NULL
+                UNION
+                SELECT `COM`.`id`, CONCAT('series?id=', `COM`.`id`) AS `link`, `SER`.`title`, `SER`.`grade`, `SER`.`start_date` AS `date`, `COM`.`import_date`
+                FROM `Commands` `COM`
+                INNER JOIN `Series` `SER` ON `SER`.`id` = `COM`.`id`
+                INNER JOIN `Crew` `CRE` ON `CRE`.`command_id` = `COM`.`id`
+                WHERE `CRE`.`person_id` = :person_id
+                AND `COM`.`type` = 'series'
+                AND `COM`.`import_date` IS NOT NULL
+                ORDER BY `date` DESC, `id` DESC";
+        if ($limited) $sql .= " LIMIT 6";
+        $parameters = array("person_id" => $person_id);
+        $with_person = $this->get_all($sql, $parameters);
+        if (!$with_person) return null;
+        return $this->convert_to_objects($with_person);
+    }
+
     // Get lists method
     public function get_lists($collection_id)
     {
