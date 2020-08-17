@@ -145,7 +145,7 @@ a.classic:hover {
     font-size: 16px;
     font-weight: 400;
     line-height: 20px;
-    margin: 8px 0px;
+    margin: 12px 0px 4px 0px;
 }
 .section-title-link:hover > span {
     text-decoration: underline;
