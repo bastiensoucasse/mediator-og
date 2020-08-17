@@ -1,8 +1,8 @@
 <?php
 $page_ref = explode('?', $page->id)[0];
-if ($page_ref == "home") $nav_active = "home";
-else if ($page_ref == "browse" || $page_ref == "search" || $page_ref == "movies" || $page_ref == "series" || $page_ref == "new" || $page_ref == "best" || $page_ref == "collections" || $page_ref == "genres" || $page_ref == "persons") $nav_active = "browse";
-else if ($page_ref == "library") $nav_active = "library";
+if ($page_ref == "home" || $page_ref == "new" || $page_ref == "best") $nav_active = "home";
+else if ($page_ref == "browse" || $page_ref == "search" || $page_ref == "movies" || $page_ref == "series" || $page_ref == "collections" || $page_ref == "genres" || $page_ref == "persons") $nav_active = "browse";
+else if ($page_ref == "library" || $page_ref == "watchlisted" || $page_ref == "liked") $nav_active = "library";
 ?>
 <header id="header">
     <div id="left-header">
