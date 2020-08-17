@@ -1,6 +1,7 @@
 <?php
 require_once "include/utilities.php";
 $collections = $db->get_collections();
+$genres = $db->get_genres();
 $page = new Page("browse", "Parcourir", "Parcourez la base de données cinématographique Mediator.");
 ?>
 <!doctype html>
@@ -17,8 +18,20 @@ $page = new Page("browse", "Parcourir", "Parcourez la base de données cinémato
                     <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
                 </div>
             <?php } else { ?>
-                <div class="section-content collection-list">
-                    <?php foreach ($collections as $collection) require "include/collection.php"; ?>
+                <div class="section-content filter-list">
+                    <?php foreach ($collections as $filter) require "include/filter.php"; ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div id="genres" class="section">
+            <h2 class="section-title">Genres</h2>
+            <?php if (empty($genres)) { ?>
+                <div class="section-content">
+                    <p class="paragraph limited">Il n'y a aucun contenu à afficher.</p>
+                </div>
+            <?php } else { ?>
+                <div class="section-content filter-list">
+                    <?php foreach ($genres as $filter) require "include/filter.php"; ?>
                 </div>
             <?php } ?>
         </div>

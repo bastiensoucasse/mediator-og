@@ -591,16 +591,16 @@ input.button {
     width: 100%;
 }
 
-/* Collections */
+/* Filters */
 
-.collection-list {
+.filter-list {
     display: grid;
     grid-gap: 12px;
     grid-template-columns: repeat(3, 33.33fr);
     padding: 12px;
 }
 
-.collection {
+.filter {
     align-items: center;
     background: #2D2E30;
     border-radius: 9px;
@@ -612,7 +612,7 @@ input.button {
     transition-duration: 300ms;
     transition-timing-function: ease-out;
 }
-.collection:hover, .collection:focus, .collection:focus-within {
+.filter:hover, .filter:focus, .filter:focus-within {
     box-shadow: #000000cc 0px 40px 58px -16px, #000000b8 0px 30px 22px -10px;
     transform: scale(1.05);
 }

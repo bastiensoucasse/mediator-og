@@ -297,6 +297,14 @@ class Database
         return $this->convert_to_objects($collections);
     }
 
+    // Get genres method
+    public function get_genres()
+    {
+        $genres = $this->get_all("SELECT * FROM `Genres`");
+        if (!$genres) return null;
+        return $this->convert_to_objects($genres);
+    }
+
     // Get of genre method
     public function get_of_genre($genre_id, $limited = false)
     {
