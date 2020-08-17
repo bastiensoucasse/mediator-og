@@ -147,6 +147,9 @@ a.classic:hover {
     line-height: 20px;
     margin: 8px 0px;
 }
+.section-title-link:hover > span {
+    text-decoration: underline;
+}
 
 /* Link */
 
