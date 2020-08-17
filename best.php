@@ -1,7 +1,7 @@
 <?php
 require_once "include/utilities.php";
 $best = $db->get_best();
-$page = best Page("best", "Meilleurs titres", "Découvrez les meilleurs titres sur Mediator.");
+$page = new Page("best", "Meilleurs titres", "Découvrez les meilleurs titres sur Mediator.");
 ?>
 <!doctype html>
 <html lang="fr-fr">
