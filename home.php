@@ -2,7 +2,7 @@
 require_once "include/utilities.php";
 $new = $db->get_new(true);
 $best = $db->get_best(true);
-$page = new Page("home", "Accueil", "Une base de données cinématographique propulsée par Profuder.");
+$page = new Page("home", "Accueil", "Mediator est la base cinématographique de Profuder. Trouvez des informations sur les derniers films, séries et célébrités.");
 ?>
 <!doctype html>
 <html lang="fr-fr">

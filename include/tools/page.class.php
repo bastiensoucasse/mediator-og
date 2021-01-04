@@ -1,24 +1,36 @@
 <?php
-
-/**
- * Page class
- */
 class Page
 {
-    // ID attribute
-    public $id;
+    private $id;
+    private $name;
+    private $desciption;
+    private $locked;
 
-    // Name attribute
-    public $name;
-
-    // Description attribute
-    public $description;
-
-    // Constructor
-    public function __construct($id, $name, $description)
+    public function __construct($id, $name, $desciption, $locked = false)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->desciption = $desciption;
+        $this->locked = $locked;
+    }
+
+    public function getID()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getDescription()
+    {
+        return $this->desciption;
+    }
+
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 }
