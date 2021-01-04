@@ -73,14 +73,14 @@ $page = new Page("series?id=$series->id", "$series->title", "Découvrez la séri
                     <?php if ($db->is_connected()) { ?>
                         <div class="series-tools">
                             <?php if ($db->is_liked($series->id, $user->id)) { ?>
-                                <a class="series-tool active" href="/update?action=unlike&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Enlever le like" title="Enlever le like"><?php require "include/icons/heart.svg"; ?></a>
+                                <a class="series-tool active" href="/update?action=unlike&command=<?= $series->id ?>&src=<?= urlencode($page->getID()) ?>" aria-label="Enlever le like" title="Enlever le like"><?php require "include/icons/heart.svg"; ?></a>
                             <?php } else { ?>
-                                <a class="series-tool" href="/update?action=like&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></a>
+                                <a class="series-tool" href="/update?action=like&command=<?= $series->id ?>&src=<?= urlencode($page->getID()) ?>" aria-label="Mettre un like" title="Mettre un like"><?php require "include/icons/heart.svg"; ?></a>
                             <?php } ?>
                             <?php if ($db->is_watchlisted($series->id, $user->id)) { ?>
-                                <a class="series-tool active" href="/update?action=unwatchlist&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Supprimer de votre watchlist" title="Supprimer de votre watchlist"><?php require "include/icons/done.svg"; ?></a>
+                                <a class="series-tool active" href="/update?action=unwatchlist&command=<?= $series->id ?>&src=<?= urlencode($page->getID()) ?>" aria-label="Supprimer de votre watchlist" title="Supprimer de votre watchlist"><?php require "include/icons/done.svg"; ?></a>
                             <?php } else { ?>
-                                <a class="series-tool" href="/update?action=watchlist&command=<?= $series->id ?>&src=<?= urlencode($page->id) ?>" aria-label="Ajouter à votre watchlist" title="Ajouter à votre watchlist"><?php require "include/icons/plus.svg"; ?></a>
+                                <a class="series-tool" href="/update?action=watchlist&command=<?= $series->id ?>&src=<?= urlencode($page->getID()) ?>" aria-label="Ajouter à votre watchlist" title="Ajouter à votre watchlist"><?php require "include/icons/plus.svg"; ?></a>
                             <?php } ?>
                         </div>
                     <?php } ?>

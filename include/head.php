@@ -1,7 +1,7 @@
 <?php
 require_once "tools/page.class.php";
 
-if ($db->is_connected() && !$user) relocate("logout?src=$page->id");
+if ($db->is_connected() && !$user) relocate("logout?src=$page->getID()");
 
 define("NAME", "Mediator");
 define("DESCRIPTION", "Mediator est la base cinématographique de Profuder. Trouvez des informations sur les derniers films, séries et célébrités.");

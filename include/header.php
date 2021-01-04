@@ -1,5 +1,5 @@
 <?php
-$page_ref = explode('?', $page->id)[0];
+$page_ref = explode('?', $page->getID())[0];
 if ($page_ref == "home" || $page_ref == "new" || $page_ref == "best") $nav_active = "home";
 else if ($page_ref == "browse" || $page_ref == "search" || $page_ref == "movies" || $page_ref == "series" || $page_ref == "collections" || $page_ref == "genres" || $page_ref == "persons") $nav_active = "browse";
 else if ($page_ref == "library" || $page_ref == "watchlisted" || $page_ref == "liked") $nav_active = "library";
@@ -31,7 +31,7 @@ else if ($page_ref == "library" || $page_ref == "watchlisted" || $page_ref == "l
                             <span class="account-link-icon"><?php require "include/icons/account.svg"; ?></span>
                             <span class="account-link-label">Gérer le compte</span>
                         </a>
-                        <a class="account-link" href="<?= "/logout?src=" . urlencode($page->id) ?>" aria-label="Se déconnecter">
+                        <a class="account-link" href="<?= "/logout?src=" . urlencode($page->getID()) ?>" aria-label="Se déconnecter">
                             <span class="account-link-icon"><?php require "include/icons/logout.svg"; ?></span>
                             <span class="account-link-label">Se déconnecter</span>
                         </a>
@@ -40,7 +40,7 @@ else if ($page_ref == "library" || $page_ref == "watchlisted" || $page_ref == "l
             </div>
         <?php } else { ?>
             <div id="login-banner">
-                <a class="button" href="<?= "/login?src=" . urlencode($page->id) ?>" aria-label="Se connecter">
+                <a class="button" href="<?= "/login?src=" . urlencode($page->getID()) ?>" aria-label="Se connecter">
                     <span class="button-label">Se connecter</span>
                 </a>
             </div>
